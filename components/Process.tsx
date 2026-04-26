@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { motion } from "motion/react";
-import { useState, useRef } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 const imgImage26 = "/assets/88ead8fc5e1a6520d61062818dddefad0448896c.png";
 const imgImage27 = "/assets/cdc0a734f0d7bf74e9aa699bf80f89dfcee15c74.png";
@@ -58,65 +57,33 @@ function StepText({ title, description }: { title: string; description: string }
   );
 }
 
-// Image with zoom effect
+// Image with smooth scale-on-hover (no mouse-position zoom)
 function ZoomableImage({ image, title }: { image: string; title: string }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current || !imageRef.current || !isHovered) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    // Update CSS variables directly for smooth performance
-    imageRef.current.style.setProperty('--mouse-x', `${x}%`);
-    imageRef.current.style.setProperty('--mouse-y', `${y}%`);
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (imageRef.current) {
-      imageRef.current.style.setProperty('--mouse-x', '50%');
-      imageRef.current.style.setProperty('--mouse-y', '50%');
-    }
-  };
-
   return (
-    <div 
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="h-[150px] w-full sm:w-[283px] relative overflow-hidden rounded-[8px] cursor-crosshair border-2 border-[rgba(0,150,137,0.2)] transition-all duration-300"
+    <motion.div
+      className="h-[150px] w-full sm:w-[283px] relative overflow-hidden rounded-[8px] border-2 border-[rgba(0,150,137,0.2)] transition-colors duration-300 hover:border-[rgba(0,150,137,0.4)]"
+      whileHover={{
+        boxShadow: '0 4px 20px rgba(0, 150, 137, 0.15), 0 0 0 1px rgba(0, 150, 137, 0.3)',
+      }}
       style={{
-        boxShadow: isHovered 
-          ? '0 4px 20px rgba(0, 150, 137, 0.15), 0 0 0 1px rgba(0, 150, 137, 0.3)' 
-          : '0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 150, 137, 0.1)',
-        borderColor: isHovered ? 'rgba(0, 150, 137, 0.4)' : 'rgba(0, 150, 137, 0.15)'
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 150, 137, 0.1)',
       }}
     >
-      <Image
-        ref={imageRef}
-        alt={title}
-        src={image}
-        fill
-        sizes="(max-width: 640px) 100vw, 283px"
-        className="object-cover"
-        style={{
-          transform: isHovered ? 'scale(1.8)' : 'scale(1)',
-          transformOrigin: 'var(--mouse-x, 50%) var(--mouse-y, 50%)',
-          transition: isHovered
-            ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-            : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-          willChange: 'transform'
-        } as React.CSSProperties}
-      />
-    </div>
+      <motion.div
+        className="absolute inset-0"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        style={{ willChange: 'transform' }}
+      >
+        <Image
+          alt={title}
+          src={image}
+          fill
+          sizes="(max-width: 640px) 100vw, 283px"
+          className="object-cover"
+        />
+      </motion.div>
+    </motion.div>
   );
 }
 
