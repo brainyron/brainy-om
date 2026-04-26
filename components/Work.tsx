@@ -3,8 +3,6 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { motion } from "motion/react";
 import { useState, useEffect, useRef } from "react";
-const cabStatic = "/assets/545f36efbeb9e7c15a31d9096bfaddcd645ecf24.png";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 interface WorkItem {
   id: string;
@@ -22,6 +20,17 @@ interface WorkItem {
 // Portfolio projects data
 const workData: WorkItem[] = [
   {
+    id: 'crust',
+    titleEn: 'CRUST',
+    titleAr: 'كرَست',
+    descriptionEn: 'Branding for a modern bakery, built around craft and warmth.',
+    descriptionAr: 'هوية لعلامة مخبوزات عصرية مبنية على الحرفية والدفء',
+    categoriesEn: ['Branding', 'Visual Identity', 'F&B'],
+    categoriesAr: ['الهوية', 'التصميم البصري', 'الأطعمة والمشروبات'],
+    staticImage: '/work/crust.webp',
+    link: 'https://brainycircles.com/portfolio/crust/'
+  },
+  {
     id: 'cairo-amman-bank',
     titleEn: 'Cairo Amman Bank',
     titleAr: 'بنك القاهرة عمان',
@@ -29,20 +38,19 @@ const workData: WorkItem[] = [
     descriptionAr: 'زيادة التبني الرقمي بنسبة 80% من خلال إعادة تصميم تجربة المستخدم',
     categoriesEn: ['UX Design', 'UI Design', 'Banking'],
     categoriesAr: ['تصميم تجربة المستخدم', 'تصميم واجهة المستخدم', 'الخدمات المصرفية'],
-    staticImage: cabStatic,
-    videoUrl: '/cairo-amman-bank.mp4',
+    staticImage: '/work/cab.jpg',
     link: 'https://brainycircles.com/portfolio/cairo-amman-bank-ux-ui-design/'
   },
   {
-    id: 'fontfella',
-    titleEn: 'FontFella',
-    titleAr: 'فونت فيلا',
-    descriptionEn: 'AI-powered typography platform for discovering, pairing, and identifying fonts.',
-    descriptionAr: 'منصة طباعة مدعومة بالذكاء الاصطناعي لاكتشاف الخطوط ومطابقتها وتحديدها',
-    categoriesEn: ['UX Design', 'UI Design', 'SaaS', 'AI Tooling'],
-    categoriesAr: ['تصميم تجربة المستخدم', 'تصميم واجهة المستخدم', 'SaaS', 'أدوات الذكاء الاصطناعي'],
-    staticImage: 'https://images.unsplash.com/photo-1738003667850-a2fb736e31b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0eXBvZ3JhcGh5JTIwZGVzaWdufGVufDF8fHx8MTc2NjY0NjQzMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    link: '#'
+    id: 'budy',
+    titleEn: 'Budy',
+    titleAr: 'بَدي',
+    descriptionEn: 'Product design for a wellness app focused on healthy daily habits.',
+    descriptionAr: 'تصميم منتج لتطبيق صحي يركّز على العادات اليومية',
+    categoriesEn: ['UX Design', 'UI Design', 'Mobile App'],
+    categoriesAr: ['تصميم تجربة المستخدم', 'تصميم واجهة المستخدم', 'تطبيق'],
+    staticImage: '/work/budy.jpg',
+    link: 'https://brainycircles.com/portfolio/budy/'
   }
 ];
 
