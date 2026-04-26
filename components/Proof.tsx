@@ -58,6 +58,10 @@ interface TestimonialCardProps {
   isShortQuote?: boolean;
 }
 
+type TestimonialData = Omit<TestimonialCardProps, 'platform'> & {
+  platform: 'google' | 'trustpilot';
+};
+
 // Testimonial Card Component matching Figma design
 function TestimonialCard({ platform, quote, name, title, link, image1, image2, specialNicole, companyLogo, isShortQuote }: TestimonialCardProps) {
   const svgPaths = svgPathsFirstRow;
@@ -348,7 +352,7 @@ export function Proof() {
   const [isHovered, setIsHovered] = useState(false);
   
   // First row testimonials (from TestimonialsFirstRow.tsx)
-  const firstRowTestimonials = [
+  const firstRowTestimonials: TestimonialData[] = [
     {
       platform: 'trustpilot' as const,
       quote: 'Awesome team and really dedicated to what they do! Very friendly and creative!!',
@@ -423,7 +427,7 @@ export function Proof() {
   ];
   
   // Second row testimonials (from SecondRow.tsx)
-  const secondRowTestimonials = [
+  const secondRowTestimonials: TestimonialData[] = [
     {
       platform: 'google' as const,
       quote: `I'm very excited about our cooperation. The team's efficiency and professionalism have exceeded my expectations, and I highly recommend their services.`,

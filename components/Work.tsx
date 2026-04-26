@@ -212,7 +212,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
           <video
             ref={videoRef}
             src={item.videoUrl}
-            alt={`${language === 'ar' ? item.titleAr : item.titleEn} - animated`}
+            aria-label={`${language === 'ar' ? item.titleAr : item.titleEn} - animated`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
               isMobile ? 'opacity-100' : isHovered ? 'opacity-100' : 'opacity-0'
             }`}
