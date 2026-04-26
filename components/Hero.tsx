@@ -3,7 +3,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import Clients from "../imports/Clients";
+import { PartnersRow } from "./PartnersRow";
 import { PrimaryButton } from "./PrimaryButton";
 
 function SecondaryButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
@@ -209,7 +209,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Clients />
+                <PartnersRow />
               </motion.div>
               
               {/* Heading - ONLY H1 on the entire page */}
