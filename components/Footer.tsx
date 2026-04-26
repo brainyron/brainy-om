@@ -1,47 +1,61 @@
 "use client";
-import Group2 from "../imports/Group";
+import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 
 export function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
-  
+
   return (
-    <footer 
+    <footer
       className="border-t bg-background"
       style={{ paddingTop: 'var(--spacing-3xl)', paddingBottom: 'var(--spacing-3xl)' }}
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="w-full px-4 md:px-8 lg:px-16 xl:px-[64px]">
         <div className="max-w-[1200px] mx-auto">
-          <div 
+          <div
             className="grid gap-12 lg:grid-cols-3"
             style={{ gap: 'var(--spacing-3xl)' }}
           >
             {/* Brand */}
             <div>
-              <div className="h-8 w-32" style={{ marginBottom: 'var(--spacing-md)' }}>
-                <Group2 />
+              <div
+                className="relative"
+                style={{
+                  width: 'auto',
+                  height: '32px',
+                  marginBottom: 'var(--spacing-md)',
+                }}
+              >
+                <Image
+                  src="/brand/brainy-dark.png"
+                  alt="Brainy"
+                  width={965}
+                  height={268}
+                  priority={false}
+                  style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
+                />
               </div>
               <p className="text-muted-foreground" style={{ fontSize: '0.875rem' }}>
                 {t.footerTagline}
               </p>
             </div>
-            
+
             {/* Quick Links */}
             <div>
-              <h3 
+              <h3
                 className="text-foreground"
                 style={{ marginBottom: 'var(--spacing-md)' }}
               >
                 {t.quickLinks}
               </h3>
-              <ul 
+              <ul
                 className="text-muted-foreground"
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: 'var(--spacing-sm)',
                   fontSize: '0.875rem'
                 }}
@@ -76,20 +90,20 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-            
+
             {/* Contact */}
             <div>
-              <h3 
+              <h3
                 className="text-foreground"
                 style={{ marginBottom: 'var(--spacing-md)' }}
               >
                 {t.contact}
               </h3>
-              <ul 
+              <ul
                 className="text-muted-foreground"
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: 'var(--spacing-sm)',
                   fontSize: '0.875rem'
                 }}
@@ -99,10 +113,10 @@ export function Footer() {
               </ul>
             </div>
           </div>
-          
-          <div 
+
+          <div
             className="border-t text-center text-muted-foreground"
-            style={{ 
+            style={{
               marginTop: 'var(--spacing-3xl)',
               paddingTop: 'var(--spacing-2xl)',
               fontSize: '0.875rem'

@@ -1,148 +1,36 @@
 "use client";
+import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
-import svgPaths from "../imports/svg-9o0zott1o0";
-import mobileSvgPaths from "../imports/svg-fbg4bao6dl";
 import { useState, useEffect } from "react";
-import { PrimaryButton } from "./PrimaryButton";
 
-// Mobile Logo (new B logo from Figma)
-function MobileLogo({ color }: { color: string }) {
+// Mobile Logo (B-mark)
+function MobileLogo({ isDarkBg }: { isDarkBg: boolean }) {
   return (
-    <div className="h-[24px] w-[19px] relative">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18.6082 23.5682">
-        <g>
-          <path d={mobileSvgPaths.p3fc87c80} fill={color} style={{ transition: 'fill 0.3s ease' }} />
-          <path d={mobileSvgPaths.p1bd56880} fill={color} style={{ transition: 'fill 0.3s ease' }} />
-        </g>
-      </svg>
+    <div className="h-[28px] w-[28px] relative">
+      <Image
+        src={isDarkBg ? "/brand/brainy-mark-light.png" : "/brand/brainy-mark-dark.png"}
+        alt="Brainy"
+        width={268}
+        height={268}
+        priority
+        style={{ height: '28px', width: '28px', objectFit: 'contain' }}
+      />
     </div>
   );
 }
 
-// Desktop Logo (full Brainy logo)
-function Om() {
+function DesktopLogo({ isDarkBg }: { isDarkBg: boolean }) {
   return (
-    <div className="absolute inset-[30.2%_1.14%_19.4%_72.09%]" data-name=".om">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 37.2632 12.6">
-        <g id=".om">
-          <path d={svgPaths.p2ba8ee00} fill="#009689" id="Vector" />
-          <path d={svgPaths.p30b95d00} fill="#009689" id="Vector_2" />
-          <path d={svgPaths.p2c0f6a80} fill="#009689" id="Vector_3" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Group({ color }: { color: string }) {
-  return (
-    <div className="absolute contents inset-[0_0.5%_0.09%_0]" data-name="Group">
-      <div className="absolute inset-[33.06%_0.5%_0.09%_0]" data-name="Vector">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18.6082 15.7704">
-            <path d={svgPaths.p3d2ea000} fill={color} id="Vector" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[0_0.5%_66.71%_0.06%]" data-name="Vector_2">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18.5966 7.85248">
-            <path d={svgPaths.p1d7c1780} fill={color} id="Vector_2" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Icon({ color }: { color: string }) {
-  return (
-    <div className="h-[23.59px] overflow-clip relative shrink-0 w-full" data-name="Icon">
-      <Group color={color} />
-    </div>
-  );
-}
-
-function Group2({ color }: { color: string }) {
-  return (
-    <div className="absolute content-stretch flex flex-col h-[23.59px] items-start left-0 top-0 w-[18.701px]" data-name="Group">
-      <Icon color={color} />
-    </div>
-  );
-}
-
-function Group3({ color }: { color: string }) {
-  return (
-    <div className="absolute contents inset-[0_0.06%_0.2%_0]" data-name="Group">
-      <div className="absolute inset-[5.22%_81.32%_19.11%_0]" data-name="Vector">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.758 16.7596">
-            <path d={svgPaths.p31337800} fill={color} id="Vector" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[24.19%_67.46%_20.1%_21.3%]" data-name="Vector_2">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 8.27348 12.3405">
-            <path d={svgPaths.p23661500} fill={color} id="Vector_2" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[24.19%_47.59%_19.01%_33.72%]" data-name="Vector_3">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.758 12.5806">
-            <path d={svgPaths.p33cfff80} fill={color} id="Vector_3" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[0_39.08%_20.15%_55.31%]" data-name="Vector_4">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 4.13091 17.687">
-            <path d={svgPaths.p3bc3cf80} fill={color} id="Vector_4" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[24.14%_19.6%_20.2%_63.82%]" data-name="Vector_5">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.206 12.3296">
-            <path d={svgPaths.p2ca0e000} fill={color} id="Vector_5" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute inset-[25.22%_0.06%_0.2%_80.95%]" data-name="Vector_6">
-        <div className="absolute inset-0">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.9797 16.5195">
-            <path d={svgPaths.p2d3c5b00} fill={color} id="Vector_6" style={{ transition: 'fill 0.3s ease' }} />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Icon1({ color }: { color: string }) {
-  return (
-    <div className="h-[22.15px] overflow-clip relative shrink-0 w-full" data-name="Icon">
-      <Group3 color={color} />
-    </div>
-  );
-}
-
-function Group1({ color }: { color: string }) {
-  return (
-    <div className="absolute content-stretch flex flex-col h-[22.15px] items-start left-[26.37px] top-[2.85px] w-[73.633px]" data-name="Group1">
-      <Icon1 color={color} />
-    </div>
-  );
-}
-
-function DesktopLogo({ color }: { color: string }) {
-  return (
-    <div className="h-[25px] relative shrink-0 w-[139.167px]" data-name="Logo">
-      <Om />
-      <Group2 color={color} />
-      <Group1 color={color} />
+    <div className="h-[28px] relative shrink-0 flex items-center" data-name="Logo">
+      <Image
+        src={isDarkBg ? "/brand/brainy-light.png" : "/brand/brainy-dark.png"}
+        alt="Brainy"
+        width={965}
+        height={268}
+        priority
+        style={{ height: '28px', width: 'auto', objectFit: 'contain' }}
+      />
     </div>
   );
 }
@@ -266,10 +154,10 @@ export function Header() {
         <div className="content-stretch flex items-center justify-between py-[8px] md:py-[14px] relative w-full max-w-[1200px] mx-auto">
           {/* Logo - Mobile shows simplified, Desktop shows full */}
           <div className="md:hidden">
-            <MobileLogo color={textColor} />
+            <MobileLogo isDarkBg={isDarkBg} />
           </div>
           <div className="hidden md:block">
-            <DesktopLogo color={textColor} />
+            <DesktopLogo isDarkBg={isDarkBg} />
           </div>
           
           {/* Actions */}
