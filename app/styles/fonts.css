@@ -1,0 +1,16 @@
+/* Arabic Font Support */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+/* Apply Arabic font when in RTL mode */
+.font-arabic {
+  font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Ensure proper text rendering for Arabic */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] * {
+  direction: rtl;
+}
