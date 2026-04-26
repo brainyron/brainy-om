@@ -197,19 +197,66 @@ export function Hero() {
               paddingBottom: 'var(--spacing-5xl)'
             }}
           >
-            <div 
+            <div
               className="flex flex-col items-center justify-center max-w-[1000px] w-full"
               style={{ gap: 'var(--spacing-3xl)' }}
             >
+              {/* Partner logo strip — quiet social proof above the headline */}
+              <motion.div
+                className="flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-4 w-full"
+                style={{ filter: 'invert(1)', opacity: 0.55 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 0.55, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.05 }}
+                aria-label="Trusted by"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.brainy.ink/ink/media/partners/3608c4b5bb45-W-10.png"
+                  alt="Wix"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="h-6 md:h-7 w-auto object-contain select-none"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.brainy.ink/ink/media/partners/20c597caf6d8-W-2.png"
+                  alt="Cairo Amman Bank"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="h-6 md:h-7 w-auto object-contain select-none"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.brainy.ink/ink/media/partners/e1e4467d9f04-W-6.png"
+                  alt="FLOP"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="h-6 md:h-7 w-auto object-contain select-none"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.brainy.ink/ink/media/partners/ca8db81d7cc2-W-7.png"
+                  alt="Budy"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="h-6 md:h-7 w-auto object-contain select-none"
+                />
+              </motion.div>
+
               {/* Heading - ONLY H1 on the entire page */}
-              <motion.div 
+              <motion.div
                 className="w-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 dir={language === 'ar' ? 'rtl' : 'ltr'}
               >
-                <h1 
+                <h1
                   className="text-center text-foreground leading-tight"
                   style={{ 
                     fontSize: 'clamp(2rem, 5vw, 3.75rem)',
