@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 
@@ -29,13 +28,14 @@ export function Footer() {
                   marginBottom: 'var(--spacing-md)',
                 }}
               >
-                <Image
-                  src="/brand/brainy-dark.png"
+                {/* Footer is on light bg.background — use dark logo. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/brand/brainy-dark.svg"
                   alt="Brainy"
-                  width={965}
-                  height={268}
-                  priority={false}
-                  style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
+                  width={120}
+                  height={32}
+                  style={{ height: '32px', width: 'auto', display: 'block' }}
                 />
               </div>
               <p className="text-muted-foreground" style={{ fontSize: '0.875rem' }}>

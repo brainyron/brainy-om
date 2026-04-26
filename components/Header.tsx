@@ -1,35 +1,35 @@
 "use client";
-import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { useState, useEffect } from "react";
 
-// Mobile Logo (B-mark)
+// Logo SVG aspect ratio: viewBox 857 x 229 (~3.74:1)
+// Mobile: render the SVG at a small height (looks fine since it's a wordmark)
 function MobileLogo({ isDarkBg }: { isDarkBg: boolean }) {
+  const src = isDarkBg ? "/brand/brainy-light.svg" : "/brand/brainy-dark.svg";
   return (
-    <div className="h-[28px] w-[28px] relative">
-      <Image
-        src={isDarkBg ? "/brand/brainy-mark-light.png" : "/brand/brainy-mark-dark.png"}
-        alt="Brainy"
-        width={268}
-        height={268}
-        priority
-        style={{ height: '28px', width: '28px', objectFit: 'contain' }}
-      />
-    </div>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt="Brainy"
+      width={90}
+      height={24}
+      style={{ height: '24px', width: 'auto', display: 'block' }}
+    />
   );
 }
 
 function DesktopLogo({ isDarkBg }: { isDarkBg: boolean }) {
+  const src = isDarkBg ? "/brand/brainy-light.svg" : "/brand/brainy-dark.svg";
   return (
     <div className="h-[28px] relative shrink-0 flex items-center" data-name="Logo">
-      <Image
-        src={isDarkBg ? "/brand/brainy-light.png" : "/brand/brainy-dark.png"}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
         alt="Brainy"
-        width={965}
-        height={268}
-        priority
-        style={{ height: '28px', width: 'auto', objectFit: 'contain' }}
+        width={105}
+        height={28}
+        style={{ height: '28px', width: 'auto', display: 'block' }}
       />
     </div>
   );
