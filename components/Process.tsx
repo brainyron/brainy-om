@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { motion } from "motion/react";
@@ -99,16 +100,18 @@ function ZoomableImage({ image, title }: { image: string; title: string }) {
         borderColor: isHovered ? 'rgba(0, 150, 137, 0.4)' : 'rgba(0, 150, 137, 0.15)'
       }}
     >
-      <img 
+      <Image
         ref={imageRef}
-        alt={title} 
+        alt={title}
         src={image}
-        className="w-full h-full object-cover"
+        fill
+        sizes="(max-width: 640px) 100vw, 283px"
+        className="object-cover"
         style={{
           transform: isHovered ? 'scale(1.8)' : 'scale(1)',
           transformOrigin: 'var(--mouse-x, 50%) var(--mouse-y, 50%)',
-          transition: isHovered 
-            ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' 
+          transition: isHovered
+            ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
             : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
           willChange: 'transform'
         } as React.CSSProperties}

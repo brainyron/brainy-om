@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { motion } from "motion/react";
@@ -213,27 +214,27 @@ function TestimonialCard({ platform, quote, name, title, link, image1, image2, s
                       <div className="absolute left-0 overflow-clip rounded-[40px] size-[40px] top-0">
                         <div aria-hidden="true" className="absolute inset-0 pointer-events-none rounded-[40px]">
                           <div className="absolute bg-[#811ea1] inset-0 rounded-[40px]" />
-                          <img alt="" className="absolute max-w-none object-50%-50% object-cover rounded-[40px] size-full" src={imgUserProfile} />
-                          <img alt="" className="absolute max-w-none object-50%-50% object-cover rounded-[40px] size-full" src={imgUserProfile1} />
-                          <img alt="" className="absolute max-w-none object-50%-50% object-cover rounded-[40px] size-full" src={imgUserProfile2} />
+                          <Image alt="" fill sizes="40px" className="max-w-none object-cover rounded-[40px]" src={imgUserProfile} />
+                          <Image alt="" fill sizes="40px" className="max-w-none object-cover rounded-[40px]" src={imgUserProfile1} />
+                          <Image alt="" fill sizes="40px" className="max-w-none object-cover rounded-[40px]" src={imgUserProfile2} />
                         </div>
                         <div className="absolute left-[calc(50%+0.5px)] size-[41px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                          <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgImage4} />
+                          <Image alt="" fill sizes="41px" className="max-w-none object-cover pointer-events-none" src={imgImage4} />
                         </div>
                       </div>
                     </div>
                     {/* WIX Logo */}
                     <div className="mr-[-10px] relative shrink-0 size-[40px]">
-                      <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[40px] size-full" src={image2} />
+                      <Image alt="" fill sizes="40px" className="max-w-none object-cover pointer-events-none rounded-[40px]" src={image2} />
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="mr-[-10px] overflow-clip relative rounded-[40px] shrink-0 size-[40px]">
-                      <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={image1} />
+                      <Image alt="" fill sizes="40px" className="max-w-none object-cover pointer-events-none" src={image1} />
                     </div>
                     <div className="mr-[-10px] overflow-clip relative rounded-[40px] shrink-0 size-[40px]">
-                      <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={image2} />
+                      <Image alt="" fill sizes="40px" className="max-w-none object-cover pointer-events-none" src={image2} />
                     </div>
                   </>
                 )}
@@ -283,10 +284,13 @@ function RatingPlatforms() {
               </p>
             </div>
             <div className="h-[16px] relative shrink-0 w-[53.497px]">
-              <img 
+              <Image
                 src={imgGroup1321321339}
                 alt="Google"
-                className="w-full h-full object-contain"
+                fill
+                sizes="54px"
+                unoptimized
+                className="object-contain"
               />
             </div>
           </div>

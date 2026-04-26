@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
@@ -209,9 +210,12 @@ export function DashboardShowcase() {
                   width: '100%',
                 }}
               >
-                <img 
-                  src={dashboardDark} 
+                <Image
+                  src={dashboardDark}
                   alt={isRTL ? 'لوحة بنك القاهرة عمان - الوضع الداكن' : 'Cairo Amman Bank Dashboard - Dark Mode'}
+                  width={1440}
+                  height={1024}
+                  sizes="(max-width: 1200px) 100vw, 1200px"
                   className="w-full h-auto"
                   loading="lazy"
                 />
@@ -226,9 +230,12 @@ export function DashboardShowcase() {
                   width: '100%',
                 }}
               >
-                <img 
-                  src={dashboardLight} 
+                <Image
+                  src={dashboardLight}
                   alt={isRTL ? 'لوحة بنك القاهرة عمان - الوضع الفاتح' : 'Cairo Amman Bank Dashboard - Light Mode'}
+                  width={1440}
+                  height={1024}
+                  sizes="(max-width: 1200px) 100vw, 1200px"
                   className="w-full h-auto"
                   loading="lazy"
                 />
