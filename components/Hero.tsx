@@ -3,7 +3,6 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../translations/translations";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { PartnersRow } from "./PartnersRow";
 import { PrimaryButton } from "./PrimaryButton";
 
 function SecondaryButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
@@ -202,16 +201,6 @@ export function Hero() {
               className="flex flex-col items-center justify-center max-w-[1000px] w-full"
               style={{ gap: 'var(--spacing-3xl)' }}
             >
-              {/* Client Logos */}
-              <motion.div 
-                className="w-full flex items-center justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <PartnersRow />
-              </motion.div>
-              
               {/* Heading - ONLY H1 on the entire page */}
               <motion.div 
                 className="w-full"
