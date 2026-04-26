@@ -36,6 +36,15 @@ const PROJECTS: Project[] = [
     href: "https://brainy.ink/hire/case-study?project=cairo-amman-bank",
   },
   {
+    id: "basis",
+    name: "Basis",
+    tagline: "A beat on a sound, a rhythm, a voice",
+    tags: ["Branding", "Logo Design", "Visual Identity"],
+    color: "#E85102",
+    heroImage: "https://cdn.brainy.ink/ink/figma/basis-cover.png",
+    href: "https://brainy.ink/hire/case-study?project=basis",
+  },
+  {
     id: "budy",
     name: "Budy",
     tagline: "Connecting people on their health journey",
@@ -48,42 +57,49 @@ const PROJECTS: Project[] = [
 ];
 
 function ProjectCard({ project }: { project: Project }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <a
+    <motion.a
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onDragStart={(e) => e.preventDefault()}
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ type: "spring", stiffness: 280, damping: 24 }}
       className="
         group relative block
         rounded-3xl overflow-hidden
-        bg-[#111] border border-white/[0.06]
+        bg-[#0d0d0d] border border-white/[0.06]
         outline-none focus-visible:ring-2 focus-visible:ring-white/30
       "
-      style={{
-        transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease",
-        transform: hovered ? "scale(1.02)" : "scale(1)",
-        borderColor: hovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)",
-      }}
       aria-label={`${project.name}: ${project.tagline}`}
     >
-      {/* Image */}
-      <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.heroImage}
-          alt={project.name}
-          loading="lazy"
-          decoding="async"
-          draggable={false}
-          className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-        />
+      {/* Top accent line in project color — subtle, 1px */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px z-20"
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, ${project.color}88 50%, transparent 100%)`,
+        }}
+      />
 
-        {/* Top-right arrow */}
+      {/* Card body — fixed aspect ratio (3:4) so the row reads as a uniform gallery */}
+      <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>
+        {/* Cover image — top ~72% of the card */}
+        <div className="absolute inset-x-0 top-0 h-[72%] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.heroImage}
+            alt={project.name}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+          />
+          {/* Soft fade at the bottom of the image into the meta block */}
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#0d0d0d]" />
+        </div>
+
+        {/* Top-right arrow on hover */}
         <div
           className="
             absolute top-4 right-4 z-10
@@ -91,39 +107,28 @@ function ProjectCard({ project }: { project: Project }) {
             flex items-center justify-center
             backdrop-blur-md border border-white/20
             bg-white/10
+            opacity-0 -translate-y-1 translate-x-1
+            group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0
             transition-all duration-300
           "
-          style={{
-            opacity: hovered ? 1 : 0,
-            transform: hovered ? "translate(0,0)" : "translate(8px,-8px)",
-          }}
+          aria-hidden="true"
         >
           <ArrowUpRight className="w-4 h-4 text-white" />
         </div>
 
-        {/* Bottom gradient + text overlay */}
-        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
+        {/* Meta block — bottom 28%, neutral dark, white text */}
+        <div className="absolute inset-x-0 bottom-0 h-[28%] px-6 sm:px-7 pb-6 sm:pb-7 pt-3 flex flex-col justify-end">
           <h3 className="font-mono text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight">
             {project.name}
           </h3>
-          <p className="mt-1 text-sm sm:text-[15px] text-white/70 leading-relaxed">
+          <p className="mt-1 text-sm text-white/60 leading-relaxed line-clamp-2">
             {project.tagline}
           </p>
-          <div className="flex flex-wrap gap-1.5 mt-4">
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.12em] px-2.5 py-1 rounded-full border"
-                style={{
-                  color: hovered ? project.color : "rgba(255,255,255,0.7)",
-                  borderColor: hovered
-                    ? `${project.color}66`
-                    : "rgba(255,255,255,0.18)",
-                  backgroundColor: hovered
-                    ? `${project.color}14`
-                    : "rgba(255,255,255,0.06)",
-                  transition: "all 0.3s ease",
-                }}
+                className="font-mono text-[10px] uppercase tracking-[0.12em] px-3 py-1 rounded-full border border-white/15 text-white/70 bg-white/[0.03]"
               >
                 {tag}
               </span>
@@ -131,7 +136,7 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
       </div>
-    </a>
+    </motion.a>
   );
 }
 
@@ -142,7 +147,8 @@ export function Work() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [constraintLeft, setConstraintLeft] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
-  const [gap, setGap] = useState(24);
+  const [gap, setGap] = useState(20);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const measure = () => {
@@ -157,9 +163,8 @@ export function Work() {
       if (firstCard) {
         setCardWidth(firstCard.offsetWidth);
       }
-      // Read computed gap from the track
       const styles = window.getComputedStyle(trackRef.current);
-      const g = parseFloat(styles.columnGap || styles.gap || "24");
+      const g = parseFloat(styles.columnGap || styles.gap || "20");
       if (!Number.isNaN(g)) setGap(g);
     };
 
@@ -186,6 +191,7 @@ export function Work() {
     _e: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { x: number }; velocity: { x: number } }
   ) => {
+    setIsDragging(false);
     if (cardWidth === 0) return;
     const step = cardWidth + gap;
     const projectedDelta = info.offset.x + info.velocity.x * 0.15;
@@ -223,16 +229,20 @@ export function Work() {
         {/* Carousel */}
         <div
           ref={containerRef}
-          className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none"
-          style={{ paddingLeft: "max(1rem, calc((100vw - 1280px) / 2 + 1rem))" }}
+          className="w-full overflow-hidden select-none"
+          style={{
+            paddingLeft: "max(1rem, calc((100vw - 1280px) / 2 + 1rem))",
+            cursor: isDragging ? "grabbing" : "grab",
+          }}
         >
           <motion.div
             ref={trackRef}
-            className="flex gap-4 sm:gap-5 lg:gap-6 will-change-transform"
+            className="flex gap-4 sm:gap-5 will-change-transform"
             drag="x"
             dragConstraints={{ left: constraintLeft, right: 0 }}
             dragElastic={0.08}
             dragMomentum
+            onDragStart={() => setIsDragging(true)}
             onDragEnd={handleDragEnd}
             style={{ x }}
           >
@@ -240,17 +250,17 @@ export function Work() {
               <div
                 key={project.id}
                 data-card
-                className="shrink-0 w-[78vw] sm:w-[60vw] md:w-[46vw] lg:w-[38vw] xl:w-[34vw] max-w-[520px]"
+                className="shrink-0 w-[85vw] sm:w-[64vw] md:w-[48vw] lg:w-[40vw] xl:w-[34vw] max-w-[520px]"
               >
                 <ProjectCard project={project} />
               </div>
             ))}
-            {/* spacer so last card can sit centered-ish */}
+            {/* spacer so the last card has breathing room on the right */}
             <div className="shrink-0 w-4 sm:w-6 lg:w-8" aria-hidden="true" />
           </motion.div>
         </div>
 
-        {/* Controls */}
+        {/* Controls — chevrons flank centered dot pagination */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 flex items-center justify-center gap-6">
           <button
             type="button"
