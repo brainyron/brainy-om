@@ -44,13 +44,13 @@ export function CateyFinalCta() {
             <img
               src="/brand/brainy-dark.svg"
               alt="Brainy"
-              className="h-5 w-auto sm:h-6 dark:hidden"
+              className="h-6 w-auto sm:h-7 dark:hidden"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/brainy-light.svg"
               alt="Brainy"
-              className="hidden h-5 w-auto sm:h-6 dark:block"
+              className="hidden h-6 w-auto sm:h-7 dark:block"
             />
           </div>
         </motion.div>

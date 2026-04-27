@@ -21,13 +21,13 @@ export function CateyHeader() {
           <img
             src="/brand/brainy-dark.svg"
             alt="Brainy"
-            className="h-4 w-auto sm:h-5 dark:hidden"
+            className="h-5 w-auto sm:h-6 dark:hidden"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/brainy-light.svg"
             alt="Brainy"
-            className="hidden h-4 w-auto sm:h-5 dark:block"
+            className="hidden h-5 w-auto sm:h-6 dark:block"
           />
         </div>
         <div className="flex items-center gap-2">
