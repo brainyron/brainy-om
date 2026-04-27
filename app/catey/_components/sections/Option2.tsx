@@ -13,6 +13,7 @@ import { whatsappLink } from "../cateyHelpers";
 export function CateyOption2() {
   const { language } = useLanguage();
   const t = cateyTranslations[language];
+  const isAr = language === "ar";
   const s = t.summary.option2;
   const card = t.comparison.cards[1];
 
@@ -82,67 +83,95 @@ export function CateyOption2() {
             </div>
           </div>
 
-          {/* Visual: campaign coupon + strategy card stack */}
+          {/* Visual: Pumo gift box with floating stickers */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative mx-auto w-full max-w-md"
           >
-            {/* Strategy card behind */}
-            <div className="absolute -top-4 -right-4 hidden w-[70%] rotate-3 rounded-3xl border border-[#1F1A14]/10 bg-white p-5 shadow-xl shadow-[#1F1A14]/5 sm:block dark:border-white/10 dark:bg-white/5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
-                {s.strategyLabel}
+            {/* Floating sticker — top-left */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -8, y: 14 }}
+              whileInView={{ opacity: 1, rotate: -8, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="absolute -left-3 -top-3 z-20 rounded-2xl bg-white px-3 py-1.5 shadow-lg shadow-[#1F1A14]/15 sm:-left-4 sm:-top-4 sm:px-4 sm:py-2 dark:bg-white/10"
+            >
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#D26B49] sm:text-xs">
+                {isAr ? "هدية الشهر" : "Monthly drop"}
+              </span>
+            </motion.div>
+
+            {/* Floating sticker — top-right (promo code) */}
+            <motion.div
+              initial={{ opacity: 0, rotate: 6, y: 14 }}
+              whileInView={{ opacity: 1, rotate: 6, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="absolute -right-2 -top-2 z-20 rounded-2xl bg-[#F08762] px-3.5 py-2 shadow-lg shadow-[#F08762]/40 sm:-right-3 sm:-top-3 sm:px-4 sm:py-2.5"
+            >
+              <span className="block text-[9px] font-semibold uppercase tracking-wider text-white/80 sm:text-[10px]">
+                {isAr ? "كود" : "Promo"}
+              </span>
+              <span className="block font-mono text-base font-bold text-white sm:text-lg">
+                {s.promoCode}
+              </span>
+            </motion.div>
+
+            {/* Main giveaway / gift-box image card */}
+            <div className="overflow-hidden rounded-3xl border border-[#1F1A14]/10 bg-white shadow-xl shadow-[#1F1A14]/10 dark:border-white/10 dark:bg-white/5">
+              <div className="relative aspect-[4/5] w-full bg-[#FFF8F0] dark:bg-[#0F0C0A]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/catey/giveaways/giveaway-01.jpg"
+                  alt={isAr ? "صندوق هدية بومو" : "Pumo gift box example"}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
-              <div className="mt-1 text-base font-semibold text-[#1F1A14] dark:text-white">
-                {s.strategyTheme}
-              </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {t.option2.strategy.focus.slice(0, 3).map((f) => (
-                  <span
-                    key={f}
-                    className="rounded-full bg-[#FFF8F0] px-2 py-0.5 text-[10px] text-[#3A322A]/80 dark:bg-white/10 dark:text-white/70"
-                  >
-                    {f}
-                  </span>
-                ))}
+              <div className="border-t border-[#1F1A14]/10 px-5 py-4 dark:border-white/10">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
+                  {s.campaignTitle}
+                </div>
+                <div className="mt-1 text-sm font-medium text-[#1F1A14] dark:text-white/90">
+                  {isAr
+                    ? "صندوق مع لاصقات بومو ومنتج كل شهر"
+                    : "Branded gift box with Pumo stickers and a featured product each month"}
+                </div>
               </div>
             </div>
 
-            {/* Campaign coupon card front */}
-            <div className="relative rounded-3xl border border-[#1F1A14]/10 bg-white p-6 shadow-xl shadow-[#1F1A14]/5 sm:p-8 dark:border-white/10 dark:bg-white/5">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
-                Campaign
+            {/* Floating sticker — bottom-left (sticker pack) */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -4, y: -10 }}
+              whileInView={{ opacity: 1, rotate: -4, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute -bottom-3 left-6 z-20 rounded-2xl bg-[#1F1A14] px-3.5 py-1.5 shadow-lg shadow-[#1F1A14]/20 sm:-bottom-4 sm:left-8 sm:px-4 sm:py-2 dark:bg-[#FFF8F0]"
+            >
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-white sm:text-xs dark:text-[#1F1A14]">
+                {isAr ? "لاصقات بومو" : "Pumo sticker pack"}
+              </span>
+            </motion.div>
+
+            {/* Floating sticker — bottom-right (strategy theme) */}
+            <motion.div
+              initial={{ opacity: 0, rotate: 5, y: -10 }}
+              whileInView={{ opacity: 1, rotate: 5, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="absolute -bottom-2 -right-3 z-20 rounded-2xl bg-white px-3.5 py-2 shadow-lg shadow-[#1F1A14]/15 sm:-bottom-3 sm:-right-4 dark:bg-white/10"
+            >
+              <div className="text-[9px] font-semibold uppercase tracking-wider text-[#D26B49] sm:text-[10px]">
+                {s.strategyLabel}
               </div>
-              <div className="mt-1 text-2xl font-semibold tracking-tight text-[#1F1A14] dark:text-white">
-                {s.campaignTitle}
+              <div className="text-xs font-semibold text-[#1F1A14] sm:text-sm dark:text-white">
+                {s.strategyTheme}
               </div>
-              <p className="mt-3 text-sm text-[#3A322A]/75 dark:text-white/70">
-                {t.option2.campaigns.items[0].desc}
-              </p>
-              <div className="mt-6 inline-flex items-center gap-3 rounded-xl border-2 border-dashed border-[#F08762] bg-[#FFE9DC] px-4 py-2.5 dark:border-[#F08762] dark:bg-[#F08762]/10">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#D26B49]">
-                  Promo
-                </span>
-                <span className="font-mono text-lg font-bold tracking-wider text-[#1F1A14] dark:text-white">
-                  {s.promoCode}
-                </span>
-              </div>
-              <div className="mt-5 grid grid-cols-2 gap-2">
-                {t.option2.campaigns.items[0].includes.map((i) => (
-                  <div
-                    key={i}
-                    className="rounded-full bg-[#FFF8F0] px-2.5 py-1 text-[11px] text-[#3A322A]/80 dark:bg-white/10 dark:text-white/70"
-                  >
-                    {i}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 text-[11px] uppercase tracking-[0.2em] text-[#3A322A]/55 dark:text-white/45">
-                {s.visualLabel}
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

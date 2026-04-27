@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../../../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggle } from "./ThemeToggle";
@@ -7,10 +8,27 @@ import { CateyLogo } from "./CateyLogo";
 
 export function CateyHeader() {
   const { isRTL } = useLanguage();
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const last = lastY.current;
+      if (y < 80) setHidden(false);
+      else if (y > last + 6) setHidden(true);
+      else if (y < last - 6) setHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b border-black/5 bg-background/70 backdrop-blur-md dark:border-white/5"
+      className={`sticky top-0 z-50 w-full border-b border-black/5 bg-[#FFF8F0] transition-transform duration-300 ease-out dark:border-white/5 dark:bg-[#0F0C0A] ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      }`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">

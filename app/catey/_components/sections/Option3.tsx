@@ -118,39 +118,37 @@ export function CateyOption3() {
             </div>
           </div>
 
-          {/* Visual: small browser-frame thumbnail of the website */}
+          {/* Visual: minimal mobile phone frame with the redesigned site */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="overflow-hidden rounded-3xl border border-[#1F1A14]/10 bg-white shadow-xl shadow-[#1F1A14]/5 dark:border-white/10 dark:bg-white/5"
+            className="flex flex-col items-center"
           >
-            <div className="flex items-center gap-3 border-b border-[#1F1A14]/10 bg-[#FFF8F0] px-4 py-3 dark:border-white/10 dark:bg-white/5">
-              <div className="flex gap-1.5">
-                <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
-                <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
-                <span className="h-3 w-3 rounded-full bg-[#28C840]" />
-              </div>
-              <div className="mx-auto rounded-full bg-white px-4 py-1.5 text-xs text-[#3A322A]/70 shadow-inner dark:bg-white/10 dark:text-white/70">
-                {s.websiteUrl}
-              </div>
-            </div>
-            <div className="relative h-[360px] sm:h-[420px]">
-              {mounted ? (
-                <iframe
-                  src={`/catey/preview/website?lang=${isAr ? "ar" : "en"}`}
-                  title="Catey website preview thumbnail"
-                  className="h-full w-full border-0"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-[#FFF8F0] text-sm text-[#3A322A]/60">
-                  Loading preview...
+            <div className="relative">
+              {/* Phone shell */}
+              <div className="relative rounded-[2.75rem] border-[8px] border-[#1F1A14] bg-[#1F1A14] p-1.5 shadow-2xl shadow-[#1F1A14]/30 dark:border-white/15 dark:shadow-black/50">
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 z-20 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-[#1F1A14] dark:bg-white/15" />
+                {/* Screen */}
+                <div className="relative h-[560px] w-[280px] overflow-hidden rounded-[2rem] bg-[#FFF8F0] sm:h-[620px] sm:w-[300px]">
+                  {mounted ? (
+                    <iframe
+                      src={`/catey/preview/website?lang=${isAr ? "ar" : "en"}`}
+                      title="Catey website preview"
+                      className="h-full w-full border-0"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-[#3A322A]/60">
+                      Loading preview...
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-            <div className="border-t border-[#1F1A14]/10 bg-white px-4 py-3 text-center text-[11px] uppercase tracking-[0.2em] text-[#3A322A]/55 dark:border-white/10 dark:bg-white/5 dark:text-white/45">
+            <div className="mt-5 text-center text-[11px] uppercase tracking-[0.2em] text-[#3A322A]/55 dark:text-white/45">
               {s.visualLabel}
             </div>
           </motion.div>
