@@ -408,7 +408,7 @@ export function CateyOption3() {
               <div className="relative h-[440px] sm:h-[560px] lg:h-[640px]">
                 {mounted ? (
                   <iframe
-                    src="/catey/_preview/website"
+                    src={`/catey/preview/website?lang=${isAr ? "ar" : "en"}`}
                     title="Catey website preview"
                     className="h-full w-full border-0"
                     loading="lazy"
