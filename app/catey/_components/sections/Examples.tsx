@@ -12,7 +12,6 @@ import { ExPhotos } from "./examples/ExPhotos";
 import { ExCaptions } from "./examples/ExCaptions";
 import { ExMonthlyPlan } from "./examples/ExMonthlyPlan";
 import { ExStoryTypes } from "./examples/ExStoryTypes";
-import { ExStrategy } from "./examples/ExStrategy";
 import { ExCampaigns } from "./examples/ExCampaigns";
 import { ExVet } from "./examples/ExVet";
 import { ExGiveaways } from "./examples/ExGiveaways";
@@ -35,7 +34,6 @@ const COMPONENTS: Record<ExampleId, ExComponent> = {
   captions: ExCaptions,
   "monthly-plan": ExMonthlyPlan,
   "story-types": ExStoryTypes,
-  strategy: ExStrategy,
   campaigns: ExCampaigns,
   vet: ExVet,
   giveaways: ExGiveaways,
@@ -67,7 +65,6 @@ export function CateyExamples() {
         captions: e.sections.captions.title,
         "monthly-plan": e.sections.monthlyPlan.title,
         "story-types": e.sections.storyTypes.title,
-        strategy: e.sections.strategy.title,
         campaigns: e.sections.campaigns.title,
         vet: e.sections.vet.title,
         giveaways: e.sections.giveaways.title,

@@ -11,7 +11,6 @@ export type ExampleId =
   | "captions"
   | "monthly-plan"
   | "story-types"
-  | "strategy"
   | "campaigns"
   | "vet"
   | "giveaways"
@@ -36,8 +35,7 @@ export const EXAMPLES: ExampleEntry[] = [
   { id: "photos", scope: "all" },
   { id: "captions", scope: "all" },
   { id: "monthly-plan", scope: "all" },
-  { id: "story-types", scope: "growthAndPlus" },
-  { id: "strategy", scope: "growthAndPlus" },
+  { id: "story-types", scope: "all" },
   { id: "campaigns", scope: "growthAndPlus" },
   { id: "vet", scope: "growthAndPlus" },
   { id: "giveaways", scope: "growthAndPlus" },

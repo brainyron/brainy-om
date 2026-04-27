@@ -117,7 +117,7 @@ export const cateyTranslations = {
           "Story sets that feel like daily care reminders",
           "Edited photos you can use anywhere: posts, ads, WhatsApp",
           "One carousel each month for a richer story",
-          "A weekly plan you approve before the month starts",
+          "A clear weekly content plan for the month",
           "Light clinic mentions, no heavy campaigns",
         ],
         visualLabel: "A taste of the photo style",
@@ -184,19 +184,29 @@ export const cateyTranslations = {
         },
         captions: {
           title: "Captions",
-          caption: "Simple, easy to read. Caption polish and tone tier scales with the option.",
+          caption: "Option 1 ships clean basic captions. Options 2 and 3 upgrade to SEO-friendly captions engineered for Instagram discovery.",
+          basicLabel: "Basic captions",
+          basicScope: "Content Partner",
+          seoLabel: "SEO-friendly captions",
+          seoScope: "Growth Partner +",
+          seoItems: [
+            "Best dry food for cats in Oman? Pumo's pick: Carnilove Wild Origin Quail. High-protein, no fillers. Available now at Catey, Muscat. #catfood #petshopoman #catnutrition",
+            "Cat dental care matters. Brush weekly with Beaphar dental gel from Catey. Free vet advice on WhatsApp. #catdentalcare #petcareoman #healthycat",
+            "Indoor cat losing weight? Pumo's recommendation: Pramy Multi-Vitamin pouch plus a quick vet visit. Book at Catey today. #cathealth #vetoman #catshop",
+            "New kitten checklist: Pramy starter kit, Wanpy treats, litter, scratching post. All available at Catey. Free WhatsApp support. #newkitten #catstarter #petshopoman",
+          ],
         },
         monthlyPlan: {
-          title: "Monthly content plan",
-          caption: "An example month, mapped week by week. Approved before we post.",
+          title: "Monthly plan and strategy",
+          caption: "Option 1 gets a clear weekly content plan. Options 2 and 3 upgrade to a full monthly content strategy with a theme and content pillars.",
+          basicLabel: "Monthly content plan",
+          basicScope: "Content Partner",
+          strategyLabel: "Monthly content strategy",
+          strategyScope: "Growth Partner +",
         },
         storyTypes: {
           title: "Story types library",
           caption: "Reusable story templates so the feed never feels random.",
-        },
-        strategy: {
-          title: "Monthly content strategy",
-          caption: "One clear theme each month with focus areas and pillars.",
         },
         campaigns: {
           title: "Campaign ideas",
@@ -322,7 +332,7 @@ export const cateyTranslations = {
       },
       plan: {
         title: "Monthly content plan",
-        sub: "An example month. You can approve before we start.",
+        sub: "An example month, mapped out week by week.",
         weeks: [
           {
             label: "Week 1",
@@ -828,7 +838,7 @@ export const cateyTranslations = {
           "ستوري يحس فيها المتابع كأنها تذكير يومي",
           "صور معدّلة تستخدمها في البوست والإعلان والواتساب",
           "كاروسيل واحد كل شهر لقصة أكمل",
-          "خطة أسبوعية توافق عليها قبل بداية الشهر",
+          "خطة محتوى أسبوعية واضحة للشهر",
           "ذكر خفيف للعيادة، بدون حملات ثقيلة",
         ],
         visualLabel: "لمحة من أسلوب الصور",
@@ -895,19 +905,29 @@ export const cateyTranslations = {
         },
         captions: {
           title: "الكابشن",
-          caption: "بسيط وسهل القراءة. مستوى الكابشن يكبر مع الخيار.",
+          caption: "الخيار الأول يجيك كابشن أساسي نظيف. الخيارات 2 و3 يترقّون إلى كابشن محسّن لـ SEO مصمّم لاكتشاف Instagram.",
+          basicLabel: "كابشن أساسي",
+          basicScope: "شريك المحتوى",
+          seoLabel: "كابشن محسّن لـ SEO",
+          seoScope: "شريك النمو +",
+          seoItems: [
+            "أفضل طعام جاف للقطط في عُمان؟ اختيار Pumo: Carnilove Wild Origin Quail. عالي البروتين، بدون حشو. متوفر الآن في Catey مسقط. #catfood #petshopoman #catnutrition",
+            "العناية بأسنان قطك مهمة. نظف أسبوعيًا بجل Beaphar من Catey. استشارة بيطرية مجانية على واتساب. #catdentalcare #petcareoman #healthycat",
+            "قط داخلي ينحف؟ توصية Pumo: ملحق Pramy متعدد الفيتامينات + زيارة بيطرية سريعة. احجز عند Catey اليوم. #cathealth #vetoman #catshop",
+            "قائمة قطك الجديد: طقم Pramy للبداية، حلويات Wanpy، رمل، عمود خدش. كل شي عند Catey. دعم واتساب مجاني. #newkitten #catstarter #petshopoman",
+          ],
         },
         monthlyPlan: {
-          title: "خطة المحتوى الشهرية",
-          caption: "مثال شهر أسبوع بأسبوع. توافق عليه قبل النشر.",
+          title: "خطة المحتوى الشهرية والاستراتيجية",
+          caption: "الخيار الأول يجيك خطة محتوى أسبوعية واضحة. الخيارات 2 و3 يترقّون إلى استراتيجية محتوى شهرية كاملة مع ثيم وركائز.",
+          basicLabel: "خطة المحتوى الشهرية",
+          basicScope: "شريك المحتوى",
+          strategyLabel: "استراتيجية المحتوى الشهرية",
+          strategyScope: "شريك النمو +",
         },
         storyTypes: {
           title: "مكتبة أنواع الستوري",
           caption: "قوالب ستوري متكررة عشان الفيد ما يحس بعشوائية.",
-        },
-        strategy: {
-          title: "استراتيجية المحتوى الشهرية",
-          caption: "ثيم واضح كل شهر مع تركيز وركائز.",
         },
         campaigns: {
           title: "أفكار الحملات",
@@ -1033,7 +1053,7 @@ export const cateyTranslations = {
       },
       plan: {
         title: "خطة المحتوى الشهرية",
-        sub: "مثال شهر. توافق عليه قبل ما نبدأ.",
+        sub: "مثال شهر، أسبوع بأسبوع.",
         weeks: [
           {
             label: "الأسبوع 1",

@@ -70,7 +70,7 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
   return (
     <div
       className={`sticky z-30 transition-[top] duration-300 ease-out ${
-        headerHidden ? "top-2 sm:top-3" : "top-10 sm:top-12"
+        headerHidden ? "top-2 sm:top-3" : "top-[68px] sm:top-[80px]"
       }`}
       dir={isAr ? "rtl" : "ltr"}
       aria-hidden={false}
