@@ -128,17 +128,23 @@ export function CateyOption3() {
           >
             <div className="relative">
               {/* Phone shell */}
-              <div className="relative rounded-[2.75rem] border-[8px] border-[#1F1A14] bg-[#1F1A14] p-1.5 shadow-2xl shadow-[#1F1A14]/30 dark:border-white/15 dark:shadow-black/50">
+              <div className="relative rounded-[3rem] border-[10px] border-[#1F1A14] bg-[#1F1A14] p-1.5 shadow-[0_30px_80px_-30px_rgba(31,26,20,0.5)] dark:border-white/15 dark:shadow-black/60">
                 {/* Notch */}
-                <div className="absolute top-0 left-1/2 z-20 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-[#1F1A14] dark:bg-white/15" />
+                <div className="absolute top-0 left-1/2 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-[#1F1A14] dark:bg-white/15" />
                 {/* Screen */}
-                <div className="relative h-[560px] w-[280px] overflow-hidden rounded-[2rem] bg-[#FFF8F0] sm:h-[620px] sm:w-[300px]">
+                <div className="relative h-[640px] w-[320px] overflow-hidden rounded-[2.25rem] bg-[#FFF8F0] sm:h-[720px] sm:w-[360px]">
                   {mounted ? (
                     <iframe
-                      src={`/catey/preview/website?lang=${isAr ? "ar" : "en"}`}
+                      src="/catey/preview/website"
                       title="Catey website preview"
                       className="h-full w-full border-0"
                       loading="lazy"
+                      style={{
+                        touchAction: "pan-y",
+                        scrollbarWidth: "none",
+                        msOverflowStyle: "none",
+                        WebkitOverflowScrolling: "touch",
+                      }}
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-[#3A322A]/60">

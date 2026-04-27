@@ -26,7 +26,7 @@ function BrowserFrame({ url, label, children }: { url: string; label: string; ch
 }
 
 export function ExWebsite({ index }: { index: number }) {
-  const { t, isAr } = useCateyT();
+  const { t } = useCateyT();
   const e = t.examples;
   const o = t.option3.website;
   const [mounted, setMounted] = useState(false);
@@ -44,7 +44,7 @@ export function ExWebsite({ index }: { index: number }) {
         <div className="relative h-[440px] sm:h-[560px] lg:h-[640px]">
           {mounted ? (
             <iframe
-              src={`/catey/preview/website?lang=${isAr ? "ar" : "en"}`}
+              src="/catey/preview/website"
               title="Catey website preview"
               className="h-full w-full border-0"
               loading="lazy"
