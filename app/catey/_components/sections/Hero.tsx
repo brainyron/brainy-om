@@ -2,11 +2,12 @@
 
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations } from "../../../../translations/catey";
 
 const REELS = [
+  "/catey/reels/reel-00.mp4",
   "/catey/reels/reel-01.mp4",
   "/catey/reels/reel-02.mp4",
   "/catey/reels/reel-03.mp4",
@@ -18,18 +19,29 @@ export function CateyHero() {
   const { language } = useLanguage();
   const t = cateyTranslations[language].hero;
   const [idx, setIdx] = useState(0);
+  const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.muted = muted;
     v.load();
     v.play().catch(() => {
-      // Autoplay can be blocked. Silent failure; poster carries the moment.
+      // Autoplay can be blocked when unmuted. Fall back to muted state.
+      if (!muted) {
+        setMuted(true);
+        v.muted = true;
+        v.play().catch(() => {
+          // Still blocked; leave the poster.
+        });
+      }
     });
-  }, [idx]);
+  }, [idx, muted]);
 
   const handleEnded = () => setIdx((i) => (i + 1) % REELS.length);
+
+  const toggleMute = () => setMuted((m) => !m);
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 bg-[#FFF8F0] dark:bg-[#0F0C0A]">
@@ -72,18 +84,37 @@ export function CateyHero() {
 
       {/* Video side */}
       <div className="relative order-1 h-full w-full overflow-hidden bg-black md:order-2">
-        <video
-          ref={videoRef}
-          key={idx}
-          src={REELS[idx]}
-          autoPlay
-          muted
-          playsInline
-          preload="auto"
-          onEnded={handleEnded}
-          className="absolute inset-0 h-full w-full object-cover"
-          poster="/catey/brand/pumo-hero.png"
-        />
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+          className="absolute inset-0 z-10 cursor-pointer focus:outline-none"
+        >
+          <video
+            ref={videoRef}
+            key={idx}
+            src={REELS[idx]}
+            autoPlay
+            muted={muted}
+            playsInline
+            preload="auto"
+            onEnded={handleEnded}
+            className="absolute inset-0 h-full w-full object-cover"
+            poster="/catey/brand/pumo-hero.png"
+          />
+        </button>
+
+        {/* Mute / unmute icon — visual feedback for the click target */}
+        <motion.div
+          key={`icon-${muted}`}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25 }}
+          className="pointer-events-none absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md sm:right-5 sm:top-5 sm:h-11 sm:w-11"
+          aria-hidden="true"
+        >
+          {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        </motion.div>
 
         {/* Reel index dots */}
         <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
