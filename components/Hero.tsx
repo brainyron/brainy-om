@@ -203,7 +203,7 @@ export function Hero() {
             >
               {/* Partner logo strip — quiet social proof above the headline */}
               <motion.div
-                className="flex flex-wrap items-center justify-center gap-x-12 md:gap-x-20 gap-y-6 w-full"
+                className="grid grid-cols-4 items-center justify-items-center gap-x-3 md:gap-x-8 w-full"
                 style={{ filter: 'invert(1)', opacity: 0.75 }}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 0.75, y: 0 }}
@@ -217,7 +217,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-14 md:h-20 w-auto object-contain select-none"
+                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -226,7 +226,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-14 md:h-20 w-auto object-contain select-none"
+                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -235,7 +235,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-14 md:h-20 w-auto object-contain select-none"
+                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -244,7 +244,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-14 md:h-20 w-auto object-contain select-none"
+                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
                 />
               </motion.div>
 
