@@ -95,7 +95,7 @@ export function Work() {
       className="bg-[#f5f5f7] w-full overflow-hidden"
       aria-labelledby="work-heading"
     >
-      <div className="flex flex-col items-center w-full py-20 sm:py-24 lg:py-28">
+      <div className="flex flex-col items-center w-full py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40">
         {/* Heading */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
           <motion.h2

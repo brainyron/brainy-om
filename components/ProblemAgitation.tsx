@@ -129,12 +129,8 @@ export function ProblemAgitation() {
   ];
 
   return (
-    <section 
-      className="bg-[#1e1e1e] relative"
-      style={{ 
-        paddingTop: '112px',
-        paddingBottom: '112px'
-      }}
+    <section
+      className="bg-[#1e1e1e] relative py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40"
       aria-labelledby="problem-heading"
     >
       <div className="flex flex-col items-center size-full px-[20px] md:px-[78px]">

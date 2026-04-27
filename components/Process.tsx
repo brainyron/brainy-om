@@ -173,7 +173,7 @@ export function Process() {
       aria-labelledby="process-heading"
     >
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-[112px] xl:px-[238px] py-16 sm:py-20 md:py-24 lg:py-[112px] w-full">
+        <div className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-[112px] xl:px-[238px] py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40 w-full">
           <div className="flex flex-col gap-[64px] items-center max-w-[1200px] mx-auto w-full">
             <ProcessHeader />
             <ProcessSteps />

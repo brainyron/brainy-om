@@ -370,10 +370,9 @@ export function OmanContext() {
 
   return (
     <section
-      className="bg-[#1e1e1e] relative hidden md:flex items-center justify-center overflow-hidden"
+      className="bg-[#1e1e1e] relative hidden md:flex items-center justify-center overflow-hidden px-5 py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40"
       style={{
         minHeight: '700px',
-        padding: '80px 20px',
       }}
       aria-labelledby="oman-context-heading"
     >

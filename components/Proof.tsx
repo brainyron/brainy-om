@@ -499,8 +499,8 @@ export function Proof() {
   const secondRowCards = [...secondRowTestimonials, ...secondRowTestimonials];
   
   return (
-    <section 
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24"
+    <section
+      className="relative py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40"
       style={{ 
         background: '#2c2c2c'
       }}

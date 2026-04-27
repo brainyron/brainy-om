@@ -13,11 +13,9 @@ export function DashboardShowcase() {
   const { isRTL } = useLanguage();
 
   return (
-    <section 
-      className="relative overflow-hidden"
-      style={{ 
-        paddingTop: 'var(--spacing-4xl)', 
-        paddingBottom: 'var(--spacing-5xl)',
+    <section
+      className="relative overflow-hidden py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40"
+      style={{
         background: 'linear-gradient(180deg, rgb(38, 38, 38) 0%, rgb(23, 23, 23) 100%)'
       }}
       aria-label="Dashboard showcase"

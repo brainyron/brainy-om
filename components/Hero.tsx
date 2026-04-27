@@ -187,14 +187,14 @@ export function Hero() {
       
       {/* Content */}
       <div className="relative">
-        <div className="flex flex-row items-center justify-center min-h-[860px]">
+        <div className="flex flex-row items-center justify-center min-h-[940px]">
           <div
             className="content-stretch flex items-center justify-center relative w-full"
             style={{
               paddingLeft: 'var(--spacing-md)',
               paddingRight: 'var(--spacing-md)',
-              paddingTop: 'calc(var(--spacing-5xl) + 24px)',
-              paddingBottom: 'calc(var(--spacing-5xl) + 32px)'
+              paddingTop: 'calc(var(--spacing-5xl) + 56px)',
+              paddingBottom: 'calc(var(--spacing-5xl) + 64px)'
             }}
           >
             <div
