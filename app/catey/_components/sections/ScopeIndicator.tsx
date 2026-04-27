@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import type { Inclusion } from "./examples/registry";
 import { useCateyT } from "./shared";
 
@@ -13,22 +14,64 @@ type Props = {
 
 /**
  * Sticky pill bar that pins to the top of the viewport while inside the
- * Examples timeline. Three pills (Content, Growth, Growth+) animate on/off
- * as the active sub-section's scope changes.
+ * Examples timeline. Three pills (full plan names) animate on/off as the
+ * active sub-section's scope changes. Each pill links to its option summary.
+ *
+ * Tracks the same scroll-direction logic as CateyHeader so when the main
+ * header is hidden, this indicator slides up to sit at the top instead of
+ * leaving an awkward gap.
  */
 export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props) {
   const { t, isAr } = useCateyT();
   const e = t.examples;
 
-  const pills: { key: "content" | "growth" | "plus"; label: string; visible: boolean }[] = [
-    { key: "content", label: e.pills.content, visible: scope === "all" },
-    { key: "growth", label: e.pills.growth, visible: scope === "all" || scope === "growthAndPlus" },
-    { key: "plus", label: e.pills.growthPlus, visible: true },
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const last = lastY.current;
+      if (y < 80) setHeaderHidden(false);
+      else if (y > last + 6) setHeaderHidden(true);
+      else if (y < last - 6) setHeaderHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const pills: {
+    key: "content" | "growth" | "plus";
+    label: string;
+    href: string;
+    visible: boolean;
+  }[] = [
+    {
+      key: "content",
+      label: e.pills.content,
+      href: "#option-1",
+      visible: scope === "all",
+    },
+    {
+      key: "growth",
+      label: e.pills.growth,
+      href: "#option-2",
+      visible: scope === "all" || scope === "growthAndPlus",
+    },
+    {
+      key: "plus",
+      label: e.pills.growthPlus,
+      href: "#option-3",
+      visible: true,
+    },
   ];
 
   return (
     <div
-      className="sticky top-20 z-30 sm:top-24"
+      className={`sticky z-30 transition-[top] duration-300 ease-out ${
+        headerHidden ? "top-2 sm:top-3" : "top-10 sm:top-12"
+      }`}
       dir={isAr ? "rtl" : "ltr"}
       aria-hidden={false}
     >
@@ -45,18 +88,21 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
             <AnimatePresence initial={false} mode="popLayout">
               {pills.map((p) =>
                 p.visible ? (
-                  <motion.span
+                  <motion.a
                     key={p.key}
+                    href={p.href}
                     layout
                     initial={{ opacity: 0, scale: 0.8, width: 0 }}
                     animate={{ opacity: 1, scale: 1, width: "auto" }}
                     exit={{ opacity: 0, scale: 0.8, width: 0 }}
                     transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
-                    className="inline-flex items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-3 py-1.5 text-xs font-semibold text-[#D26B49] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762] sm:px-3.5 sm:text-sm"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="inline-flex items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-3 py-1.5 text-xs font-semibold text-[#D26B49] transition-colors hover:bg-[#FCD7C4] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762] dark:hover:bg-[#F08762]/25 sm:px-3.5 sm:text-sm"
                   >
                     <span aria-hidden className="text-[11px]">✓</span>
                     {p.label}
-                  </motion.span>
+                  </motion.a>
                 ) : null,
               )}
             </AnimatePresence>

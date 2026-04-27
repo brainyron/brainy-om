@@ -160,9 +160,9 @@ export const cateyTranslations = {
       includedIn: "Included in:",
       ofLabel: "of",
       pills: {
-        content: "Content",
-        growth: "Growth",
-        growthPlus: "Growth+",
+        content: "Content Partner",
+        growth: "Growth Partner",
+        growthPlus: "Growth Partner Plus",
       },
       sections: {
         reels: {
@@ -863,9 +863,9 @@ export const cateyTranslations = {
       includedIn: "مشمول في:",
       ofLabel: "من",
       pills: {
-        content: "محتوى",
-        growth: "نمو",
-        growthPlus: "نمو+",
+        content: "شريك المحتوى",
+        growth: "شريك النمو",
+        growthPlus: "شريك النمو بلس",
       },
       sections: {
         reels: {
