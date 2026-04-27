@@ -20,6 +20,7 @@ export const cateyConfig = {
   deliverables: {
     option1: { reels: 6, stories: 8, photos: 6, carousels: 1 },
     option2: { reels: 8, stories: 10, photos: 10, campaigns: 2 },
+    option3: { reels: 10, stories: 12, photos: 12, campaigns: 4 },
   },
 };
 
@@ -93,6 +94,155 @@ export const cateyTranslations = {
       talkFirst: "I want to talk first",
       sample: "Sample preview. Your real numbers will replace these.",
       backToTop: "Back to top",
+    },
+    summary: {
+      eyebrow: "What you get",
+      title: "Three condensed offers",
+      sub: "A quick read on each option. The full set of deliverables is below.",
+      chooseThis: "Choose this",
+      recommended: "Recommended",
+      option1: {
+        description:
+          "Steady monthly content for Catey. Pumo, products, and a light touch on the clinic. We post, you focus on running the shop.",
+        bullets: [
+          "6 reels per month, edited and ready",
+          "8 story sets and 6 edited photos",
+          "Basic captions and one carousel",
+          "Simple monthly content plan",
+          "Light clinic and service mentions",
+        ],
+        visualLabel: "A taste of the photo style",
+      },
+      option2: {
+        description:
+          "Content with a real plan behind it. Every month gets a clear direction, two campaigns, and a simple report so you actually know what is working.",
+        bullets: [
+          "8 reels, 10 story sets, 10 photos",
+          "Monthly content strategy with a theme",
+          "Two campaigns per month with promo codes",
+          "Vet content, story types library, giveaways",
+          "Pumo as a soft brand ambassador",
+          "Simple monthly performance report",
+        ],
+        visualLabel: "A campaign idea, made real",
+        promoCode: "PUMO10",
+        campaignTitle: "Pumo's Monthly Pick",
+        strategyLabel: "This month's theme",
+        strategyTheme: "Healthy Cat, Happy Home",
+      },
+      option3: {
+        description:
+          "The full system. Everything in Growth, plus a brand foundation, a redesigned website, tracking, and growth assets. We don't just create content. We build the engine around it.",
+        bullets: [
+          "Everything in Growth, with bigger volume",
+          "Brand foundation: logo system, colors, typography, patterns",
+          "Website and funnel redesign",
+          "Tracking, analytics, and a real dashboard",
+          "Brand experience plus AI and automation ideas",
+          "Performance share keeps us aligned",
+          "6-month minimum, with an honest guarantee",
+        ],
+        visualLabel: "The redesigned website, live preview",
+        websiteUrl: "catey.shop",
+      },
+    },
+    examples: {
+      eyebrow: "Examples",
+      title: "Everything you'd actually receive",
+      sub: "One walkthrough of every deliverable. The pill bar at the top tells you which options include each item.",
+      includedIn: "Included in:",
+      ofLabel: "of",
+      pills: {
+        content: "Content",
+        growth: "Growth",
+        growthPlus: "Growth+",
+      },
+      sections: {
+        reels: {
+          title: "Reels",
+          caption: "Short, vertical videos around Pumo and Catey products. Edited, captioned, ready to post.",
+        },
+        stories: {
+          title: "Stories",
+          caption: "Connected story frames that keep Catey present in the daily feed without feeling like ads.",
+        },
+        photos: {
+          title: "Photos",
+          caption: "Clean photos Catey can reuse on the website, WhatsApp, ads, packaging, and stories.",
+        },
+        captions: {
+          title: "Captions",
+          caption: "Simple, easy to read. Caption polish and tone tier scales with the option.",
+        },
+        monthlyPlan: {
+          title: "Monthly content plan",
+          caption: "An example month, mapped week by week. Approved before we post.",
+        },
+        storyTypes: {
+          title: "Story types library",
+          caption: "Reusable story templates so the feed never feels random.",
+        },
+        strategy: {
+          title: "Monthly content strategy",
+          caption: "One clear theme each month with focus areas and pillars.",
+        },
+        campaigns: {
+          title: "Campaign ideas",
+          caption: "Two campaigns per month, with promo codes and tracking.",
+        },
+        vet: {
+          title: "Vet content",
+          caption: "Simple Q&A topics people actually search for.",
+        },
+        giveaways: {
+          title: "Giveaway examples",
+          caption: "Funny, on-brand prompts that get real engagement.",
+        },
+        report: {
+          title: "Monthly report",
+          caption: "Short, clear, easy to read. The numbers below are samples.",
+        },
+        pumo: {
+          title: "Pumo as a soft brand ambassador",
+          caption: "A familiar face. Not a childish mascot.",
+        },
+        brand: {
+          title: "Brand foundation system",
+          caption: "Logo, colors, typography, patterns, and a simple guideline. The rules that keep Catey looking like Catey.",
+        },
+        website: {
+          title: "Website redesign",
+          caption: "A live preview of what we'd build. Better service pages, clearer products, WhatsApp everywhere.",
+        },
+        tracking: {
+          title: "Tracking and analytics",
+          caption: "Simple tracking so we always know what's working.",
+        },
+        experience: {
+          title: "Brand experience ideas",
+          caption: "How Catey feels beyond the screen. Packaging, gift boxes, customer cards, QR moments.",
+        },
+        ai: {
+          title: "AI and automation",
+          caption: "Modern but pragmatic. Only when it saves time or helps sales.",
+        },
+        performance: {
+          title: "Performance share",
+          caption: "We win when Catey wins. 12% of tracked revenue keeps us aligned.",
+        },
+        minimum: {
+          title: "6-month minimum + honest guarantee",
+          caption: "Real growth needs time. We're honest about what we can and can't promise.",
+        },
+      },
+      perOption: {
+        reels: { content: "6 / month", growth: "8 / month", growthPlus: "10 / month" },
+        stories: { content: "8 sets / month", growth: "10 sets / month", growthPlus: "12 sets / month" },
+        photos: { content: "6 / month", growth: "10 / month", growthPlus: "12 / month" },
+      },
+      contentLabel: "Content",
+      growthLabel: "Growth",
+      growthPlusLabel: "Growth+",
     },
     option1: {
       label: "Option 1",
@@ -647,6 +797,155 @@ export const cateyTranslations = {
       talkFirst: "أبغى أتكلم أولًا",
       sample: "هذي معاينة. الأرقام الحقيقية لـ Catey ستحل محلها.",
       backToTop: "للأعلى",
+    },
+    summary: {
+      eyebrow: "وش تاخذ",
+      title: "ثلاث عروض مختصرة",
+      sub: "نظرة سريعة على كل خيار. التفاصيل الكاملة تحت.",
+      chooseThis: "اختر هذا",
+      recommended: "موصى به",
+      option1: {
+        description:
+          "محتوى شهري ثابت لـ Catey. Pumo والمنتجات وذكر بسيط للعيادة. ننشر، وأنت تركز على المحل.",
+        bullets: [
+          "6 ريلز شهريًا، جاهزة للنشر",
+          "8 مجموعات ستوري و6 صور معدّلة",
+          "كابشن بسيط ومنشور كاروسيل",
+          "خطة محتوى شهرية بسيطة",
+          "ذكر خفيف للعيادة والخدمات",
+        ],
+        visualLabel: "لمحة من أسلوب الصور",
+      },
+      option2: {
+        description:
+          "محتوى مع خطة حقيقية. كل شهر اتجاه واضح، حملتين، وتقرير بسيط عشان تعرف وش يشتغل.",
+        bullets: [
+          "8 ريلز و10 مجموعات ستوري و10 صور",
+          "استراتيجية محتوى شهرية مع ثيم",
+          "حملتين شهريًا مع أكواد خصم",
+          "محتوى بيطري ومكتبة ستوري وجوائز",
+          "Pumo كسفير ناعم للعلامة",
+          "تقرير شهري بسيط للأداء",
+        ],
+        visualLabel: "فكرة حملة، مجسّدة",
+        promoCode: "PUMO10",
+        campaignTitle: "اختيار Pumo الشهري",
+        strategyLabel: "ثيم الشهر",
+        strategyTheme: "قط صحي، بيت سعيد",
+      },
+      option3: {
+        description:
+          "النظام الكامل. كل شيء في النمو، بالإضافة إلى أساس العلامة، موقع جديد، تتبّع، وأصول نمو. ما نسوي محتوى بس، نبني المحرّك حوله.",
+        bullets: [
+          "كل شيء في النمو، مع حجم أكبر",
+          "أساس العلامة: شعار وألوان وخطوط وأنماط",
+          "إعادة تصميم الموقع والمسار",
+          "تتبّع وتحليلات ولوحة معلومات",
+          "تجربة العلامة + أفكار AI وأتمتة",
+          "حصة الأداء تحافظ على التوافق",
+          "حد أدنى 6 شهور مع ضمان صادق",
+        ],
+        visualLabel: "الموقع الجديد، معاينة حية",
+        websiteUrl: "catey.shop",
+      },
+    },
+    examples: {
+      eyebrow: "أمثلة",
+      title: "كل شي راح تستلمه فعلًا",
+      sub: "جولة وحدة على كل التسليمات. شريط الأزرار في الأعلى يقول لك أي خيار يشمل كل بند.",
+      includedIn: "مشمول في:",
+      ofLabel: "من",
+      pills: {
+        content: "محتوى",
+        growth: "نمو",
+        growthPlus: "نمو+",
+      },
+      sections: {
+        reels: {
+          title: "الريلز",
+          caption: "فيديوهات قصيرة عمودية حول Pumo ومنتجات Catey. مونتاج وكابشن وجاهزة.",
+        },
+        stories: {
+          title: "الستوري",
+          caption: "ستوري متصلة تخلي Catey حاضرة يوميًا بدون ما تحس فيها كإعلان.",
+        },
+        photos: {
+          title: "الصور",
+          caption: "صور نظيفة تستخدمها Catey في الموقع وواتساب والإعلانات والتغليف والستوري.",
+        },
+        captions: {
+          title: "الكابشن",
+          caption: "بسيط وسهل القراءة. مستوى الكابشن يكبر مع الخيار.",
+        },
+        monthlyPlan: {
+          title: "خطة المحتوى الشهرية",
+          caption: "مثال شهر أسبوع بأسبوع. توافق عليه قبل النشر.",
+        },
+        storyTypes: {
+          title: "مكتبة أنواع الستوري",
+          caption: "قوالب ستوري متكررة عشان الفيد ما يحس بعشوائية.",
+        },
+        strategy: {
+          title: "استراتيجية المحتوى الشهرية",
+          caption: "ثيم واضح كل شهر مع تركيز وركائز.",
+        },
+        campaigns: {
+          title: "أفكار الحملات",
+          caption: "حملتين شهريًا مع أكواد خصم وتتبّع.",
+        },
+        vet: {
+          title: "محتوى بيطري",
+          caption: "أسئلة وأجوبة بسيطة يبحث عنها الناس.",
+        },
+        giveaways: {
+          title: "أمثلة الجوائز",
+          caption: "محفّزات مضحكة تناسب العلامة وتجيب تفاعل حقيقي.",
+        },
+        report: {
+          title: "التقرير الشهري",
+          caption: "قصير وواضح وسهل القراءة. الأرقام عينة.",
+        },
+        pumo: {
+          title: "Pumo سفير ناعم للعلامة",
+          caption: "وجه مألوف. مو تميمة طفولية.",
+        },
+        brand: {
+          title: "نظام أساس العلامة",
+          caption: "شعار وألوان وخطوط وأنماط ودليل. القواعد اللي تخلي Catey تبان مثل Catey.",
+        },
+        website: {
+          title: "إعادة تصميم الموقع",
+          caption: "معاينة حية لما ممكن نبنيه. صفحات خدمات وواتساب في كل مكان.",
+        },
+        tracking: {
+          title: "التتبّع والتحليلات",
+          caption: "تتبّع بسيط عشان نعرف وش يشتغل.",
+        },
+        experience: {
+          title: "أفكار تجربة العلامة",
+          caption: "كيف تحس Catey خارج الشاشة. تغليف وصناديق وبطاقات وQR.",
+        },
+        ai: {
+          title: "AI وأتمتة",
+          caption: "حديث لكن واقعي. بس لما يوفر وقت أو يساعد المبيعات.",
+        },
+        performance: {
+          title: "حصة الأداء",
+          caption: "نكسب لما Catey تكسب. 12% من الإيرادات المتتبَّعة.",
+        },
+        minimum: {
+          title: "حد أدنى 6 شهور + ضمان صادق",
+          caption: "النمو الحقيقي يحتاج وقت. صادقين فيما نقدر وما نقدر نضمنه.",
+        },
+      },
+      perOption: {
+        reels: { content: "6 / شهر", growth: "8 / شهر", growthPlus: "10 / شهر" },
+        stories: { content: "8 مجموعات / شهر", growth: "10 مجموعات / شهر", growthPlus: "12 مجموعة / شهر" },
+        photos: { content: "6 / شهر", growth: "10 / شهر", growthPlus: "12 / شهر" },
+      },
+      contentLabel: "محتوى",
+      growthLabel: "نمو",
+      growthPlusLabel: "نمو+",
     },
     option1: {
       label: "الخيار الأول",
