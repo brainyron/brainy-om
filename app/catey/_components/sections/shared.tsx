@@ -175,8 +175,11 @@ export function IncludesGrid({
   );
 }
 
-// All 5 catey reels in /public/catey/reels.
+// Catey reels in /public/catey/reels.
 const ALL_REELS = [
+  "/catey/reels/reel-00.mp4",
+  "/catey/reels/reel-06.mp4",
+  "/catey/reels/reel-07.mp4",
   "/catey/reels/reel-01.mp4",
   "/catey/reels/reel-02.mp4",
   "/catey/reels/reel-03.mp4",
@@ -223,12 +226,27 @@ export function ReelTilesGrid({
 }
 
 // Phone-frame mock for vertical 9:16 imagery (story sets / giveaways).
+// If src points at a video file, renders an autoplay muted loop instead.
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
+  const isVideo = /\.(mp4|webm|mov)$/i.test(src);
   return (
     <div className="mx-auto w-full max-w-[280px]">
       <div className="relative overflow-hidden rounded-[2rem] border border-[#1F1A14]/15 bg-[#1F1A14] p-1.5 shadow-xl shadow-[#1F1A14]/10 dark:border-white/15">
         <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem] bg-black">
-          <Image src={src} alt={alt} fill sizes="280px" className="object-cover" />
+          {isVideo ? (
+            <video
+              src={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={alt}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <Image src={src} alt={alt} fill sizes="280px" className="object-cover" />
+          )}
         </div>
       </div>
     </div>

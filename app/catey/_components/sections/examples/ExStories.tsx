@@ -22,6 +22,9 @@ export function ExStories({ index }: { index: number }) {
       <StoryShowcase
         title=""
         images={[
+          { src: "/catey/stories/story-anim-01.mp4", label: isAr ? "ستوري متحرك" : "Animated story" },
+          { src: "/catey/stories/story-03.jpg", label: isAr ? "ستوري لحظة" : "Moment story" },
+          { src: "/catey/stories/story-04.jpg", label: isAr ? "ستوري منتج" : "Product story" },
           { src: "/catey/stories/story-sets-01.jpg", label: isAr ? "مجموعة ستوري عناية" : "Care story set" },
           { src: "/catey/stories/story-sets-02.jpg", label: isAr ? "مجموعة ستوري منتج" : "Product story set" },
         ]}
