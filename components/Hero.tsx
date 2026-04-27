@@ -204,9 +204,9 @@ export function Hero() {
               {/* Partner logo strip — quiet social proof above the headline */}
               <motion.div
                 className="flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-4 w-full"
-                style={{ filter: 'invert(1)', opacity: 0.55 }}
+                style={{ filter: 'invert(1)', opacity: 0.75 }}
                 initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 0.55, y: 0 }}
+                animate={{ opacity: 0.75, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.05 }}
                 aria-label="Trusted by"
               >
@@ -217,7 +217,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-6 md:h-7 w-auto object-contain select-none"
+                  className="h-10 md:h-12 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -226,7 +226,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-6 md:h-7 w-auto object-contain select-none"
+                  className="h-10 md:h-12 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -235,7 +235,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-6 md:h-7 w-auto object-contain select-none"
+                  className="h-10 md:h-12 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -244,7 +244,7 @@ export function Hero() {
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="h-6 md:h-7 w-auto object-contain select-none"
+                  className="h-10 md:h-12 w-auto object-contain select-none"
                 />
               </motion.div>
 
