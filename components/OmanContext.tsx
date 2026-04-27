@@ -172,6 +172,14 @@ const GridCell = memo(function GridCell({
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   };
 
+  // Lightened glow tokens — keeps system identity, removes the haze
+  const liftShadow = isWhiteSystem
+    ? '0 0 10px 1px rgba(255, 255, 255, 0.45), 0 0 20px 3px rgba(255, 255, 255, 0.2)'
+    : `0 0 10px 1px ${hexToRgba(color, 0.45)}, 0 0 20px 3px ${hexToRgba(color, 0.2)}`;
+  const liftBorder = isWhiteSystem
+    ? '1px solid rgba(255, 255, 255, 0.85)'
+    : `1px solid ${hexToRgba(color, 0.6)}`;
+
   // COMPLETED SYSTEM - permanent glow
   if (isCompletedSystem) {
     return (
@@ -179,12 +187,10 @@ const GridCell = memo(function GridCell({
         className={`[grid-area:${row}_/_${col}] place-self-stretch rounded-[4px] shrink-0 relative cursor-pointer overflow-visible`}
         style={{
           backgroundColor: color,
-          opacity: 1,
-          transform: 'scale(1.08)',
-          boxShadow: isWhiteSystem
-            ? '0 0 30px 5px rgba(255, 255, 255, 0.9), 0 0 50px 10px rgba(255, 255, 255, 0.6)'
-            : `0 0 30px 5px ${hexToRgba(color, 0.9)}, 0 0 50px 10px ${hexToRgba(color, 0.7)}`,
-          border: isWhiteSystem ? '2px solid rgba(255, 255, 255, 1)' : `1px solid ${hexToRgba(color, 0.8)}`,
+          opacity: 0.95,
+          transform: 'scale(1.04)',
+          boxShadow: liftShadow,
+          border: liftBorder,
           willChange: 'auto',
         }}
         onMouseEnter={() => onHover(row, col)}
@@ -200,12 +206,10 @@ const GridCell = memo(function GridCell({
         className={`[grid-area:${row}_/_${col}] place-self-stretch rounded-[4px] shrink-0 relative cursor-pointer overflow-visible`}
         style={{
           backgroundColor: color,
-          opacity: 1,
-          transform: 'scale(1.08)',
-          boxShadow: isWhiteSystem
-            ? '0 0 30px 5px rgba(255, 255, 255, 0.9), 0 0 50px 10px rgba(255, 255, 255, 0.6)'
-            : `0 0 30px 5px ${hexToRgba(color, 0.9)}, 0 0 50px 10px ${hexToRgba(color, 0.7)}`,
-          border: isWhiteSystem ? '2px solid rgba(255, 255, 255, 1)' : `1px solid ${hexToRgba(color, 0.8)}`,
+          opacity: 0.95,
+          transform: 'scale(1.04)',
+          boxShadow: liftShadow,
+          border: liftBorder,
           willChange: 'auto',
         }}
         onMouseEnter={() => onHover(row, col)}
@@ -214,47 +218,22 @@ const GridCell = memo(function GridCell({
     );
   }
 
-  // Currently hovered - CSS animations with system color
+  // Currently hovered
   if (isCurrentHover) {
     return (
       <div
-        className={`[grid-area:${row}_/_${col}] place-self-stretch rounded-[4px] shrink-0 relative cursor-pointer overflow-visible neon-cell-active`}
+        className={`[grid-area:${row}_/_${col}] place-self-stretch rounded-[4px] shrink-0 relative cursor-pointer overflow-visible`}
         style={{
           backgroundColor: color,
           opacity: 1,
-          transform: 'scale(1.08)',
+          transform: 'scale(1.04)',
+          boxShadow: liftShadow,
+          border: liftBorder,
           willChange: 'transform',
         }}
         onMouseEnter={() => onHover(row, col)}
         onMouseLeave={onLeave}
-      >
-        {/* Static glow layers */}
-        <div
-          className="absolute inset-[-4px] rounded-[8px] pointer-events-none"
-          style={{
-            boxShadow: isWhiteSystem
-              ? '0 0 30px 5px rgba(255, 255, 255, 0.9), 0 0 50px 10px rgba(255, 255, 255, 0.6)'
-              : `0 0 30px 5px ${hexToRgba(color, 0.9)}, 0 0 50px 10px ${hexToRgba(color, 0.7)}`,
-          }}
-        />
-        <div
-          className="absolute inset-0 rounded-[4px] pointer-events-none"
-          style={{
-            border: isWhiteSystem ? '2px solid rgba(255, 255, 255, 1)' : `1px solid ${hexToRgba(color, 0.8)}`,
-            boxShadow: isWhiteSystem
-              ? 'inset 0 0 20px rgba(255, 255, 255, 0.8)'
-              : `inset 0 0 20px ${hexToRgba(color, 0.6)}`,
-          }}
-        />
-        {/* CSS animated shimmer */}
-        <div
-          className="absolute inset-0 rounded-[4px] pointer-events-none overflow-hidden neon-shimmer"
-          style={{
-            background: 'linear-gradient(120deg, transparent 0%, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%, transparent 100%)',
-            backgroundSize: '200% 200%',
-          }}
-        />
-      </div>
+      />
     );
   }
 
@@ -265,7 +244,7 @@ const GridCell = memo(function GridCell({
       style={{
         backgroundColor: '#2c2c2c',
         opacity: baseOpacity,
-        boxShadow: neighborGlow > 0 ? `0 0 ${20 * neighborGlow}px ${systemColor ? hexToRgba(systemColor, neighborGlow * 0.7) : `rgba(0, 150, 137, ${neighborGlow * 0.7})`}` : 'none',
+        boxShadow: neighborGlow > 0 ? `0 0 ${10 * neighborGlow}px ${systemColor ? hexToRgba(systemColor, neighborGlow * 0.35) : `rgba(0, 150, 137, ${neighborGlow * 0.35})`}` : 'none',
         willChange: neighborGlow > 0 ? 'box-shadow' : 'auto',
       }}
       onMouseEnter={() => onHover(row, col)}
@@ -398,16 +377,6 @@ export function OmanContext() {
       }}
       aria-labelledby="oman-context-heading"
     >
-      <style>{`
-        @keyframes neon-shimmer {
-          0% { background-position: 0% 0%; }
-          100% { background-position: 200% 200%; }
-        }
-        .neon-shimmer {
-          animation: neon-shimmer 1s linear infinite;
-        }
-      `}</style>
-
       {/* Interactive Grid Background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <div
@@ -446,12 +415,12 @@ export function OmanContext() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               className="absolute top-[8%] left-[12%] pointer-events-none z-10"
             >
-              <div className="bg-[#C41E3A] text-white px-3 py-1.5 rounded-md shadow-lg border border-[rgba(196,30,58,0.8)]"
+              <div className="bg-[rgba(196,30,58,0.92)] text-white px-3 py-1.5 rounded-md border border-[rgba(196,30,58,0.5)] backdrop-blur-sm"
                 style={{
-                  boxShadow: '0 0 20px rgba(196, 30, 58, 0.8), 0 0 40px rgba(196, 30, 58, 0.4)',
+                  boxShadow: '0 0 8px rgba(196, 30, 58, 0.35), 0 0 16px rgba(196, 30, 58, 0.15)',
                 }}
               >
-                <div className="text-xs font-semibold">✓ Banking</div>
+                <div className="text-xs font-semibold tracking-wide">Banking</div>
               </div>
             </motion.div>
           )}
@@ -462,12 +431,12 @@ export function OmanContext() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               className="absolute top-[8%] right-[12%] pointer-events-none z-10"
             >
-              <div className="bg-[#009900] text-white px-3 py-1.5 rounded-md shadow-lg border border-[rgba(0,153,0,0.8)]"
+              <div className="bg-[rgba(0,153,0,0.92)] text-white px-3 py-1.5 rounded-md border border-[rgba(0,153,0,0.5)] backdrop-blur-sm"
                 style={{
-                  boxShadow: '0 0 20px rgba(0, 153, 0, 0.8), 0 0 40px rgba(0, 153, 0, 0.4)',
+                  boxShadow: '0 0 8px rgba(0, 153, 0, 0.35), 0 0 16px rgba(0, 153, 0, 0.15)',
                 }}
               >
-                <div className="text-xs font-semibold">✓ Telecom</div>
+                <div className="text-xs font-semibold tracking-wide">Telecom</div>
               </div>
             </motion.div>
           )}
@@ -478,12 +447,12 @@ export function OmanContext() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               className="absolute bottom-[12%] left-[42%] pointer-events-none z-10"
             >
-              <div className="bg-white text-[#1e1e1e] px-3 py-1.5 rounded-md shadow-lg border-2 border-white"
+              <div className="bg-white text-[#1e1e1e] px-3 py-1.5 rounded-md border border-white/70 backdrop-blur-sm"
                 style={{
-                  boxShadow: '0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.5)',
+                  boxShadow: '0 0 8px rgba(255, 255, 255, 0.4), 0 0 16px rgba(255, 255, 255, 0.18)',
                 }}
               >
-                <div className="text-xs font-semibold">✓ Government</div>
+                <div className="text-xs font-semibold tracking-wide">Government</div>
               </div>
             </motion.div>
           )}
@@ -500,42 +469,29 @@ export function OmanContext() {
           transition={{ duration: 0.6, delay: 0.2 }}
           dir={language === 'ar' ? 'rtl' : 'ltr'}
         >
-          {/* Interactive Game Progress Badge */}
+          {/* Progress Card — on-brand Brainy.om mono treatment */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              boxShadow: allSystemsComplete
-                ? ['0 0 20px rgba(255, 215, 0, 0.6)', '0 0 30px rgba(255, 215, 0, 0.8)', '0 0 20px rgba(255, 215, 0, 0.6)']
-                : '0 0 0px rgba(0,0,0,0)'
-            }}
-            transition={{
-              delay: 0.8,
-              duration: 0.5,
-              boxShadow: {
-                repeat: allSystemsComplete ? Infinity : 0,
-                duration: 2
-              }
-            }}
-            className={`inline-flex flex-col gap-2 px-5 py-3 rounded-xl transition-all duration-500 ${
+            initial={{ opacity: 0, scale: 0.96, y: 6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className={`inline-flex flex-col gap-2.5 min-w-[260px] px-5 py-3 rounded-2xl border backdrop-blur-md transition-colors duration-500 ${
               allSystemsComplete
-                ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500] border-2 border-[#FFD700]'
-                : 'bg-[rgba(0,150,137,0.15)] border border-[rgba(0,150,137,0.3)]'
+                ? 'bg-white/[0.06] border-white/25'
+                : 'bg-white/[0.03] border-white/10'
             }`}
             dir={language === 'ar' ? 'rtl' : 'ltr'}
           >
-            <div className="flex items-center gap-2 justify-between">
-              <span className={`text-sm font-medium transition-colors duration-500 ${
-                allSystemsComplete ? 'text-[#1e1e1e]' : 'text-[#009689]'
-              }`}>
-                {allSystemsComplete
-                  ? `🏆 ${t.masterBuilder}`
-                  : `⚡ ${t.buildSystems}`}
+            <div className="flex items-center gap-3 justify-between">
+              <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white/85">
+                <span
+                  className={`inline-block h-1.5 w-1.5 rounded-full transition-colors duration-500 ${
+                    allSystemsComplete ? 'bg-white' : 'bg-white/40'
+                  }`}
+                  aria-hidden="true"
+                />
+                {allSystemsComplete ? t.masterBuilder : t.buildSystems}
               </span>
-              <span className={`text-xs transition-colors duration-500 ${
-                allSystemsComplete ? 'text-[#1e1e1e]' : 'text-[rgba(255,255,255,0.5)]'
-              }`}>
+              <span className="font-mono text-[11px] tabular-nums text-white/55">
                 {language === 'ar'
                   ? `3/${completedSystems.size}`
                   : `${completedSystems.size}/3`}
@@ -543,13 +499,9 @@ export function OmanContext() {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-1.5 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
+            <div className="w-full h-[3px] bg-white/[0.08] rounded-full overflow-hidden">
               <motion.div
-                className={`h-full rounded-full transition-colors duration-500 ${
-                  allSystemsComplete
-                    ? 'bg-[#1e1e1e]'
-                    : 'bg-[#009689]'
-                }`}
+                className="h-full rounded-full bg-white"
                 initial={{ width: 0 }}
                 animate={{ width: `${(completedSystems.size / 3) * 100}%` }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -573,21 +525,22 @@ export function OmanContext() {
         </motion.div>
       </div>
 
-      {/* Celebration Animation */}
+      {/* Celebration toast — quiet brand-aligned variant */}
       {showCelebration && (
         <motion.div
-          className="absolute bottom-[15%] left-1/2 transform -translate-x-1/2 pointer-events-none z-20"
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          className="absolute bottom-[12%] left-1/2 transform -translate-x-1/2 pointer-events-none z-20"
+          initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          transition={{ duration: 0.5 }}
+          exit={{ opacity: 0, scale: 0.96, y: 12 }}
+          transition={{ duration: 0.4 }}
         >
-          <div className="bg-gradient-to-r from-[#00d4aa] to-[#009689] text-white px-8 py-4 rounded-2xl shadow-2xl border-2 border-[#00d4aa]"
+          <div
+            className="bg-white/[0.06] text-white px-5 py-3 rounded-2xl border border-white/15 backdrop-blur-md font-mono text-[12px] uppercase tracking-[0.2em]"
             style={{
-              boxShadow: '0 0 40px rgba(0, 212, 170, 0.9), 0 0 80px rgba(0, 150, 137, 0.6), 0 10px 30px rgba(0,0,0,0.3)',
+              boxShadow: '0 0 16px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0,0,0,0.35)',
             }}
           >
-            <div className="text-2xl font-bold tracking-wide">🎉 All Systems Complete! 🎉</div>
+            All systems online
           </div>
         </motion.div>
       )}
