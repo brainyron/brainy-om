@@ -92,7 +92,7 @@ export function CateyOption1() {
             className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-[#1F1A14]/10 bg-[#FFF8F0] shadow-xl shadow-[#1F1A14]/5 dark:border-white/10"
           >
             <Image
-              src="/catey/photos/lifestyle.jpg"
+              src="/catey/photos/product-reaction.jpg"
               alt={s.visualLabel}
               fill
               sizes="(min-width: 1024px) 480px, 100vw"

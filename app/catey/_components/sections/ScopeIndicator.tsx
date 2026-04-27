@@ -75,16 +75,16 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
       dir={isAr ? "rtl" : "ltr"}
       aria-hidden={false}
     >
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto flex w-full max-w-7xl justify-center px-3 sm:px-6">
         <motion.div
           layout
-          className="mx-auto flex w-full max-w-3xl flex-wrap items-center gap-3 rounded-full border border-[#1F1A14]/10 bg-white/90 px-4 py-3 shadow-md shadow-[#1F1A14]/5 backdrop-blur-md sm:gap-4 sm:px-6 sm:py-3.5 dark:border-white/10 dark:bg-[#1F1A14]/90"
+          className="scrollbar-hide flex w-fit max-w-full items-center gap-2 overflow-x-auto rounded-full border border-[#1F1A14]/10 bg-white/90 px-3 py-2.5 shadow-md shadow-[#1F1A14]/5 backdrop-blur-md sm:gap-4 sm:px-6 sm:py-3.5 dark:border-white/10 dark:bg-[#1F1A14]/90"
         >
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3A322A]/65 sm:text-xs dark:text-white/55">
+          <span className="hidden whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3A322A]/65 sm:inline sm:text-xs dark:text-white/55">
             {e.includedIn}
           </span>
 
-          <motion.div layout className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+          <motion.div layout className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
             <AnimatePresence initial={false} mode="popLayout">
               {pills.map((p) =>
                 p.visible ? (
@@ -98,9 +98,9 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
                     transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-3 py-1.5 text-xs font-semibold text-[#D26B49] transition-colors hover:bg-[#FCD7C4] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762] dark:hover:bg-[#F08762]/25 sm:px-3.5 sm:text-sm"
+                    className="inline-flex items-center gap-1 overflow-hidden whitespace-nowrap rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-2.5 py-1 text-[11px] font-semibold text-[#D26B49] transition-colors hover:bg-[#FCD7C4] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762] dark:hover:bg-[#F08762]/25 sm:gap-1.5 sm:px-3.5 sm:py-1.5 sm:text-sm"
                   >
-                    <span aria-hidden className="text-[11px]">✓</span>
+                    <span aria-hidden className="text-[10px] sm:text-[11px]">✓</span>
                     {p.label}
                   </motion.a>
                 ) : null,
@@ -108,20 +108,20 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
             </AnimatePresence>
           </motion.div>
 
-          <span className="ms-auto flex items-center gap-2.5 ps-1">
+          <span className="flex shrink-0 items-center gap-2.5 ps-1">
             {activeTitle ? (
               <motion.span
                 key={activeTitle}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                className="hidden max-w-[180px] truncate text-xs font-medium text-[#1F1A14] sm:inline-block sm:max-w-[260px] sm:text-sm dark:text-white/85"
+                className="hidden max-w-[260px] truncate text-sm font-medium text-[#1F1A14] sm:inline-block dark:text-white/85"
               >
                 {activeTitle}
               </motion.span>
             ) : null}
-            <span className="font-mono text-[11px] tabular-nums text-[#3A322A]/65 sm:text-xs dark:text-white/55">
-              {activeIndex} {e.ofLabel} {total}
+            <span className="whitespace-nowrap font-mono text-[10px] tabular-nums text-[#3A322A]/65 sm:text-xs dark:text-white/55">
+              {activeIndex}/{total}
             </span>
           </span>
         </motion.div>

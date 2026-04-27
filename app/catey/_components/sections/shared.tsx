@@ -269,15 +269,15 @@ export function StoryShowcase({
       <motion.div
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.1 }}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-        className="mt-6 grid gap-6 sm:grid-cols-2"
+        className="scrollbar-hide -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-0 sm:gap-6 sm:px-0"
       >
         {images.map((img) => (
           <motion.div
             key={img.src}
             variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-            className="flex flex-col items-center gap-3"
+            className="flex w-[260px] flex-none snap-center flex-col items-center gap-3 sm:w-[280px]"
           >
             <PhoneFrame src={img.src} alt={img.label} />
             <p className="text-center text-xs text-[#3A322A]/70 dark:text-white/60">{img.label}</p>
