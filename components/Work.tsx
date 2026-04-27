@@ -35,7 +35,7 @@ const PROJECTS: Project[] = [
     id: "basis",
     name: "Basis",
     image:
-      "https://cdn.brainy.ink/ink/figma/d31b195eb2075324f9702b799c2de8ef7b474080.png",
+      "https://cdn.brainy.ink/ink/figma/d778abcc7b2abba0803a8c29a54280dc34f7b1ab.png",
     href: "https://brainy.ink/hire/case-study?project=basis",
   },
   {

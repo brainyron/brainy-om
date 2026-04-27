@@ -187,14 +187,14 @@ export function Hero() {
       
       {/* Content */}
       <div className="relative">
-        <div className="flex flex-row items-center justify-center min-h-[700px]">
-          <div 
+        <div className="flex flex-row items-center justify-center min-h-[860px]">
+          <div
             className="content-stretch flex items-center justify-center relative w-full"
-            style={{ 
-              paddingLeft: 'var(--spacing-md)', 
+            style={{
+              paddingLeft: 'var(--spacing-md)',
               paddingRight: 'var(--spacing-md)',
-              paddingTop: 'var(--spacing-4xl)',
-              paddingBottom: 'var(--spacing-5xl)'
+              paddingTop: 'calc(var(--spacing-5xl) + 24px)',
+              paddingBottom: 'calc(var(--spacing-5xl) + 32px)'
             }}
           >
             <div
@@ -204,9 +204,9 @@ export function Hero() {
               {/* Partner logo strip — quiet social proof above the headline */}
               <motion.div
                 className="grid grid-cols-4 items-center justify-items-center gap-x-6 md:gap-x-12 w-full"
-                style={{ opacity: 0.85 }}
+                style={{ opacity: 0.55 }}
                 initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 0.85, y: 0 }}
+                animate={{ opacity: 0.55, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.05 }}
                 aria-label="Trusted by"
               >
