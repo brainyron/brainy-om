@@ -203,48 +203,48 @@ export function Hero() {
             >
               {/* Partner logo strip — quiet social proof above the headline */}
               <motion.div
-                className="grid grid-cols-4 items-center justify-items-center gap-x-3 md:gap-x-8 w-full"
-                style={{ filter: 'invert(1)', opacity: 0.75 }}
+                className="grid grid-cols-4 items-center justify-items-center gap-x-6 md:gap-x-12 w-full"
+                style={{ opacity: 0.85 }}
                 initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 0.75, y: 0 }}
+                animate={{ opacity: 0.85, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.05 }}
                 aria-label="Trusted by"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://cdn.brainy.ink/ink/media/partners/3608c4b5bb45-W-10.png"
+                  src="/partners/wix.svg"
                   alt="Wix"
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
+                  className="h-10 md:h-14 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://cdn.brainy.ink/ink/media/partners/20c597caf6d8-W-2.png"
+                  src="/partners/cab.svg"
                   alt="Cairo Amman Bank"
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
+                  className="h-10 md:h-14 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://cdn.brainy.ink/ink/media/partners/e1e4467d9f04-W-6.png"
+                  src="/partners/flop.svg"
                   alt="FLOP"
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
+                  className="h-10 md:h-14 w-auto object-contain select-none"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://cdn.brainy.ink/ink/media/partners/ca8db81d7cc2-W-7.png"
+                  src="/partners/budy.svg"
                   alt="Budy"
                   loading="lazy"
                   decoding="async"
                   draggable={false}
-                  className="max-h-32 md:max-h-44 max-w-full w-auto h-auto object-contain select-none"
+                  className="h-10 md:h-14 w-auto object-contain select-none"
                 />
               </motion.div>
 
