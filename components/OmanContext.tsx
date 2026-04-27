@@ -482,7 +482,7 @@ export function OmanContext() {
             dir={language === 'ar' ? 'rtl' : 'ltr'}
           >
             <div className="flex items-center gap-3 justify-between">
-              <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white/85">
+              <span className="flex items-center gap-2 text-[12px] font-medium tracking-[0.04em] text-white/85">
                 <span
                   className={`inline-block h-1.5 w-1.5 rounded-full transition-colors duration-500 ${
                     allSystemsComplete ? 'bg-white' : 'bg-white/40'
@@ -491,7 +491,7 @@ export function OmanContext() {
                 />
                 {allSystemsComplete ? t.masterBuilder : t.buildSystems}
               </span>
-              <span className="font-mono text-[11px] tabular-nums text-white/55">
+              <span className="text-[12px] tabular-nums text-white/55">
                 {language === 'ar'
                   ? `3/${completedSystems.size}`
                   : `${completedSystems.size}/3`}
@@ -535,7 +535,7 @@ export function OmanContext() {
           transition={{ duration: 0.4 }}
         >
           <div
-            className="bg-white/[0.06] text-white px-5 py-3 rounded-2xl border border-white/15 backdrop-blur-md font-mono text-[12px] uppercase tracking-[0.2em]"
+            className="bg-white/[0.06] text-white px-5 py-3 rounded-2xl border border-white/15 backdrop-blur-md text-[13px] font-medium tracking-[0.02em]"
             style={{
               boxShadow: '0 0 16px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0,0,0,0.35)',
             }}
