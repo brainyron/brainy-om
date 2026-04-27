@@ -6,19 +6,11 @@ import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations } from "../../../../translations/catey";
 
-const REELS = [
-  "/catey/reels/reel-00.mp4",
-  "/catey/reels/reel-01.mp4",
-  "/catey/reels/reel-02.mp4",
-  "/catey/reels/reel-03.mp4",
-  "/catey/reels/reel-04.mp4",
-  "/catey/reels/reel-05.mp4",
-];
+const HERO_REEL = "/catey/reels/reel-00.mp4";
 
 export function CateyHero() {
   const { language } = useLanguage();
   const t = cateyTranslations[language].hero;
-  const [idx, setIdx] = useState(0);
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -26,20 +18,17 @@ export function CateyHero() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = muted;
-    v.load();
     v.play().catch(() => {
-      // Autoplay can be blocked when unmuted. Fall back to muted state.
+      // Autoplay can be blocked when unmuted. Fall back to muted.
       if (!muted) {
         setMuted(true);
         v.muted = true;
         v.play().catch(() => {
-          // Still blocked; leave the poster.
+          // Still blocked. Leave the poster visible.
         });
       }
     });
-  }, [idx, muted]);
-
-  const handleEnded = () => setIdx((i) => (i + 1) % REELS.length);
+  }, [muted]);
 
   const toggleMute = () => setMuted((m) => !m);
 
@@ -92,19 +81,18 @@ export function CateyHero() {
         >
           <video
             ref={videoRef}
-            key={idx}
-            src={REELS[idx]}
+            src={HERO_REEL}
             autoPlay
             muted={muted}
+            loop
             playsInline
             preload="auto"
-            onEnded={handleEnded}
             className="absolute inset-0 h-full w-full object-cover"
             poster="/catey/brand/pumo-hero.png"
           />
         </button>
 
-        {/* Mute / unmute icon — visual feedback for the click target */}
+        {/* Mute / unmute icon */}
         <motion.div
           key={`icon-${muted}`}
           initial={{ opacity: 0, scale: 0.85 }}
@@ -115,17 +103,6 @@ export function CateyHero() {
         >
           {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
         </motion.div>
-
-        {/* Reel index dots */}
-        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
-          {REELS.map((_, i) => (
-            <span
-              key={i}
-              className="h-1 w-6 rounded-full bg-white/30 transition-all duration-300"
-              style={{ backgroundColor: i === idx ? "rgba(255,255,255,0.85)" : undefined }}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );

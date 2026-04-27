@@ -125,8 +125,8 @@ export function CateyOption2() {
               <div className="relative aspect-[4/5] w-full bg-[#FFF8F0] dark:bg-[#0F0C0A]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/catey/giveaways/giveaway-01.jpg"
-                  alt={isAr ? "صندوق هدية بومو" : "Pumo gift box example"}
+                  src="/catey/option-3/giveaway-ideas.jpg"
+                  alt={isAr ? "صندوق هدية Catey مع منتجات بومو" : "Catey-branded gift box with Pumo products"}
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"
