@@ -40,7 +40,18 @@ export function CateyFinalCta() {
           <div className="mt-6 flex items-center justify-center gap-3 text-[#3A322A]/70 dark:text-white/70">
             <CateyLogo className="h-6 w-auto sm:h-7" />
             <span className="text-xl font-light text-[#3A322A]/40 dark:text-white/40">×</span>
-            <span className="text-lg font-semibold tracking-tight sm:text-xl">Brainy</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/brainy-dark.svg"
+              alt="Brainy"
+              className="h-5 w-auto sm:h-6 dark:hidden"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/brainy-light.svg"
+              alt="Brainy"
+              className="hidden h-5 w-auto sm:h-6 dark:block"
+            />
           </div>
         </motion.div>
 

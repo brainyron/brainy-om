@@ -29,11 +29,7 @@ export function CateyComparison() {
   return (
     <section
       id="options"
-      className="relative scroll-mt-24 px-4 py-14 sm:px-6 sm:py-20"
-      style={{
-        background:
-          "linear-gradient(180deg, transparent 0%, #FFF8F0 25%, #FFF8F0 75%, transparent 100%)",
-      }}
+      className="relative scroll-mt-24 px-4 py-14 sm:px-6 sm:py-20 bg-[linear-gradient(180deg,transparent_0%,#FFF8F0_25%,#FFF8F0_75%,transparent_100%)] dark:bg-[linear-gradient(180deg,transparent_0%,#161310_25%,#161310_75%,transparent_100%)]"
     >
       <div className="mx-auto w-full max-w-6xl">
         <motion.div

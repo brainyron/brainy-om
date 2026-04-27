@@ -17,7 +17,18 @@ export function CateyHeader() {
         <div className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground sm:text-base">
           <CateyLogo className="h-5 w-auto sm:h-6" />
           <span className="text-foreground/40">×</span>
-          <span>Brainy</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/brainy-dark.svg"
+            alt="Brainy"
+            className="h-4 w-auto sm:h-5 dark:hidden"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/brainy-light.svg"
+            alt="Brainy"
+            className="hidden h-4 w-auto sm:h-5 dark:block"
+          />
         </div>
         <div className="flex items-center gap-2">
           <LanguageToggle />
