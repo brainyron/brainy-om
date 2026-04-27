@@ -25,60 +25,21 @@ export function CateyHero() {
     if (!v) return;
     v.load();
     v.play().catch(() => {
-      // Autoplay can be blocked. Stay silent; poster image carries the moment.
+      // Autoplay can be blocked. Silent failure; poster carries the moment.
     });
   }, [idx]);
 
   const handleEnded = () => setIdx((i) => (i + 1) % REELS.length);
 
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* Blurred backdrop fill so vertical reels never letterbox */}
-      <video
-        key={`bg-${idx}`}
-        src={REELS[idx]}
-        autoPlay
-        muted
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl brightness-50 saturate-125"
-        aria-hidden="true"
-      />
-
-      {/* Foreground reel, contained so the full vertical frame reads */}
-      <video
-        ref={videoRef}
-        key={`fg-${idx}`}
-        src={REELS[idx]}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        onEnded={handleEnded}
-        className="absolute inset-0 m-auto h-full w-auto max-w-none object-contain sm:h-full"
-        poster="/catey/brand/pumo-hero.png"
-      />
-
-      {/* Legibility overlay */}
-      <div
-        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,transparent_0%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.85)_100%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/55 to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/85 to-transparent"
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center sm:px-6">
+    <section className="relative h-[100svh] w-full overflow-hidden grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 bg-[#FFF8F0] dark:bg-[#0F0C0A]">
+      {/* Text side */}
+      <div className="relative order-2 flex h-full flex-col justify-center px-6 py-10 sm:px-10 md:order-1 md:px-12 lg:px-16 xl:px-20">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="text-balance text-5xl font-semibold leading-[1.05] tracking-tight text-white drop-shadow-2xl sm:text-6xl md:text-7xl lg:text-8xl"
+          transition={{ duration: 0.8, delay: 0.05, ease: "easeOut" }}
+          className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-[#1F1A14] sm:text-5xl md:text-6xl lg:text-7xl dark:text-white"
         >
           {t.headline}
         </motion.h1>
@@ -86,8 +47,8 @@ export function CateyHero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="mt-6 max-w-2xl text-base text-white/85 drop-shadow-lg sm:text-lg md:text-xl"
+          transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+          className="mt-5 max-w-md text-base text-[#3A322A]/80 sm:text-lg md:text-xl dark:text-white/70"
         >
           {t.sub}
         </motion.p>
@@ -96,8 +57,8 @@ export function CateyHero() {
           href="#options"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="absolute bottom-8 inline-flex flex-col items-center gap-2 text-xs uppercase tracking-[0.22em] text-white/65 transition hover:text-white sm:text-sm"
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="mt-10 inline-flex w-fit items-center gap-2 text-xs uppercase tracking-[0.22em] text-[#D26B49] transition hover:text-[#1F1A14] sm:text-sm dark:text-[#F08762] dark:hover:text-white"
         >
           {t.scrollCue}
           <motion.span
@@ -109,15 +70,31 @@ export function CateyHero() {
         </motion.a>
       </div>
 
-      {/* Reel index dots — subtle, bottom-right */}
-      <div className="absolute bottom-8 right-6 z-10 hidden gap-1.5 sm:flex">
-        {REELS.map((_, i) => (
-          <span
-            key={i}
-            className="h-1 w-6 rounded-full bg-white/25 transition-all duration-300"
-            style={{ backgroundColor: i === idx ? "rgba(255,255,255,0.85)" : undefined }}
-          />
-        ))}
+      {/* Video side */}
+      <div className="relative order-1 h-full w-full overflow-hidden bg-black md:order-2">
+        <video
+          ref={videoRef}
+          key={idx}
+          src={REELS[idx]}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onEnded={handleEnded}
+          className="absolute inset-0 h-full w-full object-cover"
+          poster="/catey/brand/pumo-hero.png"
+        />
+
+        {/* Reel index dots */}
+        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+          {REELS.map((_, i) => (
+            <span
+              key={i}
+              className="h-1 w-6 rounded-full bg-white/30 transition-all duration-300"
+              style={{ backgroundColor: i === idx ? "rgba(255,255,255,0.85)" : undefined }}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

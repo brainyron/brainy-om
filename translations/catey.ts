@@ -7,11 +7,18 @@ export const cateyConfig = {
   whatsappNumber: "96892602691",
   prices: {
     option1: { monthly: 480, currency: "OMR" },
-    option2: { monthly: 975, monthlyOriginal: 1300, currency: "OMR" },
+    option2: {
+      monthly: 975,
+      monthlyOriginal: 1300,
+      yearlyDiscountPct: 25,
+      currency: "OMR",
+    },
     option3: {
       setup: 2500,
       monthly: 975,
       monthlyOriginal: 1300,
+      bundleOriginal: 12000,
+      yearlyDiscountPct: 25,
       performanceShare: 12,
       minimumMonths: 6,
       currency: "OMR",
