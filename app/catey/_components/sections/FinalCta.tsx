@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { useCateyT } from "./shared";
 import { whatsappLink } from "../cateyHelpers";
-import { Pumo } from "../Pumo";
+import { CateyLogo } from "../CateyLogo";
 
 export function CateyFinalCta() {
   const { t } = useCateyT();
@@ -16,12 +17,7 @@ export function CateyFinalCta() {
   ];
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        background: "radial-gradient(120% 80% at 50% 100%, #FCD7C4 0%, #FFF8F0 60%, transparent 100%)",
-      }}
-    >
+    <section className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_100%,#FCD7C4_0%,#FFF8F0_60%,transparent_100%)] dark:bg-[radial-gradient(120%_80%_at_50%_100%,#2A1D1A_0%,#1A1410_60%,transparent_100%)]">
       <div className="mx-auto w-full max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -30,7 +26,9 @@ export function CateyFinalCta() {
           transition={{ duration: 0.6 }}
         >
           <div className="mx-auto mb-4 flex justify-center">
-            <Pumo className="h-20 w-20" />
+            <div className="relative h-20 w-20 overflow-hidden rounded-full border border-[#1F1A14]/10 shadow-md dark:border-white/10">
+              <Image src="/catey/brand/pumo-hero.png" alt="Pumo" fill sizes="80px" className="object-cover" />
+            </div>
           </div>
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#1F1A14] sm:text-4xl md:text-5xl dark:text-white">
             {f.title}
@@ -38,6 +36,12 @@ export function CateyFinalCta() {
           <p className="mx-auto mt-4 max-w-xl text-base text-[#3A322A]/75 sm:text-lg dark:text-white/70">
             {f.sub}
           </p>
+
+          <div className="mt-6 flex items-center justify-center gap-3 text-[#3A322A]/70 dark:text-white/70">
+            <CateyLogo className="h-6 w-auto sm:h-7" />
+            <span className="text-xl font-light text-[#3A322A]/40 dark:text-white/40">×</span>
+            <span className="text-lg font-semibold tracking-tight sm:text-xl">Brainy</span>
+          </div>
         </motion.div>
 
         <motion.div

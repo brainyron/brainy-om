@@ -27,7 +27,7 @@ export function CateyOption1() {
           primaryLabel={`${o.priceLabel} (${cateyConfig.prices.option1.currency})`}
         />
         <IncludesGrid title={t.common.includes} items={o.includesItems} />
-        <ReelTilesGrid title={o.reels.title} sub={o.reels.sub} items={o.reels.items} />
+        <ReelTilesGrid title={o.reels.title} sub={o.reels.sub} items={o.reels.items} reelLimit={3} />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

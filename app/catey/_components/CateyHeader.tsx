@@ -3,6 +3,7 @@
 import { useLanguage } from "../../../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggle } from "./ThemeToggle";
+import { CateyLogo } from "./CateyLogo";
 
 export function CateyHeader() {
   const { isRTL } = useLanguage();
@@ -14,7 +15,7 @@ export function CateyHeader() {
     >
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <div className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground sm:text-base">
-          <span>Catey</span>
+          <CateyLogo className="h-5 w-auto sm:h-6" />
           <span className="text-foreground/40">×</span>
           <span>Brainy</span>
         </div>

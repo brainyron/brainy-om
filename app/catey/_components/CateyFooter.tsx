@@ -13,10 +13,10 @@ export function CateyFooter() {
 
   return (
     <footer
-      className="w-full border-t border-black/5 dark:border-white/5"
+      className="w-full border-t border-black/5 bg-[#FFF8F0] dark:border-white/5 dark:bg-[#161310]"
       dir={isRTL ? "rtl" : "ltr"}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 py-6 text-xs text-foreground/60 sm:py-8 sm:text-sm">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-3 px-4 py-6 text-xs text-[#3A322A]/70 sm:py-8 sm:text-sm dark:text-white/60">
         {text}
       </div>
     </footer>

@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import { Play } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations, cateyConfig } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
+import { ReelTile } from "../ReelTile";
 
 export function SectionFrame({
   id,
@@ -174,21 +175,38 @@ export function IncludesGrid({
   );
 }
 
+// All 5 catey reels in /public/catey/reels.
+const ALL_REELS = [
+  "/catey/reels/reel-01.mp4",
+  "/catey/reels/reel-02.mp4",
+  "/catey/reels/reel-03.mp4",
+  "/catey/reels/reel-04.mp4",
+  "/catey/reels/reel-05.mp4",
+];
+
 export function ReelTilesGrid({
   title,
   sub,
   items,
+  reelLimit,
 }: {
   title: string;
   sub?: string;
   items: readonly { title: string; type: string }[];
+  reelLimit?: number;
 }) {
+  // Pair each label with a reel src. If items > reels, cycle.
+  // If reelLimit is set we cap how many reels show (e.g. Option 1 shows 3).
+  const max = reelLimit ?? items.length;
+  const tiles = items.slice(0, max).map((item, i) => ({
+    ...item,
+    src: ALL_REELS[i % ALL_REELS.length],
+  }));
+
   return (
     <div>
       <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
-      {sub ? (
-        <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p>
-      ) : null}
+      {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -196,27 +214,96 @@ export function ReelTilesGrid({
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
         className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
       >
-        {items.map((item) => (
+        {tiles.map((t) => (
+          <ReelTile key={t.title} src={t.src} title={t.title} type={t.type} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+// Phone-frame mock for vertical 9:16 imagery (story sets / giveaways).
+function PhoneFrame({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="mx-auto w-full max-w-[280px]">
+      <div className="relative overflow-hidden rounded-[2rem] border border-[#1F1A14]/15 bg-[#1F1A14] p-1.5 shadow-xl shadow-[#1F1A14]/10 dark:border-white/15">
+        <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem] bg-black">
+          <Image src={src} alt={alt} fill sizes="280px" className="object-cover" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function StoryShowcase({
+  title,
+  sub,
+  images,
+}: {
+  title: string;
+  sub?: string;
+  images: readonly { src: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
+      {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
+        className="mt-6 grid gap-6 sm:grid-cols-2"
+      >
+        {images.map((img) => (
           <motion.div
-            key={item.title}
+            key={img.src}
             variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-            whileHover={{ scale: 1.02 }}
-            className="group relative aspect-[9/16] overflow-hidden rounded-2xl border border-[#1F1A14]/10 bg-gradient-to-br from-[#FCD7C4] to-[#FFE9DC] dark:border-white/10 dark:from-[#3A1E14] dark:to-[#2A1812]"
+            className="flex flex-col items-center gap-3"
           >
-            <div className="absolute inset-0 flex flex-col items-center justify-between p-3">
-              <span className="self-start rounded-full bg-white/80 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#D26B49] dark:bg-white/10 dark:text-[#F08762]">
-                Reel
-              </span>
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-[#D26B49] shadow-md transition-transform duration-300 group-hover:scale-110 dark:bg-[#1F1A14] dark:text-[#F08762]">
-                <Play className="h-5 w-5 fill-current" />
-              </span>
-              <div className="w-full space-y-1 text-center">
-                <div className="text-sm font-semibold leading-tight text-[#1F1A14] dark:text-white">
-                  {item.title}
-                </div>
-                <div className="text-[11px] text-[#3A322A]/70 dark:text-white/60">{item.type}</div>
-              </div>
+            <PhoneFrame src={img.src} alt={img.label} />
+            <p className="text-center text-xs text-[#3A322A]/70 dark:text-white/60">{img.label}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+export function GiveawayShowcase({
+  title,
+  sub,
+  images,
+}: {
+  title: string;
+  sub?: string;
+  images: readonly { src: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
+      {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
+        className="mt-6 grid gap-5 sm:grid-cols-2"
+      >
+        {images.map((img) => (
+          <motion.div
+            key={img.src}
+            variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
+            className="overflow-hidden rounded-3xl border border-[#1F1A14]/10 bg-white shadow-sm dark:border-white/10 dark:bg-white/5"
+          >
+            <div className="flex items-center gap-2 border-b border-[#1F1A14]/10 bg-[#FFF8F0] px-4 py-3 dark:border-white/10 dark:bg-white/5">
+              <span className="h-7 w-7 rounded-full bg-gradient-to-br from-[#F08762] to-[#7BB89C]" />
+              <div className="text-sm font-semibold text-[#1F1A14] dark:text-white">catey.shop</div>
             </div>
+            <div className="relative aspect-square w-full bg-[#FFF8F0] dark:bg-black">
+              <Image src={img.src} alt={img.label} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
+            </div>
+            <div className="px-4 py-3 text-xs text-[#3A322A]/70 dark:text-white/60">{img.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -264,22 +351,52 @@ export function StoryGrid({
   );
 }
 
+// Real catey photos pool. Caller passes a count; we cycle through the gallery.
+const PHOTO_POOL = [
+  "/catey/photos/edited-01.jpg",
+  "/catey/photos/edited-02.jpg",
+  "/catey/photos/edited-03.jpg",
+  "/catey/photos/edited-04.jpg",
+  "/catey/photos/edited-05.jpg",
+  "/catey/photos/lifestyle.jpg",
+  "/catey/photos/product-reaction.jpg",
+];
+
 export function PhotoGrid({
   title,
   sub,
   items,
+  feature,
 }: {
   title: string;
   sub?: string;
   items: readonly string[];
+  // Optional featured image rendered larger above the grid (Option 3 use case)
+  feature?: { src: string; alt: string };
 }) {
-  const swatches = ["#FCD7C4", "#D7EDDF", "#F4C674", "#FBEBD8", "#FFE9DC", "#E8DCC8"];
+  // Map labels to real photos by index, cycling if we have more labels than photos.
+  const tiles = items.map((label, i) => ({
+    label,
+    src: PHOTO_POOL[i % PHOTO_POOL.length],
+  }));
+
   return (
     <div>
       <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
-      {sub ? (
-        <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p>
+      {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
+
+      {feature ? (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="relative mt-5 aspect-[16/10] w-full overflow-hidden rounded-3xl border border-[#1F1A14]/10 dark:border-white/10"
+        >
+          <Image src={feature.src} alt={feature.alt} fill priority sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
+        </motion.div>
       ) : null}
+
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -287,17 +404,20 @@ export function PhotoGrid({
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
         className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
       >
-        {items.map((item, i) => (
+        {tiles.map((t) => (
           <motion.div
-            key={item}
+            key={t.src + t.label}
             variants={{ hidden: { opacity: 0, scale: 0.96 }, show: { opacity: 1, scale: 1 } }}
             whileHover={{ scale: 1.03 }}
-            className="relative aspect-square overflow-hidden rounded-2xl border border-[#1F1A14]/10 dark:border-white/10"
-            style={{ background: swatches[i % swatches.length] }}
+            className="relative aspect-square overflow-hidden rounded-2xl border border-[#1F1A14]/10 bg-[#FFF8F0] dark:border-white/10 dark:bg-black/40"
           >
-            <div className="absolute inset-0 flex items-end p-3 text-xs font-medium text-[#1F1A14]/80">
-              {item}
-            </div>
+            <Image
+              src={t.src}
+              alt={t.label}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              className="object-cover transition-transform duration-300 hover:scale-[1.04]"
+            />
           </motion.div>
         ))}
       </motion.div>

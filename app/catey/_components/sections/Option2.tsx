@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -22,16 +24,32 @@ import {
   ReelTilesGrid,
   StoryGrid,
   PhotoGrid,
+  StoryShowcase,
+  GiveawayShowcase,
   CTAButton,
   useCateyT,
 } from "./shared";
 import { cateyConfig } from "../../../../translations/catey";
 
-const palette = ["#F08762", "#7BB89C", "#F4C674", "#3A322A"];
+// Catey-aligned palette for chart series
+const palette = ["#DA9552", "#764C24", "#F8E1AC", "#100E0B"];
 
 export function CateyOption2() {
   const { t, isAr } = useCateyT();
   const o = t.option2;
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted && resolvedTheme === "dark";
+  const axisColor = isDark ? "#e5e5e5" : "#1F1A14";
+  const gridStroke = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+  const tooltipStyle = {
+    borderRadius: 12,
+    border: `1px solid ${isDark ? "rgba(255,255,255,0.12)" : "rgba(31,26,20,0.1)"}`,
+    background: isDark ? "#1F1A14" : "#fff",
+    color: isDark ? "#fff" : "#1F1A14",
+    fontSize: 12,
+  } as const;
 
   const reachData = o.report.chartLabels.weeks.map((w, i) => ({
     name: w,
@@ -58,6 +76,14 @@ export function CateyOption2() {
         <IncludesGrid title={t.common.includes} items={o.includesItems} />
         <ReelTilesGrid title={o.reels.title} sub={o.reels.sub} items={o.reels.items} />
         <StoryGrid title={o.stories.title} sub={o.stories.sub} items={o.stories.items} />
+        <StoryShowcase
+          title={isAr ? "أمثلة من ستوري حقيقية" : "Real story examples"}
+          sub={isAr ? "هذي أمثلة من ستوري سويناها لحسابات شبيهة." : "Examples of story sets we've produced for similar accounts."}
+          images={[
+            { src: "/catey/stories/story-sets-01.jpg", label: isAr ? "مجموعة ستوري عناية" : "Care story set" },
+            { src: "/catey/stories/story-sets-02.jpg", label: isAr ? "مجموعة ستوري منتج" : "Product story set" },
+          ]}
+        />
         <PhotoGrid title={o.photos.title} items={o.photos.items} />
 
         {/* Strategy */}
@@ -183,6 +209,18 @@ export function CateyOption2() {
             {o.giveaways.title}
           </h3>
           <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{o.giveaways.sub}</p>
+
+          <div className="mt-6">
+            <GiveawayShowcase
+              title={isAr ? "أمثلة جوائز" : "Giveaway examples"}
+              sub={isAr ? "أمثلة بصرية من حملات جوائز سابقة." : "Visual examples from past giveaway campaigns."}
+              images={[
+                { src: "/catey/giveaways/giveaway-01.jpg", label: isAr ? "حملة جائزة فيرال" : "Viral giveaway post" },
+                { src: "/catey/giveaways/giveaway-ideas.jpg", label: isAr ? "أفكار جوائز" : "Giveaway ideas grid" },
+              ]}
+            />
+          </div>
+
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -239,23 +277,23 @@ export function CateyOption2() {
           </div>
 
           <div className="mt-6 grid gap-5 lg:grid-cols-3">
-            <div className="rounded-2xl bg-[#FFF8F0] p-5 dark:bg-white/5">
+            <div className="rounded-2xl border border-[#1F1A14]/8 bg-[#FFF8F0] p-5 dark:border-white/8 dark:bg-white/5">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#3A322A]/60 dark:text-white/50">
                 {o.report.chartTitles.reach}
               </div>
-              <div className="mt-3 h-44">
+              <div className="mt-3 h-48">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={reachData} margin={{ left: -20, right: 8, top: 8, bottom: 0 }}>
-                    <CartesianGrid stroke="#1F1A14" strokeOpacity={0.06} vertical={false} />
-                    <XAxis dataKey="name" stroke="#1F1A14" fontSize={11} tickLine={false} axisLine={false} reversed={isAr} />
-                    <YAxis stroke="#1F1A14" fontSize={11} tickLine={false} axisLine={false} orientation={isAr ? "right" : "left"} />
-                    <Tooltip cursor={{ stroke: "#F08762", strokeOpacity: 0.2 }} contentStyle={{ borderRadius: 12, border: "1px solid rgba(31,26,20,0.1)" }} />
+                  <LineChart data={reachData} margin={{ top: 16, right: 16, bottom: 24, left: 24 }}>
+                    <CartesianGrid stroke={gridStroke} vertical={false} />
+                    <XAxis dataKey="name" tick={{ fill: axisColor, fontSize: 11 }} tickLine={false} axisLine={false} reversed={isAr} />
+                    <YAxis tick={{ fill: axisColor, fontSize: 11 }} tickLine={false} axisLine={false} orientation={isAr ? "right" : "left"} />
+                    <Tooltip cursor={{ stroke: "#DA9552", strokeOpacity: 0.25 }} contentStyle={tooltipStyle} />
                     <Line
                       type="monotone"
                       dataKey={o.report.chartLabels.reach}
-                      stroke="#F08762"
+                      stroke="#DA9552"
                       strokeWidth={2.5}
-                      dot={{ r: 4, fill: "#F08762" }}
+                      dot={{ r: 4, fill: "#DA9552" }}
                       activeDot={{ r: 6 }}
                     />
                   </LineChart>
@@ -263,17 +301,17 @@ export function CateyOption2() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-[#FFF8F0] p-5 dark:bg-white/5">
+            <div className="rounded-2xl border border-[#1F1A14]/8 bg-[#FFF8F0] p-5 dark:border-white/8 dark:bg-white/5">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#3A322A]/60 dark:text-white/50">
                 {o.report.chartTitles.posted}
               </div>
-              <div className="mt-3 h-44">
+              <div className="mt-3 h-48">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={postedData} margin={{ left: -20, right: 8, top: 8, bottom: 0 }}>
-                    <CartesianGrid stroke="#1F1A14" strokeOpacity={0.06} vertical={false} />
-                    <XAxis dataKey="name" stroke="#1F1A14" fontSize={11} tickLine={false} axisLine={false} reversed={isAr} />
-                    <YAxis stroke="#1F1A14" fontSize={11} tickLine={false} axisLine={false} orientation={isAr ? "right" : "left"} />
-                    <Tooltip cursor={{ fill: "#F08762", fillOpacity: 0.08 }} contentStyle={{ borderRadius: 12, border: "1px solid rgba(31,26,20,0.1)" }} />
+                  <BarChart data={postedData} margin={{ top: 16, right: 16, bottom: 24, left: 24 }}>
+                    <CartesianGrid stroke={gridStroke} vertical={false} />
+                    <XAxis dataKey="name" tick={{ fill: axisColor, fontSize: 11 }} tickLine={false} axisLine={false} reversed={isAr} />
+                    <YAxis tick={{ fill: axisColor, fontSize: 11 }} tickLine={false} axisLine={false} orientation={isAr ? "right" : "left"} />
+                    <Tooltip cursor={{ fill: "#DA9552", fillOpacity: 0.1 }} contentStyle={tooltipStyle} />
                     <Bar dataKey={o.report.chartLabels.posts} radius={[8, 8, 0, 0]}>
                       {postedData.map((_, i) => (
                         <Cell key={i} fill={palette[i % palette.length]} />
@@ -284,11 +322,11 @@ export function CateyOption2() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-[#FFF8F0] p-5 dark:bg-white/5">
+            <div className="rounded-2xl border border-[#1F1A14]/8 bg-[#FFF8F0] p-5 dark:border-white/8 dark:bg-white/5">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#3A322A]/60 dark:text-white/50">
                 {o.report.chartTitles.interest}
               </div>
-              <div className="mt-3 h-44">
+              <div className="mt-3 h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -305,7 +343,7 @@ export function CateyOption2() {
                         <Cell key={i} fill={palette[i % palette.length]} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid rgba(31,26,20,0.1)" }} />
+                    <Tooltip contentStyle={tooltipStyle} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>

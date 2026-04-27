@@ -31,7 +31,9 @@ export function CateyShell({ children }: { children: ReactNode }) {
       }`}
     >
       {isPreview ? null : <CateyHeader />}
-      <main className="flex-1">{children}</main>
+      {/* key by language so motion `once: true` reveals re-fire when switching languages,
+          which prevents items from staying hidden if they were scrolled past at switch time. */}
+      <main key={language} className="flex-1">{children}</main>
       {isPreview ? null : <CateyFooter />}
     </div>
   );

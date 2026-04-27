@@ -2,10 +2,11 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations } from "../../../../translations/catey";
-import { Pumo } from "../Pumo";
+import { CateyLogo } from "../CateyLogo";
 
 export function CateyHero() {
   const { language } = useLanguage();
@@ -18,11 +19,7 @@ export function CateyHero() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(120% 80% at 50% 0%, #FCD7C4 0%, #FFF8F0 55%, transparent 100%)",
-      }}
+      className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,#FCD7C4_0%,#FFF8F0_55%,transparent_100%)] dark:bg-[radial-gradient(120%_80%_at_50%_0%,#2A1D1A_0%,#1A1410_55%,transparent_100%)]"
     >
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-4 pt-12 pb-20 text-center sm:px-6 sm:pt-20 sm:pb-28 md:pt-28 md:pb-36">
         <motion.div style={{ y, opacity }} className="flex flex-col items-center">
@@ -40,7 +37,16 @@ export function CateyHero() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="my-2"
           >
-            <Pumo className="h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48" />
+            <div className="relative h-32 w-32 overflow-hidden rounded-full border border-[#1F1A14]/10 shadow-xl shadow-[#1F1A14]/15 dark:border-white/10 dark:shadow-black/40 sm:h-40 sm:w-40 md:h-48 md:w-48">
+              <Image
+                src="/catey/brand/pumo-hero.png"
+                alt="Pumo"
+                fill
+                priority
+                sizes="(min-width: 768px) 192px, 160px"
+                className="object-cover"
+              />
+            </div>
           </motion.div>
 
           <motion.h1
@@ -51,6 +57,17 @@ export function CateyHero() {
           >
             {t.headline}
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-6 flex items-center justify-center gap-3 text-[#3A322A]/80 dark:text-white/80"
+          >
+            <CateyLogo className="h-8 w-auto sm:h-9" />
+            <span className="text-2xl font-light text-[#3A322A]/40 dark:text-white/40">×</span>
+            <span className="text-xl font-semibold tracking-tight sm:text-2xl">Brainy</span>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
