@@ -106,7 +106,7 @@ export function Work() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-center text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-black leading-[1.1]"
           >
-            Projects speak <span className="text-black/40">for themselves.</span>
+            Projects speak for themselves.
           </motion.h2>
         </div>
 
