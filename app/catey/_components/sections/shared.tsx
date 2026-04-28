@@ -579,7 +579,7 @@ export function PhotoGrid({
             key={t.src + t.label}
             variants={{ hidden: { opacity: 0, scale: 0.96 }, show: { opacity: 1, scale: 1 } }}
             whileHover={{ scale: 1.03 }}
-            className="relative aspect-square overflow-hidden rounded-2xl border border-[#1F1A14]/10 bg-[#FFF8F0] dark:border-white/10 dark:bg-black/40"
+            className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[#1F1A14]/10 bg-[#FFF8F0] dark:border-white/10 dark:bg-black/40"
           >
             <Image
               src={t.src}
