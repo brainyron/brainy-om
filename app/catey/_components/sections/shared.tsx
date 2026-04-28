@@ -342,12 +342,12 @@ export function StoryShowcase({
     e.preventDefault();
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 4) drag.current.moved = true;
-    // In RTL, items lay right-to-left and scrollLeft goes negative going toward
-    // the end (Chrome/Safari/Firefox spec). Flip the sign so a left-pointer drag
-    // reveals next stories on the left, and a right-pointer drag reveals
-    // previous stories on the right, matching the user's reading direction.
-    const effectiveDx = isRTL ? -dx : dx;
-    el.scrollLeft = drag.current.startScroll - effectiveDx;
+    // The browser's scrollLeft already accounts for direction: in spec-RTL
+    // (Chrome/Safari/Firefox modern) it goes 0 to -max as you scroll toward the
+    // end, in LTR it goes 0 to +max. The same formula works for both because
+    // a right-pointing drag (dx > 0) always means "grab and pull right" which
+    // visually shifts the rail right, revealing content on the leading edge.
+    el.scrollLeft = drag.current.startScroll - dx;
     // Sample velocity from actual scrollLeft delta (after the browser clamps to
     // valid range), so a flick at the edge doesn't fly off in the projection.
     const now = performance.now();
