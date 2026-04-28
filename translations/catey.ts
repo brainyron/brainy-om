@@ -1084,7 +1084,7 @@ export const cateyTranslations = {
           "اسأل Catey عن مواعيد العناية.",
         ],
       },
-      whatsappMessage: "مرحبًا ساره! أبغى الخيار الأول، شريك المحتوى.",
+      whatsappMessage: "Hi Sareh! I want Option 1, the Content Partner.",
     },
     option2: {
       label: "الخيار الثاني",
@@ -1254,7 +1254,7 @@ export const cateyTranslations = {
         why:
           "الناس يتذكرون الحيوانات أكثر من المنتجات. بدل ما نقول 'اشترِ هذا المنتج'، يصير 'Pumo يستخدمه. Catey توفّره. حيواني ممكن يحبه.' أحلى وأقرب.",
       },
-      whatsappMessage: "مرحبًا ساره! أبغى الخيار الثاني، شريك النمو.",
+      whatsappMessage: "Hi Sareh! I want Option 2, the Growth Partner.",
     },
     option3: {
       label: "الخيار الثالث",
@@ -1426,7 +1426,7 @@ export const cateyTranslations = {
         title: "حصرية الفئة",
         body: "خلال الشراكة، ما نسوي شراكات محتوى مشابهة مع محلات أو عيادات أو منتجات حيوانات أليفة منافسة في عمان. Catey تحصل على موقع أقوى.",
       },
-      whatsappMessage: "مرحبًا ساره! أبغى الخيار الثالث، شريك النمو الكامل.",
+      whatsappMessage: "Hi Sareh! I want Option 3, the Growth Partner Plus.",
     },
     faq: {
       title: "أسئلة شائعة",

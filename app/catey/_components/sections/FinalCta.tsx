@@ -7,11 +7,11 @@ import { CateyLogo } from "../CateyLogo";
 import { optionTheme, type OptionKey } from "../optionTheme";
 
 export function CateyFinalCta() {
-  const { t, isAr } = useCateyT();
+  const { t } = useCateyT();
   const f = t.finalCta;
-  const talkFirstMessage = isAr
-    ? "مرحبًا ساره! أبغى أتكلم معاك أول."
-    : "Hi Sareh! I want to talk first.";
+  // WhatsApp messages stay English in both locales because the receiver
+  // (Sareh) doesn't read Arabic.
+  const talkFirstMessage = "Hi Sareh! I want to talk first.";
 
   const buttons: { key: OptionKey; label: string; recommended?: boolean }[] = [
     { key: "option1", label: f.buttons.opt1 },
