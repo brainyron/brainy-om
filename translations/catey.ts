@@ -744,7 +744,7 @@ export const cateyTranslations = {
     },
     finalCta: {
       title: "Pick the one that feels right",
-      sub: "We can start small and grow together. Tap an option below to message Catey on WhatsApp.",
+      sub: "We can start small and grow together. Tap an option below to message us on WhatsApp.",
       stickyMobile: "Choose Option 2 (recommended)",
       buttons: {
         opt1: "I want Option 1",
@@ -1468,7 +1468,7 @@ export const cateyTranslations = {
     },
     finalCta: {
       title: "اختر اللي يناسبك",
-      sub: "نقدر نبدأ بسيط ونكبر سوا. اضغط على خيار عشان تكلّم Catey على واتساب.",
+      sub: "نقدر نبدأ بسيط ونكبر سوا. اضغط على خيار عشان تكلّمنا على واتساب.",
       stickyMobile: "اختر الخيار الثاني (موصى به)",
       buttons: {
         opt1: "أبغى الخيار الأول",
