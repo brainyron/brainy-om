@@ -152,7 +152,7 @@ export function CateyExamples() {
       className="relative scroll-mt-20 bg-white dark:bg-[#1A1612]"
     >
       {/* Heading */}
-      <div className="mx-auto w-full max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-16 pb-10 sm:px-6 sm:pt-24 sm:pb-14">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ export function CateyExamples() {
         </motion.div>
       </div>
 
-      {/* Sticky scope indicator — pinned only inside this wrapper */}
+      {/* Sticky scope indicator, pinned only inside this wrapper */}
       {indicator}
 
       {/* Sub-sections */}

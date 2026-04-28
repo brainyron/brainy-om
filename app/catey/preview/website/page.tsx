@@ -197,17 +197,14 @@ export default function CateyShopPreview() {
       {/* Top bar , slimmer, less chrome, more confident. Desktop adds a real nav row. */}
       <header className="sticky top-0 z-30 border-b border-[#1F1A14]/[0.06] bg-[#FFF8F0]/85 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between px-5 py-3.5 md:px-8 md:py-4">
-          <Link href="#" className="flex items-center gap-2">
-            <span
-              className="flex h-7 w-7 items-center justify-center rounded-full text-white md:h-8 md:w-8"
-              style={{ background: COLORS.ink }}
-              aria-hidden
-            >
-              <Cat className="h-4 w-4 md:h-[18px] md:w-[18px]" strokeWidth={2.2} />
-            </span>
-            <span className="text-[15px] font-semibold tracking-[-0.01em] md:text-[17px]">
-              Catey
-            </span>
+          <Link href="#" className="flex items-center" aria-label="Catey">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/catey/brand/catey-logo.svg"
+              alt="Catey"
+              className="h-5 w-auto md:h-6"
+              decoding="async"
+            />
           </Link>
           {/* Desktop primary nav */}
           <nav className="hidden items-center gap-7 md:flex">
@@ -711,17 +708,15 @@ export default function CateyShopPreview() {
       >
         <div className="mx-auto w-full max-w-[1280px]">
           <div className="md:flex md:items-start md:justify-between md:gap-12">
-            <div className="flex items-center gap-2 md:max-w-[280px]">
-              <span
-                className="flex h-7 w-7 items-center justify-center rounded-full md:h-9 md:w-9"
-                style={{ background: COLORS.coral }}
-                aria-hidden
-              >
-                <Cat className="h-4 w-4 text-white md:h-[18px] md:w-[18px]" strokeWidth={2.2} />
-              </span>
-              <span className="text-[14px] font-semibold tracking-[-0.01em] text-white md:text-[16px]">
-                Catey
-              </span>
+            <div className="md:max-w-[280px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/catey/brand/catey-logo.svg"
+                alt="Catey"
+                className="h-5 w-auto md:h-6"
+                style={{ filter: "brightness(0) invert(1)" }}
+                decoding="async"
+              />
             </div>
             <div className="mt-6 grid grid-cols-3 gap-4 text-[11px] md:mt-0 md:grid-cols-4 md:gap-12 md:text-[13px]">
               <div>
