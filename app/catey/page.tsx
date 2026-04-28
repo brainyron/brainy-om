@@ -8,7 +8,6 @@ import { CateyOption3 } from "./_components/sections/Option3";
 import { CateyExamples } from "./_components/sections/Examples";
 import { CateyFaq } from "./_components/sections/Faq";
 import { CateyFinalCta } from "./_components/sections/FinalCta";
-import { CateyStickyMobileCta } from "./_components/sections/StickyMobileCta";
 
 export default function CateyPage() {
   return (
@@ -21,7 +20,6 @@ export default function CateyPage() {
       <CateyExamples />
       <CateyFaq />
       <CateyFinalCta />
-      <CateyStickyMobileCta />
     </>
   );
 }

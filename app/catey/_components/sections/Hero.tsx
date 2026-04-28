@@ -95,7 +95,7 @@ export function CateyHero() {
             playsInline
             preload="auto"
             className="absolute inset-0 h-full w-full object-cover"
-            poster="/catey/brand/pumo-hero.png"
+            poster="/catey/reels/reel-00-poster.jpg"
           />
         </button>
 
