@@ -7,8 +7,11 @@ import { CateyLogo } from "../CateyLogo";
 import { optionTheme, type OptionKey } from "../optionTheme";
 
 export function CateyFinalCta() {
-  const { t } = useCateyT();
+  const { t, isAr } = useCateyT();
   const f = t.finalCta;
+  const talkFirstMessage = isAr
+    ? "مرحبًا ساره! أبغى أتكلم معاك أول."
+    : "Hi Sareh! I want to talk first.";
 
   const buttons: { key: OptionKey; label: string; recommended?: boolean }[] = [
     { key: "option1", label: f.buttons.opt1 },
@@ -104,7 +107,7 @@ export function CateyFinalCta() {
 
         <div className="mt-6">
           <a
-            href={whatsappLink("Hi Catey, I want to talk first.")}
+            href={whatsappLink(talkFirstMessage)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-[#3A322A]/70 underline-offset-4 hover:text-[#D26B49] hover:underline dark:text-white/70 dark:hover:text-[#F08762]"

@@ -363,7 +363,7 @@ export const cateyTranslations = {
           "Ask Catey about grooming availability.",
         ],
       },
-      whatsappMessage: "Hi Catey, I want Option 1, the Content Partner.",
+      whatsappMessage: "Hi Sareh! I want Option 1, the Content Partner.",
     },
     option2: {
       label: "Option 2",
@@ -533,7 +533,7 @@ export const cateyTranslations = {
         why:
           "People remember pets more than products. Instead of just saying 'Buy this product,' it becomes 'Pumo uses this. Catey provides it. My pet might like it too.' That feels more natural and more memorable.",
       },
-      whatsappMessage: "Hi Catey, I want Option 2, the Growth Partner.",
+      whatsappMessage: "Hi Sareh! I want Option 2, the Growth Partner.",
     },
     option3: {
       label: "Option 3",
@@ -702,7 +702,7 @@ export const cateyTranslations = {
         title: "Category exclusivity",
         body: "During the partnership, we won't create similar content partnerships with direct pet stores, pet clinics, or pet product competitors in Oman. Catey gets a stronger position.",
       },
-      whatsappMessage: "Hi Catey, I want Option 3, the Growth Partner Plus.",
+      whatsappMessage: "Hi Sareh! I want Option 3, the Growth Partner Plus.",
     },
     faq: {
       title: "Common questions",
@@ -1084,7 +1084,7 @@ export const cateyTranslations = {
           "اسأل Catey عن مواعيد العناية.",
         ],
       },
-      whatsappMessage: "مرحبًا Catey، أبغى الخيار الأول، شريك المحتوى.",
+      whatsappMessage: "مرحبًا ساره! أبغى الخيار الأول، شريك المحتوى.",
     },
     option2: {
       label: "الخيار الثاني",
@@ -1254,7 +1254,7 @@ export const cateyTranslations = {
         why:
           "الناس يتذكرون الحيوانات أكثر من المنتجات. بدل ما نقول 'اشترِ هذا المنتج'، يصير 'Pumo يستخدمه. Catey توفّره. حيواني ممكن يحبه.' أحلى وأقرب.",
       },
-      whatsappMessage: "مرحبًا Catey، أبغى الخيار الثاني، شريك النمو.",
+      whatsappMessage: "مرحبًا ساره! أبغى الخيار الثاني، شريك النمو.",
     },
     option3: {
       label: "الخيار الثالث",
@@ -1426,7 +1426,7 @@ export const cateyTranslations = {
         title: "حصرية الفئة",
         body: "خلال الشراكة، ما نسوي شراكات محتوى مشابهة مع محلات أو عيادات أو منتجات حيوانات أليفة منافسة في عمان. Catey تحصل على موقع أقوى.",
       },
-      whatsappMessage: "مرحبًا Catey، أبغى الخيار الثالث، شريك النمو الكامل.",
+      whatsappMessage: "مرحبًا ساره! أبغى الخيار الثالث، شريك النمو الكامل.",
     },
     faq: {
       title: "أسئلة شائعة",
