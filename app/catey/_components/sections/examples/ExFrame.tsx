@@ -4,6 +4,11 @@ import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import type { Inclusion } from "./registry";
 import { useCateyT } from "../shared";
+import {
+  optionTheme,
+  optionsForScope,
+  type OptionKey,
+} from "../../optionTheme";
 
 type Props = {
   id: string;
@@ -15,11 +20,17 @@ type Props = {
   children: ReactNode;
 };
 
-function scopeLabels(scope: Inclusion, t: ReturnType<typeof useCateyT>["t"]) {
+function scopeLabels(
+  scope: Inclusion,
+  t: ReturnType<typeof useCateyT>["t"],
+): { label: string; optionKey: OptionKey }[] {
   const e = t.examples;
-  if (scope === "all") return [e.pills.content, e.pills.growth, e.pills.growthPlus];
-  if (scope === "growthAndPlus") return [e.pills.growth, e.pills.growthPlus];
-  return [e.pills.growthPlus];
+  const map: Record<OptionKey, string> = {
+    option1: e.pills.content,
+    option2: e.pills.growth,
+    option3: e.pills.growthPlus,
+  };
+  return optionsForScope(scope).map((k) => ({ label: map[k], optionKey: k }));
 }
 
 export function ExFrame({ id, index, scope, title, caption, perOption, children }: Props) {
@@ -46,14 +57,22 @@ export function ExFrame({ id, index, scope, title, caption, perOption, children 
           transition={{ duration: 0.55 }}
           className="mb-8 max-w-3xl sm:mb-10"
         >
-          <div className="mb-2 flex flex-wrap items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D26B49] sm:text-[11px]">
+          <div className="mb-2 flex flex-wrap items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]">
             <span className="text-[#3A322A]/55 dark:text-white/45">{t.examples.includedIn}</span>
-            {labels.map((l, i) => (
-              <span key={l} className="inline-flex items-center gap-1.5">
-                {i > 0 ? <span className="text-[#3A322A]/35 dark:text-white/30">+</span> : null}
-                <span>{l}</span>
-              </span>
-            ))}
+            {labels.map((l, i) => {
+              const lt = optionTheme[l.optionKey];
+              return (
+                <span key={l.optionKey} className="inline-flex items-center gap-1.5">
+                  {i > 0 ? <span className="text-[#3A322A]/35 dark:text-white/30">+</span> : null}
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 ${lt.pill}`}
+                  >
+                    <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${lt.badgeBg}`} />
+                    {l.label}
+                  </span>
+                </span>
+              );
+            })}
           </div>
           <h3 className="text-balance text-2xl font-semibold tracking-tight text-[#1F1A14] sm:text-3xl md:text-4xl dark:text-white">
             {title}
@@ -64,21 +83,30 @@ export function ExFrame({ id, index, scope, title, caption, perOption, children 
           {perOption ? (
             <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
               {perOption.content ? (
-                <span className="rounded-full border border-[#1F1A14]/10 bg-white px-2.5 py-1 text-[#1F1A14] dark:border-white/10 dark:bg-white/10 dark:text-white/80">
-                  <span className="me-1.5 text-[#D26B49]">{t.examples.contentLabel}</span>
-                  {perOption.content}
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 ${optionTheme.option1.pill}`}
+                >
+                  <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${optionTheme.option1.badgeBg}`} />
+                  <span className="font-semibold">{t.examples.contentLabel}</span>
+                  <span className="font-normal opacity-90">{perOption.content}</span>
                 </span>
               ) : null}
               {perOption.growth ? (
-                <span className="rounded-full border border-[#1F1A14]/10 bg-white px-2.5 py-1 text-[#1F1A14] dark:border-white/10 dark:bg-white/10 dark:text-white/80">
-                  <span className="me-1.5 text-[#D26B49]">{t.examples.growthLabel}</span>
-                  {perOption.growth}
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 ${optionTheme.option2.pill}`}
+                >
+                  <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${optionTheme.option2.badgeBg}`} />
+                  <span className="font-semibold">{t.examples.growthLabel}</span>
+                  <span className="font-normal opacity-90">{perOption.growth}</span>
                 </span>
               ) : null}
               {perOption.growthPlus ? (
-                <span className="rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-2.5 py-1 text-[#D26B49] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762]">
-                  <span className="me-1.5">{t.examples.growthPlusLabel}</span>
-                  {perOption.growthPlus}
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 ${optionTheme.option3.pill}`}
+                >
+                  <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${optionTheme.option3.badgeBg}`} />
+                  <span className="font-semibold">{t.examples.growthPlusLabel}</span>
+                  <span className="font-normal opacity-90">{perOption.growthPlus}</span>
                 </span>
               ) : null}
             </div>

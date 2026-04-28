@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Check } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations, cateyConfig } from "../../../../translations/catey";
+import { optionKeyFromCardId, optionTheme } from "../optionTheme";
 
 type PriceMeta = {
   monthly?: { value: string; was?: string; note?: string };
@@ -75,6 +76,15 @@ export function CateyComparison() {
           {t.cards.map((card) => {
             const recommended = card.id === "option-3";
             const p = prices[card.id];
+            const oKey = optionKeyFromCardId(card.id);
+            const theme = optionTheme[oKey];
+            // Top accent bar so each card has an unmistakable color stripe
+            const accentBar = (
+              <span
+                aria-hidden
+                className={`absolute inset-x-0 top-0 h-1 ${theme.badgeBg}`}
+              />
+            );
 
             return (
               <motion.a
@@ -85,23 +95,22 @@ export function CateyComparison() {
                   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
                 }}
                 whileHover={{ y: -6 }}
-                className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border bg-white/90 p-6 shadow-[0_2px_30px_-12px_rgba(31,26,20,0.18)] transition-all duration-300 hover:shadow-[0_18px_50px_-12px_rgba(240,135,98,0.35)] sm:p-7 dark:bg-white/5 ${
-                  recommended
-                    ? "border-[#F08762]/40 ring-1 ring-[#F08762]/30"
-                    : "border-[#1F1A14]/10 dark:border-white/10"
-                }`}
+                className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border bg-white/90 p-6 shadow-[0_2px_30px_-12px_rgba(31,26,20,0.18)] transition-all duration-300 hover:shadow-[0_18px_50px_-12px_rgba(31,26,20,0.18)] sm:p-7 dark:bg-white/5 ${
+                  recommended ? "ring-1" : ""
+                } ${theme.cardActiveOutline} dark:ring-white/10`}
               >
+                {accentBar}
                 {recommended ? (
                   <span
                     className={`absolute top-4 ${
                       isAr ? "left-4" : "right-4"
-                    } rounded-full bg-[#F08762] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white`}
+                    } rounded-full ${theme.badgeBg} px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ${theme.badgeText}`}
                   >
                     {t.recommended}
                   </span>
                 ) : null}
 
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D26B49]">
+                <div className={`text-xs font-semibold uppercase tracking-[0.18em] ${theme.eyebrow}`}>
                   {card.tier}
                 </div>
                 <div className="mt-2 text-2xl font-semibold tracking-tight text-[#1F1A14] sm:text-3xl dark:text-white">
@@ -154,7 +163,7 @@ export function CateyComparison() {
                             </span>
                           ) : null}
                           {p.monthly.note ? (
-                            <span className="rounded-full bg-[#F08762]/10 px-2 py-0.5 font-medium text-[#D26B49] dark:bg-[#F08762]/15 dark:text-[#F08762]">
+                            <span className={`rounded-full px-2 py-0.5 font-medium ${theme.iconChipBg} ${theme.iconChipText}`}>
                               {p.monthly.note}
                             </span>
                           ) : null}
@@ -174,7 +183,9 @@ export function CateyComparison() {
                       key={b}
                       className="flex items-start gap-2.5 text-sm text-[#1F1A14] dark:text-white/85"
                     >
-                      <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#FCD7C4] text-[#D26B49] dark:bg-[#F08762]/20 dark:text-[#F08762]">
+                      <span
+                        className={`mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full ${theme.iconChipBg} ${theme.iconChipText}`}
+                      >
                         <Check className="h-3 w-3" strokeWidth={3} />
                       </span>
                       <span className="leading-snug">{b}</span>
@@ -183,7 +194,9 @@ export function CateyComparison() {
                 </ul>
 
                 <div className="mt-auto pt-7">
-                  <span className="flex w-full items-center justify-center rounded-full bg-[#1F1A14] px-5 py-3 text-sm font-medium text-white transition group-hover:bg-[#D26B49] dark:bg-white dark:text-[#1F1A14] dark:group-hover:bg-[#F08762] dark:group-hover:text-white">
+                  <span
+                    className={`flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
+                  >
                     {t.seeDetails}
                   </span>
                 </div>

@@ -6,6 +6,9 @@ import { Check } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyConfig, cateyTranslations } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
+import { optionTheme } from "../optionTheme";
+
+const theme = optionTheme.option3;
 
 /**
  * Condensed summary for Option 3. ~600-800px tall on desktop.
@@ -26,8 +29,9 @@ export function CateyOption3() {
   return (
     <section
       id="option-3"
-      className="scroll-mt-20 bg-[#FBEBD8] dark:bg-[#1B1612]"
+      className="relative scroll-mt-20 bg-[#FBEBD8] dark:bg-[#1B1612]"
     >
+      <span aria-hidden className={`absolute inset-x-0 top-0 h-1 ${theme.badgeBg}`} />
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,10 +42,12 @@ export function CateyOption3() {
         >
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
+              <span className={`text-xs font-semibold uppercase tracking-[0.22em] ${theme.eyebrow}`}>
                 {card.tier}
               </span>
-              <span className="rounded-full bg-[#F08762] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+              <span
+                className={`rounded-full ${theme.badgeBg} px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${theme.badgeText}`}
+              >
                 {t.summary.recommended}
               </span>
             </div>
@@ -51,7 +57,7 @@ export function CateyOption3() {
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-[#1F1A14]/10 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D26B49]">
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${theme.eyebrow}`}>
                   Setup
                 </div>
                 <div className="mt-1 text-xl font-semibold text-[#1F1A14] dark:text-white">
@@ -59,7 +65,7 @@ export function CateyOption3() {
                 </div>
               </div>
               <div className="rounded-2xl border border-[#1F1A14]/10 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D26B49]">
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${theme.eyebrow}`}>
                   Monthly
                 </div>
                 <div className="mt-1 flex items-baseline gap-1.5">
@@ -72,7 +78,7 @@ export function CateyOption3() {
                 </div>
               </div>
               <div className="rounded-2xl border border-[#1F1A14]/10 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D26B49]">
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${theme.eyebrow}`}>
                   Performance
                 </div>
                 <div className="mt-1 text-xl font-semibold text-[#1F1A14] dark:text-white">
@@ -96,7 +102,9 @@ export function CateyOption3() {
                   key={b}
                   className="flex items-start gap-2.5 text-sm text-[#1F1A14] dark:text-white/85"
                 >
-                  <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#FCD7C4] text-[#D26B49] dark:bg-[#F08762]/20 dark:text-[#F08762]">
+                  <span
+                    className={`mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full ${theme.iconChipBg} ${theme.iconChipText}`}
+                  >
                     <Check className="h-3 w-3" strokeWidth={3} />
                   </span>
                   <span className="leading-snug">{b}</span>
@@ -111,7 +119,7 @@ export function CateyOption3() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center rounded-full bg-[#F08762] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#F08762]/30 transition hover:bg-[#D26B49] dark:bg-[#F08762] dark:text-white dark:hover:bg-[#D26B49]"
+                className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg shadow-[#F08762]/30 transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
               >
                 {t.summary.chooseThis}
               </motion.a>

@@ -6,6 +6,9 @@ import { Check } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyConfig, cateyTranslations } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
+import { optionTheme } from "../optionTheme";
+
+const theme = optionTheme.option1;
 
 /**
  * Condensed summary for Option 1. ~600-800px tall on desktop.
@@ -21,8 +24,10 @@ export function CateyOption1() {
   return (
     <section
       id="option-1"
-      className="scroll-mt-20 bg-white dark:bg-[#1A1612]"
+      className="relative scroll-mt-20 bg-white dark:bg-[#1A1612]"
     >
+      {/* Top accent stripe ties this section back to its plan color */}
+      <span aria-hidden className={`absolute inset-x-0 top-0 h-1 ${theme.badgeBg}`} />
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +38,7 @@ export function CateyOption1() {
         >
           {/* Left: tier + price + bullets */}
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
+            <div className={`text-xs font-semibold uppercase tracking-[0.22em] ${theme.eyebrow}`}>
               {card.tier}
             </div>
             <h2 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-[#1F1A14] sm:text-4xl md:text-5xl dark:text-white">
@@ -61,7 +66,9 @@ export function CateyOption1() {
                   key={b}
                   className="flex items-start gap-2.5 text-sm text-[#1F1A14] dark:text-white/85"
                 >
-                  <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#FCD7C4] text-[#D26B49] dark:bg-[#F08762]/20 dark:text-[#F08762]">
+                  <span
+                    className={`mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full ${theme.iconChipBg} ${theme.iconChipText}`}
+                  >
                     <Check className="h-3 w-3" strokeWidth={3} />
                   </span>
                   <span className="leading-snug">{b}</span>
@@ -76,7 +83,7 @@ export function CateyOption1() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center rounded-full bg-[#1F1A14] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#F08762]/20 transition hover:bg-[#D26B49] dark:bg-white dark:text-[#1F1A14] dark:hover:bg-[#F08762] dark:hover:text-white"
+                className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg shadow-[#1F1A14]/15 transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
               >
                 {t.summary.chooseThis}
               </motion.a>
@@ -98,7 +105,10 @@ export function CateyOption1() {
               sizes="(min-width: 1024px) 480px, 100vw"
               className="object-cover"
             />
-            <div className="absolute bottom-3 start-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-[#1F1A14] backdrop-blur dark:bg-black/60 dark:text-white">
+            <div
+              className={`absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium backdrop-blur ${theme.iconChipBg} ${theme.iconChipText}`}
+            >
+              <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${theme.badgeBg}`} />
               {s.visualLabel}
             </div>
           </motion.div>

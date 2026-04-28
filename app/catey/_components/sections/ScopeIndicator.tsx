@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Inclusion } from "./examples/registry";
 import { useCateyT } from "./shared";
+import { optionTheme, type OptionKey } from "../optionTheme";
 
 type Props = {
   scope: Inclusion;
@@ -43,24 +44,28 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
 
   const pills: {
     key: "content" | "growth" | "plus";
+    optionKey: OptionKey;
     label: string;
     href: string;
     visible: boolean;
   }[] = [
     {
       key: "content",
+      optionKey: "option1",
       label: e.pills.content,
       href: "#option-1",
       visible: scope === "all",
     },
     {
       key: "growth",
+      optionKey: "option2",
       label: e.pills.growth,
       href: "#option-2",
       visible: scope === "all" || scope === "growthAndPlus",
     },
     {
       key: "plus",
+      optionKey: "option3",
       label: e.pills.growthPlus,
       href: "#option-3",
       visible: true,
@@ -86,8 +91,10 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
 
           <motion.div layout className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
             <AnimatePresence initial={false} mode="popLayout">
-              {pills.map((p) =>
-                p.visible ? (
+              {pills.map((p) => {
+                if (!p.visible) return null;
+                const theme = optionTheme[p.optionKey];
+                return (
                   <motion.a
                     key={p.key}
                     href={p.href}
@@ -98,13 +105,16 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
                     transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-1 overflow-hidden whitespace-nowrap rounded-full border border-[#F08762]/40 bg-[#FFE9DC] px-2.5 py-1 text-[11px] font-semibold text-[#D26B49] transition-colors hover:bg-[#FCD7C4] dark:border-[#F08762]/40 dark:bg-[#F08762]/15 dark:text-[#F08762] dark:hover:bg-[#F08762]/25 sm:gap-1.5 sm:px-3.5 sm:py-1.5 sm:text-sm"
+                    className={`inline-flex items-center gap-1 overflow-hidden whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:gap-1.5 sm:px-3.5 sm:py-1.5 sm:text-sm ${theme.pill} ${theme.pillHover}`}
                   >
-                    <span aria-hidden className="text-[10px] sm:text-[11px]">✓</span>
+                    <span
+                      aria-hidden
+                      className={`h-1.5 w-1.5 rounded-full ${theme.badgeBg}`}
+                    />
                     {p.label}
                   </motion.a>
-                ) : null,
-              )}
+                );
+              })}
             </AnimatePresence>
           </motion.div>
 

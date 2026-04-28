@@ -5,6 +5,9 @@ import { Check } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyConfig, cateyTranslations } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
+import { optionTheme } from "../optionTheme";
+
+const theme = optionTheme.option2;
 
 /**
  * Condensed summary for Option 2. ~600-800px tall on desktop.
@@ -20,8 +23,9 @@ export function CateyOption2() {
   return (
     <section
       id="option-2"
-      className="scroll-mt-20 bg-[#FFF8F0] dark:bg-[#161310]"
+      className="relative scroll-mt-20 bg-[#FFF8F0] dark:bg-[#161310]"
     >
+      <span aria-hidden className={`absolute inset-x-0 top-0 h-1 ${theme.badgeBg}`} />
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,7 +35,7 @@ export function CateyOption2() {
           className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-12"
         >
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
+            <div className={`text-xs font-semibold uppercase tracking-[0.22em] ${theme.eyebrow}`}>
               {card.tier}
             </div>
             <h2 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-[#1F1A14] sm:text-4xl md:text-5xl dark:text-white">
@@ -61,7 +65,9 @@ export function CateyOption2() {
                   key={b}
                   className="flex items-start gap-2.5 text-sm text-[#1F1A14] dark:text-white/85"
                 >
-                  <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#FCD7C4] text-[#D26B49] dark:bg-[#F08762]/20 dark:text-[#F08762]">
+                  <span
+                    className={`mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full ${theme.iconChipBg} ${theme.iconChipText}`}
+                  >
                     <Check className="h-3 w-3" strokeWidth={3} />
                   </span>
                   <span className="leading-snug">{b}</span>
@@ -76,7 +82,7 @@ export function CateyOption2() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center rounded-full bg-[#1F1A14] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#F08762]/20 transition hover:bg-[#D26B49] dark:bg-white dark:text-[#1F1A14] dark:hover:bg-[#F08762] dark:hover:text-white"
+                className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg shadow-[#2D6BA1]/25 transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
               >
                 {t.summary.chooseThis}
               </motion.a>
@@ -91,7 +97,7 @@ export function CateyOption2() {
             transition={{ duration: 0.6 }}
             className="relative mx-auto w-full max-w-md"
           >
-            {/* Floating sticker — top-left */}
+            {/* Floating sticker , top-left */}
             <motion.div
               initial={{ opacity: 0, rotate: -8, y: 14 }}
               whileInView={{ opacity: 1, rotate: -8, y: 0 }}
@@ -99,18 +105,18 @@ export function CateyOption2() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="absolute -left-3 -top-3 z-20 rounded-2xl bg-white px-3 py-1.5 shadow-lg shadow-[#1F1A14]/15 sm:-left-4 sm:-top-4 sm:px-4 sm:py-2 dark:bg-white/10"
             >
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#D26B49] sm:text-xs">
+              <span className={`text-[11px] font-semibold uppercase tracking-wider sm:text-xs ${theme.eyebrow}`}>
                 {isAr ? "هدية الشهر" : "Monthly drop"}
               </span>
             </motion.div>
 
-            {/* Floating sticker — top-right (promo code) */}
+            {/* Floating sticker , top-right (promo code) */}
             <motion.div
               initial={{ opacity: 0, rotate: 6, y: 14 }}
               whileInView={{ opacity: 1, rotate: 6, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              className="absolute -right-2 -top-2 z-20 rounded-2xl bg-[#F08762] px-3.5 py-2 shadow-lg shadow-[#F08762]/40 sm:-right-3 sm:-top-3 sm:px-4 sm:py-2.5"
+              className={`absolute -right-2 -top-2 z-20 rounded-2xl px-3.5 py-2 shadow-lg shadow-[#2D6BA1]/40 sm:-right-3 sm:-top-3 sm:px-4 sm:py-2.5 ${theme.badgeBg}`}
             >
               <span className="block text-[9px] font-semibold uppercase tracking-wider text-white/80 sm:text-[10px]">
                 {isAr ? "كود" : "Promo"}
@@ -133,7 +139,7 @@ export function CateyOption2() {
                 />
               </div>
               <div className="border-t border-[#1F1A14]/10 px-5 py-4 dark:border-white/10">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D26B49]">
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${theme.eyebrow}`}>
                   {s.campaignTitle}
                 </div>
                 <div className="mt-1 text-sm font-medium text-[#1F1A14] dark:text-white/90">
@@ -144,7 +150,7 @@ export function CateyOption2() {
               </div>
             </div>
 
-            {/* Floating sticker — bottom-left (sticker pack) */}
+            {/* Floating sticker , bottom-left (sticker pack) */}
             <motion.div
               initial={{ opacity: 0, rotate: -4, y: -10 }}
               whileInView={{ opacity: 1, rotate: -4, y: 0 }}
@@ -157,7 +163,7 @@ export function CateyOption2() {
               </span>
             </motion.div>
 
-            {/* Floating sticker — bottom-right (strategy theme) */}
+            {/* Floating sticker , bottom-right (strategy theme) */}
             <motion.div
               initial={{ opacity: 0, rotate: 5, y: -10 }}
               whileInView={{ opacity: 1, rotate: 5, y: 0 }}
@@ -165,7 +171,7 @@ export function CateyOption2() {
               transition={{ duration: 0.5, delay: 0.65 }}
               className="absolute -bottom-2 -right-3 z-20 rounded-2xl bg-white px-3.5 py-2 shadow-lg shadow-[#1F1A14]/15 sm:-bottom-3 sm:-right-4 dark:bg-white/10"
             >
-              <div className="text-[9px] font-semibold uppercase tracking-wider text-[#D26B49] sm:text-[10px]">
+              <div className={`text-[9px] font-semibold uppercase tracking-wider sm:text-[10px] ${theme.eyebrow}`}>
                 {s.strategyLabel}
               </div>
               <div className="text-xs font-semibold text-[#1F1A14] sm:text-sm dark:text-white">

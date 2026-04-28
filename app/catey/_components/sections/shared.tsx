@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronRight, Hand } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations, cateyConfig } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
@@ -262,28 +264,134 @@ export function StoryShowcase({
   sub?: string;
   images: readonly { src: string; label: string }[];
 }) {
+  const { language } = useLanguage();
+  const isAr = language === "ar";
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const [hintVisible, setHintVisible] = useState(true);
+  const [canScrollMore, setCanScrollMore] = useState(true);
+  const drag = useRef<{ active: boolean; startX: number; startScroll: number; moved: boolean }>({
+    active: false,
+    startX: 0,
+    startScroll: 0,
+    moved: false,
+  });
+
+  // Update the right-edge hint as the user scrolls. Once near the end, fade it.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setCanScrollMore(el.scrollLeft < max - 8);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    return () => el.removeEventListener("scroll", update);
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    if (!el) return;
+    // Only mouse / pen drag; native touch already pans, leave it alone
+    if (e.pointerType === "touch") return;
+    drag.current = {
+      active: true,
+      startX: e.clientX,
+      startScroll: el.scrollLeft,
+      moved: false,
+    };
+    setDragging(true);
+    setHintVisible(false);
+    el.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    if (!el || !drag.current.active) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 4) drag.current.moved = true;
+    el.scrollLeft = drag.current.startScroll - dx;
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    if (!el) return;
+    if (drag.current.active) {
+      drag.current.active = false;
+      setDragging(false);
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+    }
+  };
+
   return (
     <div>
-      <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
-      {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-        className="scrollbar-hide -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-0 sm:gap-6 sm:px-0"
-      >
-        {images.map((img) => (
-          <motion.div
-            key={img.src}
-            variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-            className="flex w-[260px] flex-none snap-center flex-col items-center gap-3 sm:w-[280px]"
-          >
-            <PhoneFrame src={img.src} alt={img.label} />
-            <p className="text-center text-xs text-[#3A322A]/70 dark:text-white/60">{img.label}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+      <div className="flex items-end justify-between gap-3">
+        <div>
+          <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
+          {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
+        </div>
+        {/* Drag hint chip, fades once the user starts interacting or reaches the end */}
+        <span
+          aria-hidden
+          className={`hidden shrink-0 items-center gap-1.5 rounded-full border border-[#1F1A14]/10 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#3A322A]/70 transition-opacity sm:inline-flex dark:border-white/10 dark:bg-white/10 dark:text-white/65 ${
+            hintVisible && canScrollMore ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Hand className="h-3 w-3" />
+          {isAr ? "اسحب لرؤية المزيد" : "Drag to see more"}
+          <ChevronRight className={`h-3 w-3 ${isAr ? "rotate-180" : ""}`} />
+        </span>
+      </div>
+      <div className="relative">
+        <motion.div
+          ref={trackRef}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerLeave={endDrag}
+          className={`scrollbar-hide -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 select-none touch-pan-y sm:-mx-0 sm:gap-6 sm:px-0 ${
+            dragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+        >
+          {images.map((img) => (
+            <motion.div
+              key={img.src}
+              variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
+              className="flex w-[260px] flex-none snap-center flex-col items-center gap-3 sm:w-[280px]"
+              // Block child clicks when the user actually dragged a few pixels
+              onClickCapture={(ev) => {
+                if (drag.current.moved) {
+                  ev.preventDefault();
+                  ev.stopPropagation();
+                  drag.current.moved = false;
+                }
+              }}
+            >
+              <PhoneFrame src={img.src} alt={img.label} />
+              <p className="pointer-events-none text-center text-xs text-[#3A322A]/70 dark:text-white/60">
+                {img.label}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+        {/* Right-edge fade as a continuous affordance that more content lives offscreen */}
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute inset-y-0 right-0 hidden w-12 bg-gradient-to-l from-[#FFF8F0] to-transparent transition-opacity sm:block dark:from-[#161310] ${
+            canScrollMore ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
     </div>
   );
 }

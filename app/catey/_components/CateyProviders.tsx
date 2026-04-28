@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "../../../context/LanguageContext";
+import { AudioFocusProvider } from "./AudioFocusContext";
 import type { ReactNode } from "react";
 
 export function CateyProviders({ children }: { children: ReactNode }) {
@@ -13,7 +14,7 @@ export function CateyProviders({ children }: { children: ReactNode }) {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <AudioFocusProvider>{children}</AudioFocusProvider>
       </ThemeProvider>
     </LanguageProvider>
   );
