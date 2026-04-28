@@ -94,13 +94,13 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
       <div className="mx-auto flex w-full max-w-7xl justify-center px-3 sm:px-6">
         <motion.div
           layout
-          className="scrollbar-hide flex w-fit max-w-full items-center gap-1.5 overflow-x-auto rounded-full border border-[#1F1A14]/10 bg-white/90 px-2.5 py-2 shadow-md shadow-[#1F1A14]/5 backdrop-blur-md sm:gap-4 sm:px-6 sm:py-3.5 dark:border-white/10 dark:bg-[#1F1A14]/90"
+          className="scrollbar-hide flex w-fit max-w-full items-center gap-2 overflow-x-auto rounded-full border border-[#1F1A14]/10 bg-white/90 px-3 py-2.5 shadow-md shadow-[#1F1A14]/5 backdrop-blur-md sm:gap-4 sm:px-6 sm:py-3.5 dark:border-white/10 dark:bg-[#1F1A14]/90"
         >
           <span className="hidden whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3A322A]/65 sm:inline sm:text-xs dark:text-white/55">
             {e.includedIn}
           </span>
 
-          <motion.div layout className="flex shrink-0 items-center gap-1 sm:gap-2.5">
+          <motion.div layout className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
             <AnimatePresence initial={false} mode="popLayout">
               {pills.map((p) => {
                 if (!p.visible) return null;
@@ -116,11 +116,11 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
                     transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.96 }}
-                    className={`inline-flex items-center gap-1 overflow-hidden whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-colors sm:gap-1.5 sm:px-3.5 sm:py-1.5 sm:text-sm ${theme.pill} ${theme.pillHover}`}
+                    className={`inline-flex items-center gap-1 overflow-hidden whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:gap-1.5 sm:px-3.5 sm:py-1.5 sm:text-sm ${theme.pill} ${theme.pillHover}`}
                   >
                     <span
                       aria-hidden
-                      className={`h-1 w-1 rounded-full sm:h-1.5 sm:w-1.5 ${theme.badgeBg}`}
+                      className={`h-1.5 w-1.5 rounded-full ${theme.badgeBg}`}
                     />
                     <span className="sm:hidden">{p.shortLabel}</span>
                     <span className="hidden sm:inline">{p.label}</span>
@@ -130,7 +130,7 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
             </AnimatePresence>
           </motion.div>
 
-          <span className="flex shrink-0 items-center gap-2.5 ps-0.5 sm:ps-1">
+          <span className="flex shrink-0 items-center gap-2.5 ps-1">
             {activeTitle ? (
               <motion.span
                 key={activeTitle}
@@ -142,7 +142,7 @@ export function ScopeIndicator({ scope, activeTitle, activeIndex, total }: Props
                 {activeTitle}
               </motion.span>
             ) : null}
-            <span className="whitespace-nowrap font-mono text-[9px] tabular-nums text-[#3A322A]/65 sm:text-xs dark:text-white/55">
+            <span className="whitespace-nowrap font-mono text-[10px] tabular-nums text-[#3A322A]/65 sm:text-xs dark:text-white/55">
               {activeIndex}/{total}
             </span>
           </span>
