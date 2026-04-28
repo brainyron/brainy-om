@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, MousePointer2 } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyConfig, cateyTranslations } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
@@ -25,6 +25,11 @@ export function CateyOption3() {
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  // Same scroll-release pattern as ExWebsite: on mobile the iframe defaults to
+  // pointer-events: none so vertical pans bubble up to scroll the page, with
+  // a tap-to-interact pill to opt in. Desktop keeps native pointer events.
+  const [interactive, setInteractive] = useState(false);
 
   return (
     <section
@@ -164,18 +169,40 @@ export function CateyOption3() {
                 {/* Screen */}
                 <div className="relative h-[640px] w-[320px] overflow-hidden rounded-[2.25rem] bg-[#FFF8F0] sm:h-[720px] sm:w-[360px]">
                   {mounted ? (
-                    <iframe
-                      src="/catey/preview/website"
-                      title="Catey website preview"
-                      className="h-full w-full border-0"
-                      loading="lazy"
-                      style={{
-                        touchAction: "pan-y",
-                        scrollbarWidth: "none",
-                        msOverflowStyle: "none",
-                        WebkitOverflowScrolling: "touch",
-                      }}
-                    />
+                    <>
+                      <iframe
+                        src="/catey/preview/website"
+                        title="Catey website preview"
+                        className={`h-full w-full border-0 ${
+                          interactive
+                            ? "pointer-events-auto"
+                            : "pointer-events-none lg:pointer-events-auto"
+                        }`}
+                        loading="lazy"
+                        style={{
+                          scrollbarWidth: "none",
+                          msOverflowStyle: "none",
+                          WebkitOverflowScrolling: "touch",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        aria-pressed={interactive}
+                        onClick={() => setInteractive((v) => !v)}
+                        className="absolute inset-0 z-10 flex items-end justify-center pb-4 transition-opacity lg:hidden"
+                      >
+                        <span
+                          className={`pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-3.5 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30 ${
+                            interactive ? "opacity-90" : "opacity-100"
+                          }`}
+                        >
+                          <MousePointer2 className="h-3 w-3" strokeWidth={2.4} />
+                          {interactive
+                            ? isAr ? "اضغط للخروج" : "Tap to exit"
+                            : isAr ? "اضغط للتفاعل" : "Tap to interact"}
+                        </span>
+                      </button>
+                    </>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-[#3A322A]/60">
                       Loading preview...

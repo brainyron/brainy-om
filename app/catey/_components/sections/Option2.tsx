@@ -165,18 +165,23 @@ export function CateyOption2() {
               </span>
             </motion.div>
 
-            {/* Floating sticker , bottom-right (strategy theme) */}
+            {/* Floating sticker , bottom-right (strategy theme). Solid ink chip
+                so it pops against any background, matching the Monthly Drop
+                sticker on the top-left. */}
             <motion.div
               initial={{ opacity: 0, rotate: 5, y: -10 }}
               whileInView={{ opacity: 1, rotate: 5, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.65 }}
-              className="absolute -bottom-2 -right-3 z-20 rounded-2xl bg-white px-3.5 py-2 shadow-lg shadow-[#1F1A14]/15 sm:-bottom-3 sm:-right-4 dark:bg-white/10"
+              className="absolute -bottom-2 -right-3 z-20 rounded-2xl bg-[#1F1A14] px-3.5 py-2 shadow-lg shadow-[#1F1A14]/30 ring-1 ring-white/20 sm:-bottom-3 sm:-right-4 dark:bg-[#1F1A14] dark:ring-white/10"
             >
-              <div className={`text-[9px] font-semibold uppercase tracking-wider sm:text-[10px] ${theme.eyebrow}`}>
-                {s.strategyLabel}
+              <div className="flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#F08762]" aria-hidden />
+                <div className="text-[9px] font-semibold uppercase tracking-wider text-white/70 sm:text-[10px]">
+                  {s.strategyLabel}
+                </div>
               </div>
-              <div className="text-xs font-semibold text-[#1F1A14] sm:text-sm dark:text-white">
+              <div className="mt-0.5 text-xs font-semibold text-white sm:text-sm">
                 {s.strategyTheme}
               </div>
             </motion.div>
