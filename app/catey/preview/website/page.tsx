@@ -104,12 +104,12 @@ const featured: Product[] = [
     image: "/catey/preview-shop/products/wanpy-chicken-crab.jpg",
   },
   {
-    id: 32035,
-    name: "Catey Mug, Cream",
-    brand: "Catey",
-    price: 5.0,
-    image: "/catey/preview-shop/products/catey-mug.jpg",
-    badge: "Original",
+    id: 30491,
+    name: "Pado Cat Litter Box",
+    brand: "Pado",
+    price: 8.5,
+    image: "/catey/preview-shop/products/pado-litter-box.png",
+    badge: "Top pick",
   },
 ];
 
@@ -507,7 +507,10 @@ export default function CateyShopPreview() {
                   </span>
                 ) : null}
               </div>
-              {/* Cream/tan price strip , unifies the visual rhythm across the grid */}
+              {/* Cream/tan price strip. Header fills the top, price row pinned
+                  to the bottom with mt-auto so price and + button always land
+                  at the same baseline regardless of how many lines the name
+                  wraps onto. */}
               <div
                 className="flex flex-1 flex-col p-3 md:p-4"
                 style={{ background: COLORS.warm }}
@@ -518,22 +521,20 @@ export default function CateyShopPreview() {
                 >
                   {p.brand}
                 </div>
-                <h3 className="mt-1 line-clamp-2 text-[12px] font-semibold leading-snug tracking-[-0.005em] text-[#1F1A14] md:mt-1.5 md:text-[14px]">
+                <h3 className="mt-1 line-clamp-2 min-h-[2.4em] text-[12px] font-semibold leading-snug tracking-[-0.005em] text-[#1F1A14] md:mt-1.5 md:min-h-[2.6em] md:text-[14px]">
                   {p.name}
                 </h3>
-                <div className="mt-2.5 flex items-end justify-between gap-2 md:mt-4">
-                  <div>
-                    <div className="text-[15px] font-bold leading-none tracking-[-0.01em] text-[#1F1A14] md:text-[18px]">
-                      {p.price.toFixed(p.price < 10 ? 2 : 1)}
-                      <span className="ml-0.5 text-[10px] font-medium text-[#1F1A14]/55 md:text-[11px]">
-                        OMR
-                      </span>
-                    </div>
+                <div className="mt-auto flex items-center justify-between gap-2 pt-3 md:pt-4">
+                  <div className="text-[15px] font-bold leading-none tracking-[-0.01em] text-[#1F1A14] md:text-[18px]">
+                    {p.price.toFixed(p.price < 10 ? 2 : 1)}
+                    <span className="ml-0.5 text-[10px] font-medium text-[#1F1A14]/55 md:text-[11px]">
+                      OMR
+                    </span>
                   </div>
                   <button
                     type="button"
                     aria-label={`Add ${p.name}`}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-white shadow-sm active:scale-90 md:h-9 md:w-9"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white shadow-sm active:scale-90 md:h-9 md:w-9"
                     style={{ background: COLORS.ink }}
                   >
                     <Plus className="h-4 w-4" strokeWidth={2.6} />

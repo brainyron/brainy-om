@@ -16,7 +16,7 @@ export function ExAI({ index }: { index: number }) {
       title={e.sections.ai.title}
       caption={e.sections.ai.caption}
     >
-      <div className="rounded-3xl border border-[#1F1A14]/10 bg-gradient-to-br from-[#1F1A14] to-[#3A322A] p-6 text-white sm:p-8 dark:border-white/10">
+      <div className="rounded-3xl border border-[#1F1A14]/10 bg-gradient-to-br from-[#FFF8F0] to-[#FCD7C4] p-6 text-[#1F1A14] sm:p-8 dark:border-white/10 dark:from-[#1F1A14] dark:to-[#3A322A] dark:text-white">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -28,10 +28,10 @@ export function ExAI({ index }: { index: number }) {
             <motion.div
               key={it.title}
               variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5"
+              className="rounded-2xl border border-[#1F1A14]/10 bg-white/80 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5"
             >
               <div className="text-sm font-semibold">{it.title}</div>
-              <div className="mt-1 text-xs text-white/65">{it.desc}</div>
+              <div className="mt-1 text-xs text-[#3A322A]/70 dark:text-white/65">{it.desc}</div>
             </motion.div>
           ))}
         </motion.div>

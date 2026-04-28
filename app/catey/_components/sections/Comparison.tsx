@@ -17,7 +17,10 @@ export function CateyComparison() {
   const t = cateyTranslations[language].comparison;
   const isAr = language === "ar";
 
-  const yearlyNote = isAr ? "خصم 25% للعقد السنوي" : "25% off for yearly contract";
+  // Discount note. We anchor the 25% off to the same 6-month commitment that
+  // Option 3 already requires, so the "6-month minimum" language and the
+  // discount language align across every plan card.
+  const commitNote = isAr ? "خصم 25% لعقد 6 شهور" : "25% off for 6-month commitment";
 
   const prices: Record<string, PriceMeta> = {
     "option-1": {
@@ -27,7 +30,7 @@ export function CateyComparison() {
       monthly: {
         value: `${cateyConfig.prices.option2.monthly}`,
         was: `${cateyConfig.prices.option2.monthlyOriginal}`,
-        note: yearlyNote,
+        note: commitNote,
       },
     },
     "option-3": {
@@ -39,7 +42,7 @@ export function CateyComparison() {
       monthly: {
         value: `${cateyConfig.prices.option3.monthly}`,
         was: `${cateyConfig.prices.option3.monthlyOriginal}`,
-        note: yearlyNote,
+        note: commitNote,
       },
     },
   };

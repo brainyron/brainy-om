@@ -4,7 +4,6 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { ChevronRight, Hand } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { cateyTranslations, cateyConfig } from "../../../../translations/catey";
 import { whatsappLink } from "../cateyHelpers";
@@ -229,10 +228,15 @@ export function ReelTilesGrid({
 
 // Phone-frame mock for vertical 9:16 imagery (story sets / giveaways).
 // If src points at a video file, renders an autoplay muted loop instead.
+// All inner media has native drag suppressed so the parent rail can drive the
+// pan instead of the browser's image-drag affordance.
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   const isVideo = /\.(mp4|webm|mov)$/i.test(src);
   return (
-    <div className="mx-auto w-full max-w-[280px]">
+    <div
+      className="mx-auto w-full max-w-[280px] select-none"
+      onDragStart={(e) => e.preventDefault()}
+    >
       <div className="relative overflow-hidden rounded-[2rem] border border-[#1F1A14]/15 bg-[#1F1A14] p-1.5 shadow-xl shadow-[#1F1A14]/10 dark:border-white/15">
         <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem] bg-black">
           {isVideo ? (
@@ -244,10 +248,20 @@ function PhoneFrame({ src, alt }: { src: string; alt: string }) {
               playsInline
               preload="metadata"
               aria-label={alt}
-              className="absolute inset-0 h-full w-full object-cover"
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             />
           ) : (
-            <Image src={src} alt={alt} fill sizes="280px" className="object-cover" />
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="280px"
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              className="pointer-events-none object-cover"
+            />
           )}
         </div>
       </div>
@@ -264,20 +278,30 @@ export function StoryShowcase({
   sub?: string;
   images: readonly { src: string; label: string }[];
 }) {
-  const { language } = useLanguage();
-  const isAr = language === "ar";
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState(false);
-  const [hintVisible, setHintVisible] = useState(true);
   const [canScrollMore, setCanScrollMore] = useState(true);
-  const drag = useRef<{ active: boolean; startX: number; startScroll: number; moved: boolean }>({
+  // Drag state lives in a ref so we can read latest values without re-rendering
+  // mid-pan. velocity is computed on each move sample so we can glide on release.
+  const drag = useRef<{
+    active: boolean;
+    startX: number;
+    startScroll: number;
+    moved: boolean;
+    lastX: number;
+    lastT: number;
+    velocity: number; // px/ms, positive = scrolling right
+  }>({
     active: false,
     startX: 0,
     startScroll: 0,
     moved: false,
+    lastX: 0,
+    lastT: 0,
+    velocity: 0,
   });
 
-  // Update the right-edge hint as the user scrolls. Once near the end, fade it.
+  // Update the right-edge fade as the user scrolls.
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -293,25 +317,35 @@ export function StoryShowcase({
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = trackRef.current;
     if (!el) return;
-    // Only mouse / pen drag; native touch already pans, leave it alone
+    // Only mouse / pen drag; native touch already pans the container.
     if (e.pointerType === "touch") return;
     drag.current = {
       active: true,
       startX: e.clientX,
       startScroll: el.scrollLeft,
       moved: false,
+      lastX: e.clientX,
+      lastT: performance.now(),
+      velocity: 0,
     };
     setDragging(true);
-    setHintVisible(false);
     el.setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = trackRef.current;
     if (!el || !drag.current.active) return;
+    e.preventDefault();
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 4) drag.current.moved = true;
     el.scrollLeft = drag.current.startScroll - dx;
+    // Sample instantaneous velocity so the release glide feels natural.
+    const now = performance.now();
+    const dt = Math.max(1, now - drag.current.lastT);
+    const vx = (e.clientX - drag.current.lastX) / dt;
+    drag.current.velocity = vx;
+    drag.current.lastX = e.clientX;
+    drag.current.lastT = now;
   };
 
   const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -325,6 +359,20 @@ export function StoryShowcase({
       } catch {
         // ignore
       }
+      // Glide to a target offset: current position plus velocity-projected
+      // distance, then snap that to the nearest tile so the rail rests on a
+      // story boundary instead of mid-frame.
+      const projected = el.scrollLeft - drag.current.velocity * 200;
+      const tile = el.querySelector<HTMLElement>("[data-story-tile]");
+      const tileWidth = tile
+        ? tile.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0")
+        : 280;
+      const max = el.scrollWidth - el.clientWidth;
+      const target = Math.max(
+        0,
+        Math.min(max, Math.round(projected / tileWidth) * tileWidth),
+      );
+      el.scrollTo({ left: target, behavior: "smooth" });
     }
   };
 
@@ -335,17 +383,6 @@ export function StoryShowcase({
           <h3 className="text-lg font-semibold text-[#1F1A14] sm:text-xl dark:text-white">{title}</h3>
           {sub ? <p className="mt-1 text-sm text-[#3A322A]/70 dark:text-white/60">{sub}</p> : null}
         </div>
-        {/* Drag hint chip, fades once the user starts interacting or reaches the end */}
-        <span
-          aria-hidden
-          className={`hidden shrink-0 items-center gap-1.5 rounded-full border border-[#1F1A14]/10 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#3A322A]/70 transition-opacity sm:inline-flex dark:border-white/10 dark:bg-white/10 dark:text-white/65 ${
-            hintVisible && canScrollMore ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Hand className="h-3 w-3" />
-          {isAr ? "اسحب لرؤية المزيد" : "Drag to see more"}
-          <ChevronRight className={`h-3 w-3 ${isAr ? "rotate-180" : ""}`} />
-        </span>
       </div>
       <div className="relative">
         <motion.div
@@ -359,16 +396,21 @@ export function StoryShowcase({
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
           onPointerLeave={endDrag}
-          className={`scrollbar-hide -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 select-none touch-pan-y sm:-mx-0 sm:gap-6 sm:px-0 ${
+          // No snap-mandatory: snapping mid-drag is jarring. We snap manually on
+          // release. select-none + touch-pan-y keep mouse/pen drag clean while
+          // letting touch users still scroll vertically through the page.
+          className={`scrollbar-hide -mx-4 mt-6 flex gap-4 overflow-x-auto px-4 pb-4 select-none touch-pan-y sm:-mx-0 sm:gap-6 sm:px-0 [scroll-behavior:auto] ${
             dragging ? "cursor-grabbing" : "cursor-grab"
           }`}
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           {images.map((img) => (
             <motion.div
               key={img.src}
+              data-story-tile
               variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-              className="flex w-[260px] flex-none snap-center flex-col items-center gap-3 sm:w-[280px]"
-              // Block child clicks when the user actually dragged a few pixels
+              className="flex w-[260px] flex-none flex-col items-center gap-3 sm:w-[280px]"
+              // Block child clicks when the user actually dragged.
               onClickCapture={(ev) => {
                 if (drag.current.moved) {
                   ev.preventDefault();
