@@ -5,14 +5,15 @@ import Image from "next/image";
 import { useCateyT } from "./shared";
 import { whatsappLink } from "../cateyHelpers";
 import { CateyLogo } from "../CateyLogo";
+import { optionTheme, type OptionKey } from "../optionTheme";
 
 export function CateyFinalCta() {
   const { t } = useCateyT();
   const f = t.finalCta;
 
-  const buttons: { key: "option1" | "option2" | "option3"; label: string; recommended?: boolean }[] = [
+  const buttons: { key: OptionKey; label: string; recommended?: boolean }[] = [
     { key: "option1", label: f.buttons.opt1 },
-    { key: "option2", label: f.buttons.opt2, recommended: false },
+    { key: "option2", label: f.buttons.opt2 },
     { key: "option3", label: f.buttons.opt3, recommended: true },
   ];
 
@@ -62,23 +63,23 @@ export function CateyFinalCta() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
           className="mt-10 grid gap-3 sm:grid-cols-3"
         >
-          {buttons.map((b) => (
-            <motion.a
-              key={b.key}
-              href={whatsappLink(t[b.key].whatsappMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
-              whileHover={{ y: -3 }}
-              className={`relative flex items-center justify-center rounded-2xl px-5 py-4 text-sm font-semibold transition ${
-                b.recommended
-                  ? "bg-[#F08762] text-white shadow-lg shadow-[#F08762]/30 hover:bg-[#D26B49]"
-                  : "bg-white text-[#1F1A14] shadow-md hover:bg-[#FFF8F0] dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
-              }`}
-            >
-              {b.label}
-            </motion.a>
-          ))}
+          {buttons.map((b) => {
+            const theme = optionTheme[b.key];
+            return (
+              <motion.a
+                key={b.key}
+                href={whatsappLink(t[b.key].whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
+                whileHover={{ y: -3 }}
+                className={`relative flex items-center justify-center rounded-2xl px-5 py-4 text-sm font-semibold shadow-lg transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
+                style={{ boxShadow: `0 12px 32px -16px ${theme.accent}66` }}
+              >
+                {b.label}
+              </motion.a>
+            );
+          })}
         </motion.div>
 
         <div className="mt-6">

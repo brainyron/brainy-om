@@ -90,11 +90,14 @@ export function ExBrandFoundation({ index }: { index: number }) {
           {/* Wrong: blue on warm tan */}
           <div className="relative">
             <div className="relative flex h-32 items-center justify-center overflow-hidden rounded-xl bg-[#DA9552] p-6 ring-2 ring-[#C0392B]/70">
-              {/* Blue-tinted Catey logo via CSS mask, so we recolor the SVG without shipping a second asset */}
+              {/* Blue-tinted Catey logo via CSS mask, so we recolor the SVG without
+                  shipping a second asset. Sized to match the approved tiles' logo: h-10
+                  on mobile, h-12 on sm+, with width set from the SVG's intrinsic 1116:254
+                  ratio so the wordmark renders at the same visual size as the others. */}
               <div
                 role="img"
                 aria-label="Catey logo wrong usage: blue on warm tan"
-                className="h-10 w-[70%] sm:h-12"
+                className="h-10 w-[176px] sm:h-12 sm:w-[211px]"
                 style={{
                   backgroundColor: WRONG_BLUE,
                   WebkitMaskImage: "url(/catey/brand/catey-logo.svg)",

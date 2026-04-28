@@ -542,8 +542,10 @@ export function PhotoGrid({
   // Optional featured image rendered larger above the grid (Option 3 use case)
   feature?: { src: string; alt: string };
 }) {
-  // Map labels to real photos by index, cycling if we have more labels than photos.
-  const tiles = items.map((label, i) => ({
+  // Cap to a single row (4 photos on lg) and pair them with the cleanest
+  // shots in the pool. Repeat-cat photos at the bottom row were creating
+  // visual clutter, so we drop them and let the grid breathe.
+  const tiles = items.slice(0, 4).map((label, i) => ({
     label,
     src: PHOTO_POOL[i % PHOTO_POOL.length],
   }));
