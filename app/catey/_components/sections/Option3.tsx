@@ -185,23 +185,33 @@ export function CateyOption3() {
                           WebkitOverflowScrolling: "touch",
                         }}
                       />
-                      <button
-                        type="button"
-                        aria-pressed={interactive}
-                        onClick={() => setInteractive((v) => !v)}
-                        className="absolute inset-0 z-10 flex items-end justify-center pb-4 transition-opacity lg:hidden"
-                      >
-                        <span
-                          className={`pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-3.5 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30 ${
-                            interactive ? "opacity-90" : "opacity-100"
-                          }`}
+                      {!interactive ? (
+                        // Not engaged: full overlay swallows pointer events so
+                        // mobile vertical swipes pass through to the page.
+                        // Tap the pill to engage.
+                        <button
+                          type="button"
+                          onClick={() => setInteractive(true)}
+                          className="absolute inset-0 z-10 flex items-end justify-center pb-4 lg:hidden"
+                        >
+                          <span className="inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-3.5 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30">
+                            <MousePointer2 className="h-3 w-3" strokeWidth={2.4} />
+                            {isAr ? "اضغط للتفاعل" : "Tap to interact"}
+                          </span>
+                        </button>
+                      ) : (
+                        // Engaged: only a small exit pill remains. The rest of
+                        // the iframe receives touches normally so the
+                        // preview can scroll.
+                        <button
+                          type="button"
+                          onClick={() => setInteractive(false)}
+                          className="absolute bottom-4 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-[#1F1A14] px-3.5 py-1.5 text-[11px] font-semibold text-white opacity-90 shadow-lg shadow-[#1F1A14]/30 lg:hidden"
                         >
                           <MousePointer2 className="h-3 w-3" strokeWidth={2.4} />
-                          {interactive
-                            ? isAr ? "اضغط للخروج" : "Tap to exit"
-                            : isAr ? "اضغط للتفاعل" : "Tap to interact"}
-                        </span>
-                      </button>
+                          {isAr ? "اضغط للخروج" : "Tap to exit"}
+                        </button>
+                      )}
                     </>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-[#3A322A]/60">

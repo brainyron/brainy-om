@@ -59,31 +59,33 @@ export function ExWebsite({ index }: { index: number }) {
                 }`}
                 loading="lazy"
               />
-              {/* Mobile/tablet overlay: blocks scroll-trap by default. Tapping
-                  it opts into iframe interaction; tapping again releases it.
-                  Hidden entirely on lg+ where the desktop preview already
-                  behaves with native cursor pointer events. */}
-              <button
-                type="button"
-                aria-pressed={interactive}
-                onClick={() => setInteractive((v) => !v)}
-                className={`absolute inset-0 z-10 flex items-end justify-center pb-4 transition-opacity lg:hidden ${
-                  interactive
-                    ? "pointer-events-none bg-transparent"
-                    : "bg-[#1F1A14]/0"
-                }`}
-              >
-                <span
-                  className={`pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-4 py-2 text-[12px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30 transition-opacity ${
-                    interactive ? "opacity-90" : "opacity-100"
-                  }`}
+              {/* Mobile/tablet overlay. Two states, no nested
+                  pointer-events trickery: when not interactive the whole
+                  iframe is covered by a button overlay so swipes pass through
+                  to the page; once tapped, the overlay collapses to a small
+                  exit pill and the iframe is fully scrollable. lg+ skips the
+                  overlay entirely. */}
+              {!interactive ? (
+                <button
+                  type="button"
+                  onClick={() => setInteractive(true)}
+                  className="absolute inset-0 z-10 flex items-end justify-center pb-4 lg:hidden"
+                >
+                  <span className="inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-4 py-2 text-[12px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30">
+                    <MousePointer2 className="h-3.5 w-3.5" strokeWidth={2.4} />
+                    {isAr ? "اضغط للتفاعل" : "Tap to interact"}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setInteractive(false)}
+                  className="absolute bottom-4 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-[#1F1A14] px-4 py-2 text-[12px] font-semibold text-white opacity-90 shadow-lg shadow-[#1F1A14]/30 lg:hidden"
                 >
                   <MousePointer2 className="h-3.5 w-3.5" strokeWidth={2.4} />
-                  {interactive
-                    ? isAr ? "اضغط للخروج" : "Tap to exit"
-                    : isAr ? "اضغط للتفاعل" : "Tap to interact"}
-                </span>
-              </button>
+                  {isAr ? "اضغط للخروج" : "Tap to exit"}
+                </button>
+              )}
             </>
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[#FFF8F0] text-sm text-[#3A322A]/60">
