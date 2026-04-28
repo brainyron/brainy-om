@@ -9,8 +9,8 @@ export function CateyProviders({ children }: { children: ReactNode }) {
     <LanguageProvider initialLanguage="ar">
       <ThemeProvider
         attribute="class"
-        defaultTheme="light"
-        enableSystem={false}
+        defaultTheme="system"
+        enableSystem
         disableTransitionOnChange
       >
         {children}

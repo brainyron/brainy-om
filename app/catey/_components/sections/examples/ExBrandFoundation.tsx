@@ -11,7 +11,11 @@ const CATEY_PALETTE = [
   { hex: "#F8E1AC", name: "Cream Gold" },
   { hex: "#FFFCF9", name: "Paper" },
   { hex: "#764C24", name: "Coffee" },
+  { hex: "#2D6BA1", name: "Catey Blue" },
 ];
+
+// Catey blue, used as the wrong-pairing example in the do/don't logo demo.
+const WRONG_BLUE = "#2D6BA1";
 
 export function ExBrandFoundation({ index }: { index: number }) {
   const { t, isAr } = useCateyT();
@@ -31,19 +35,93 @@ export function ExBrandFoundation({ index }: { index: number }) {
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#3A322A]/60 dark:text-white/50">
           {isAr ? "نظام الشعار" : "Logo system"}
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-6">
-          <div className="rounded-xl bg-[#F8E1AC] p-6">
-            <Image src="/catey/brand/catey-logo.svg" alt="Catey logo on cream" width={280} height={64} className="h-10 w-auto sm:h-12" />
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Approved on cream */}
+          <div className="relative">
+            <div className="flex h-32 items-center justify-center rounded-xl bg-[#F8E1AC] p-6">
+              <Image src="/catey/brand/catey-logo.svg" alt="Catey logo on cream" width={280} height={64} className="h-10 w-auto sm:h-12" />
+            </div>
+            <div className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-[#1A8754]">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#1A8754]/10 text-[#1A8754]">✓</span>
+              {isAr ? "صحيح" : "Approved"}
+            </div>
+            <div className="mt-0.5 text-[11px] text-[#3A322A]/60 dark:text-white/50">
+              {isAr ? "براون على ذهبي كريمي" : "Coffee on Cream Gold"}
+            </div>
           </div>
-          <div className="rounded-xl bg-[#100E0B] p-6">
-            <Image src="/catey/brand/catey-logo.svg" alt="Catey logo inverted" width={280} height={64} className="h-10 w-auto invert sm:h-12" />
+          {/* Approved on ink */}
+          <div className="relative">
+            <div className="flex h-32 items-center justify-center rounded-xl bg-[#100E0B] p-6">
+              <Image src="/catey/brand/catey-logo.svg" alt="Catey logo inverted" width={280} height={64} className="h-10 w-auto invert sm:h-12" />
+            </div>
+            <div className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-[#1A8754]">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#1A8754]/10 text-[#1A8754]">✓</span>
+              {isAr ? "صحيح" : "Approved"}
+            </div>
+            <div className="mt-0.5 text-[11px] text-[#3A322A]/60 dark:text-white/50">
+              {isAr ? "أبيض على حبر" : "White on Ink"}
+            </div>
           </div>
-          <div className="rounded-xl bg-[#DA9552] p-6">
-            <Image src="/catey/brand/catey-logo.svg" alt="Catey logo on tan" width={280} height={64} className="h-10 w-auto invert sm:h-12" />
+          {/* Approved on warm tan */}
+          <div className="relative">
+            <div className="flex h-32 items-center justify-center rounded-xl bg-[#DA9552] p-6">
+              <Image src="/catey/brand/catey-logo.svg" alt="Catey logo on tan" width={280} height={64} className="h-10 w-auto invert sm:h-12" />
+            </div>
+            <div className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-[#1A8754]">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#1A8754]/10 text-[#1A8754]">✓</span>
+              {isAr ? "صحيح" : "Approved"}
+            </div>
+            <div className="mt-0.5 text-[11px] text-[#3A322A]/60 dark:text-white/50">
+              {isAr ? "أبيض على بني فاتح" : "White on Warm Tan"}
+            </div>
+          </div>
+          {/* Wrong: blue on warm tan */}
+          <div className="relative">
+            <div className="relative flex h-32 items-center justify-center overflow-hidden rounded-xl bg-[#DA9552] p-6 ring-2 ring-[#C0392B]/70">
+              {/* Blue-tinted Catey logo via CSS mask, so we recolor the SVG without shipping a second asset */}
+              <div
+                role="img"
+                aria-label="Catey logo wrong usage: blue on warm tan"
+                className="h-10 w-[70%] sm:h-12"
+                style={{
+                  backgroundColor: WRONG_BLUE,
+                  WebkitMaskImage: "url(/catey/brand/catey-logo.svg)",
+                  maskImage: "url(/catey/brand/catey-logo.svg)",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                }}
+              />
+              {/* Diagonal cross overlay marking wrong usage */}
+              <svg
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute inset-0 h-full w-full"
+                aria-hidden
+              >
+                <line x1="0" y1="0" x2="100" y2="100" stroke="#C0392B" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="100" y1="0" x2="0" y2="100" stroke="#C0392B" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+              <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-[#C0392B] text-[12px] font-bold text-white shadow-lg">
+                ✕
+              </span>
+            </div>
+            <div className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-[#C0392B]">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#C0392B]/10">✕</span>
+              {isAr ? "خطأ" : "Wrong usage"}
+            </div>
+            <div className="mt-0.5 text-[11px] text-[#3A322A]/60 dark:text-white/50">
+              {isAr ? "أزرق على بني فاتح، تباين منخفض" : "Blue on Warm Tan, low contrast"}
+            </div>
           </div>
         </div>
-        <p className="mt-3 text-xs text-[#3A322A]/60 dark:text-white/50">
-          {isAr ? "نسخ متعددة من الشعار للاستخدام على خلفيات مختلفة." : "Logo variations across light, dark, and accent surfaces."}
+        <p className="mt-4 text-xs text-[#3A322A]/60 dark:text-white/50">
+          {isAr
+            ? "نسخ معتمدة على الكريمي والحبر والبني الفاتح. لا تستخدم أزرق العلامة فوق البني الفاتح، التباين ضعيف."
+            : "Approved variants on cream, ink, and warm tan. Never place Catey Blue on Warm Tan, the contrast is too low."}
         </p>
       </div>
 

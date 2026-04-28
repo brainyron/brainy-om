@@ -33,7 +33,7 @@ export function CateyHeader() {
     >
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <div className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground sm:text-base">
-          <CateyLogo className="h-5 w-auto sm:h-6" />
+          <CateyLogo className="h-4 w-auto sm:h-[18px]" />
           <span className="text-foreground/40">×</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
