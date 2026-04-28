@@ -18,34 +18,34 @@ export function CateyFinalCta() {
 
   return (
     <section className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_100%,#FCD7C4_0%,#FFF8F0_60%,transparent_100%)] dark:bg-[radial-gradient(120%_80%_at_50%_100%,#2A1D1A_0%,#1A1410_60%,transparent_100%)]">
-        {/* Visible separator above the section, with breathing room from the
-            previous block. The hairline runs through the page max-width. */}
-        <div className="mx-auto w-full max-w-6xl px-4 pt-20 sm:px-6 sm:pt-28">
-          <div className="h-px w-full bg-[#1F1A14]/10 dark:bg-white/10" />
-        </div>
-
         {/* Pumo hangs from the top of the footer, paw dangling down into the
-            section. Wide image anchored to the top edge so it reads like he's
-            looking over the lip. Image has built-in transparency. */}
+            section. Wide image anchored flush to the top edge so it reads like
+            he's looking over the lip. Image has built-in transparency. */}
         <motion.div
           initial={{ opacity: 0, y: -24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mx-auto mt-10 flex w-full max-w-3xl justify-center px-6 sm:mt-14"
+          className="mx-auto flex w-full max-w-3xl justify-center px-6 pt-16 sm:pt-24"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/catey/brand/pumo-paw.png"
             alt="Pumo peeking over the edge"
-            className="h-auto w-full max-w-[640px] select-none"
+            className="block h-auto w-full max-w-[640px] select-none"
             decoding="async"
             loading="lazy"
             draggable={false}
           />
         </motion.div>
 
-      <div className="mx-auto w-full max-w-4xl px-4 pb-16 pt-6 text-center sm:px-6 sm:pb-24 sm:pt-10">
+        {/* Hairline separator sits immediately below the Pumo image so the
+            section break lands right where the photo ends. */}
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+          <div className="h-px w-full bg-[#1F1A14]/10 dark:bg-white/10" />
+        </div>
+
+      <div className="mx-auto w-full max-w-4xl px-4 pb-16 pt-10 text-center sm:px-6 sm:pb-24 sm:pt-14">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
