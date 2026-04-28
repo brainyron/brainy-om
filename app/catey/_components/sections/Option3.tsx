@@ -92,6 +92,28 @@ export function CateyOption3() {
                 : `${cateyConfig.prices.option3.minimumMonths}-month minimum.`}
             </div>
 
+            {/* Inline explainer for the 12% number, so it doesn't sit there as a
+                bare percentage. Worked example expands inside ExPerformance. */}
+            <div
+              className={`mt-4 rounded-2xl border bg-white p-4 text-[13px] leading-snug dark:bg-white/5 ${theme.border}`}
+            >
+              <div className={`mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${theme.eyebrow}`}>
+                {isAr ? "كيف تشتغل حصة الـ 12%" : "What the 12% means"}
+              </div>
+              <p className="text-[#1F1A14] dark:text-white/85">
+                {isAr
+                  ? "Brainy تستلم 12% من الإيرادات اللي نقدر نتتبّعها بوضوح للحملات والروابط والأكواد والصفحات اللي نسوّيها. مثال: لو حملة Pumo سوّت 10,000 ريال متتبَّع، Brainy تستلم 1,200 ريال زيادة على الرسوم الشهرية. الإيرادات اللي ما نقدر نتتبّعها مثل المشي للمتجر مباشرة، ما تحتسب."
+                  : `Brainy receives ${cateyConfig.prices.option3.performanceShare}% of revenue we can clearly trace back to systems we build or run, promo codes, campaign links, landing pages, QR codes, booking forms. Example: a Pumo campaign drives 10,000 OMR in tracked sales, Brainy receives 1,200 OMR on top of the monthly fee. Walk-in customers and existing-customer reorders that don't reference a campaign do not count.`}
+              </p>
+              <a
+                href="#ex-performance"
+                className={`mt-2 inline-flex items-center gap-1 text-[12px] font-semibold ${theme.eyebrow} hover:underline`}
+              >
+                {isAr ? "شوف المثال الكامل" : "See the worked example"}
+                <span aria-hidden>{isAr ? "←" : "→"}</span>
+              </a>
+            </div>
+
             <p className="mt-5 max-w-xl text-base leading-relaxed text-[#3A322A]/80 sm:text-lg dark:text-white/75">
               {s.description}
             </p>

@@ -97,15 +97,17 @@ export function CateyOption2() {
             transition={{ duration: 0.6 }}
             className="relative mx-auto w-full max-w-md"
           >
-            {/* Floating sticker , top-left */}
+            {/* Floating sticker , top-left. Solid ink chip with a coral dot so
+                it reads cleanly on any background, including the light photo. */}
             <motion.div
               initial={{ opacity: 0, rotate: -8, y: 14 }}
               whileInView={{ opacity: 1, rotate: -8, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute -left-3 -top-3 z-20 rounded-2xl bg-white px-3 py-1.5 shadow-lg shadow-[#1F1A14]/15 sm:-left-4 sm:-top-4 sm:px-4 sm:py-2 dark:bg-white/10"
+              className="absolute -left-3 -top-3 z-20 inline-flex items-center gap-1.5 rounded-2xl bg-[#1F1A14] px-3 py-1.5 shadow-lg shadow-[#1F1A14]/30 ring-1 ring-white/20 sm:-left-4 sm:-top-4 sm:px-4 sm:py-2 dark:bg-[#1F1A14] dark:ring-white/10"
             >
-              <span className={`text-[11px] font-semibold uppercase tracking-wider sm:text-xs ${theme.eyebrow}`}>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#F08762]" aria-hidden />
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-white sm:text-xs">
                 {isAr ? "هدية الشهر" : "Monthly drop"}
               </span>
             </motion.div>

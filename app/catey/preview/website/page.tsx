@@ -390,14 +390,17 @@ export default function CateyShopPreview() {
             </a>
           </div>
         </div>
-        {/* Mobile track: fades on the right edge to signal more content */}
+        {/* Mobile track. touch-action: pan-x lets the rail steal horizontal pans
+            from the parent without blocking vertical page scroll. No scroll-snap
+            so a partial swipe glides instead of locking on a tile mid-gesture. */}
         <div className="relative md:hidden">
           <div
-            className="cat-pill flex gap-2 overflow-x-auto px-5 pb-1"
+            className="cat-pill flex gap-2 overflow-x-auto overscroll-x-contain px-5 pb-1"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              scrollSnapType: "x mandatory",
+              touchAction: "pan-x",
+              WebkitOverflowScrolling: "touch",
             }}
           >
             {categories.map(({ key, label, Icon }, i) => {
@@ -411,7 +414,6 @@ export default function CateyShopPreview() {
                       ? "border-[#1F1A14] bg-[#1F1A14] text-white"
                       : "border-[#1F1A14]/12 bg-[#FFF8F0] text-[#1F1A14]"
                   }`}
-                  style={{ scrollSnapAlign: "start" }}
                 >
                   <Icon className="h-[14px] w-[14px]" strokeWidth={2} />
                   <span className="text-[12px] font-semibold tracking-[-0.005em]">
