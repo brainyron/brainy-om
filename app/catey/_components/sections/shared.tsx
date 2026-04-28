@@ -278,36 +278,40 @@ export function StoryShowcase({
   sub?: string;
   images: readonly { src: string; label: string }[];
 }) {
+  const { language } = useLanguage();
+  const isRTL = language === "ar";
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState(false);
   const [canScrollMore, setCanScrollMore] = useState(true);
   // Drag state lives in a ref so we can read latest values without re-rendering
-  // mid-pan. velocity is computed on each move sample so we can glide on release.
+  // mid-pan. velocity is tracked in scrollLeft space (not pointer space) so the
+  // glide projection works regardless of writing direction.
   const drag = useRef<{
     active: boolean;
     startX: number;
     startScroll: number;
     moved: boolean;
-    lastX: number;
+    lastScroll: number;
     lastT: number;
-    velocity: number; // px/ms, positive = scrolling right
+    velocity: number; // px/ms in scrollLeft space; sign matches scrollLeft delta
   }>({
     active: false,
     startX: 0,
     startScroll: 0,
     moved: false,
-    lastX: 0,
+    lastScroll: 0,
     lastT: 0,
     velocity: 0,
   });
 
-  // Update the right-edge fade as the user scrolls.
+  // Update the end-edge fade as the user scrolls. In RTL, modern browsers use
+  // negative scrollLeft going toward the end; abs() normalizes both directions.
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
     const update = () => {
       const max = el.scrollWidth - el.clientWidth;
-      setCanScrollMore(el.scrollLeft < max - 8);
+      setCanScrollMore(Math.abs(el.scrollLeft) < max - 8);
     };
     update();
     el.addEventListener("scroll", update, { passive: true });
@@ -324,7 +328,7 @@ export function StoryShowcase({
       startX: e.clientX,
       startScroll: el.scrollLeft,
       moved: false,
-      lastX: e.clientX,
+      lastScroll: el.scrollLeft,
       lastT: performance.now(),
       velocity: 0,
     };
@@ -338,13 +342,18 @@ export function StoryShowcase({
     e.preventDefault();
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 4) drag.current.moved = true;
-    el.scrollLeft = drag.current.startScroll - dx;
-    // Sample instantaneous velocity so the release glide feels natural.
+    // In RTL, items lay right-to-left and scrollLeft goes negative going toward
+    // the end (Chrome/Safari/Firefox spec). Flip the sign so a left-pointer drag
+    // reveals next stories on the left, and a right-pointer drag reveals
+    // previous stories on the right, matching the user's reading direction.
+    const effectiveDx = isRTL ? -dx : dx;
+    el.scrollLeft = drag.current.startScroll - effectiveDx;
+    // Sample velocity from actual scrollLeft delta (after the browser clamps to
+    // valid range), so a flick at the edge doesn't fly off in the projection.
     const now = performance.now();
     const dt = Math.max(1, now - drag.current.lastT);
-    const vx = (e.clientX - drag.current.lastX) / dt;
-    drag.current.velocity = vx;
-    drag.current.lastX = e.clientX;
+    drag.current.velocity = (el.scrollLeft - drag.current.lastScroll) / dt;
+    drag.current.lastScroll = el.scrollLeft;
     drag.current.lastT = now;
   };
 
@@ -359,19 +368,19 @@ export function StoryShowcase({
       } catch {
         // ignore
       }
-      // Glide to a target offset: current position plus velocity-projected
-      // distance, then snap that to the nearest tile so the rail rests on a
-      // story boundary instead of mid-frame.
-      const projected = el.scrollLeft - drag.current.velocity * 200;
+      // Glide: project scrollLeft forward by current velocity, then snap to the
+      // nearest tile so the rail rests on a story boundary.
+      const projected = el.scrollLeft + drag.current.velocity * 200;
       const tile = el.querySelector<HTMLElement>("[data-story-tile]");
       const tileWidth = tile
         ? tile.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0")
         : 280;
       const max = el.scrollWidth - el.clientWidth;
-      const target = Math.max(
-        0,
-        Math.min(max, Math.round(projected / tileWidth) * tileWidth),
-      );
+      // Valid scrollLeft range: [0, max] in LTR; spec-RTL is [-max, 0].
+      const minBound = isRTL ? -max : 0;
+      const maxBound = isRTL ? 0 : max;
+      const clamped = Math.max(minBound, Math.min(maxBound, projected));
+      const target = Math.round(clamped / tileWidth) * tileWidth;
       el.scrollTo({ left: target, behavior: "smooth" });
     }
   };
@@ -426,12 +435,13 @@ export function StoryShowcase({
             </motion.div>
           ))}
         </motion.div>
-        {/* Right-edge fade as a continuous affordance that more content lives offscreen */}
+        {/* End-edge fade. The "end" side is the reading direction's tail:
+            right in LTR, left in RTL. Gradient direction flips to match. */}
         <span
           aria-hidden
-          className={`pointer-events-none absolute inset-y-0 right-0 hidden w-12 bg-gradient-to-l from-[#FFF8F0] to-transparent transition-opacity sm:block dark:from-[#161310] ${
-            canScrollMore ? "opacity-100" : "opacity-0"
-          }`}
+          className={`pointer-events-none absolute inset-y-0 hidden w-12 from-[#FFF8F0] to-transparent transition-opacity sm:block dark:from-[#161310] ${
+            isRTL ? "left-0 bg-gradient-to-r" : "right-0 bg-gradient-to-l"
+          } ${canScrollMore ? "opacity-100" : "opacity-0"}`}
         />
       </div>
     </div>
