@@ -80,6 +80,7 @@ export function ReelTile({
         <video
           ref={videoRef}
           src={src}
+          poster={src.replace(/\.mp4$/i, "-poster.jpg")}
           muted={muted}
           loop
           playsInline

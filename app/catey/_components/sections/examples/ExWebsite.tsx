@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MousePointer2 } from "lucide-react";
 import { ExFrame } from "./ExFrame";
 import { useCateyT } from "../shared";
 
@@ -26,11 +27,17 @@ function BrowserFrame({ url, label, children }: { url: string; label: string; ch
 }
 
 export function ExWebsite({ index }: { index: number }) {
-  const { t } = useCateyT();
+  const { t, isAr } = useCateyT();
   const e = t.examples;
   const o = t.option3.website;
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  // On mobile, the iframe traps the page scroll once a finger lands inside it.
+  // Default state: iframe receives no pointer events, so vertical swipes bubble
+  // up and the page keeps scrolling. The user explicitly taps "Try it" to
+  // engage the preview, taps "Done" (or anywhere outside) to release it.
+  const [interactive, setInteractive] = useState(false);
 
   return (
     <ExFrame
@@ -43,12 +50,41 @@ export function ExWebsite({ index }: { index: number }) {
       <BrowserFrame url={o.previewUrl} label={o.previewLabel}>
         <div className="relative h-[440px] sm:h-[560px] lg:h-[640px]">
           {mounted ? (
-            <iframe
-              src="/catey/preview/website"
-              title="Catey website preview"
-              className="h-full w-full border-0"
-              loading="lazy"
-            />
+            <>
+              <iframe
+                src="/catey/preview/website"
+                title="Catey website preview"
+                className={`h-full w-full border-0 transition-opacity ${
+                  interactive ? "pointer-events-auto" : "pointer-events-none lg:pointer-events-auto"
+                }`}
+                loading="lazy"
+              />
+              {/* Mobile/tablet overlay: blocks scroll-trap by default. Tapping
+                  it opts into iframe interaction; tapping again releases it.
+                  Hidden entirely on lg+ where the desktop preview already
+                  behaves with native cursor pointer events. */}
+              <button
+                type="button"
+                aria-pressed={interactive}
+                onClick={() => setInteractive((v) => !v)}
+                className={`absolute inset-0 z-10 flex items-end justify-center pb-4 transition-opacity lg:hidden ${
+                  interactive
+                    ? "pointer-events-none bg-transparent"
+                    : "bg-[#1F1A14]/0"
+                }`}
+              >
+                <span
+                  className={`pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1F1A14] px-4 py-2 text-[12px] font-semibold text-white shadow-lg shadow-[#1F1A14]/30 transition-opacity ${
+                    interactive ? "opacity-90" : "opacity-100"
+                  }`}
+                >
+                  <MousePointer2 className="h-3.5 w-3.5" strokeWidth={2.4} />
+                  {interactive
+                    ? isAr ? "اضغط للخروج" : "Tap to exit"
+                    : isAr ? "اضغط للتفاعل" : "Tap to interact"}
+                </span>
+              </button>
+            </>
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[#FFF8F0] text-sm text-[#3A322A]/60">
               Loading preview...

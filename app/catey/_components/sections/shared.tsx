@@ -405,10 +405,10 @@ export function StoryShowcase({
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
           onPointerLeave={endDrag}
-          // No snap-mandatory: snapping mid-drag is jarring. We snap manually on
-          // release. select-none + touch-pan-y keep mouse/pen drag clean while
-          // letting touch users still scroll vertically through the page.
-          className={`scrollbar-hide -mx-4 mt-6 flex gap-4 overflow-x-auto px-4 pb-4 select-none touch-pan-y sm:-mx-0 sm:gap-6 sm:px-0 [scroll-behavior:auto] ${
+          // No snap-mandatory: snapping mid-drag is jarring. We snap manually
+          // on release. touch-pan-x lets the rail capture horizontal touch
+          // pans natively while vertical pans bubble up to scroll the page.
+          className={`scrollbar-hide -mx-4 mt-6 flex gap-4 overflow-x-auto px-4 pb-4 select-none touch-pan-x sm:-mx-0 sm:gap-6 sm:px-0 [scroll-behavior:auto] ${
             dragging ? "cursor-grabbing" : "cursor-grab"
           }`}
           style={{ WebkitOverflowScrolling: "touch" }}
