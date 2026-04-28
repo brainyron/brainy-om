@@ -73,8 +73,7 @@ export function CateyFinalCta() {
                 rel="noopener noreferrer"
                 variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
                 whileHover={{ y: -3 }}
-                className={`relative flex items-center justify-center rounded-2xl px-5 py-4 text-sm font-semibold shadow-lg transition ${theme.buttonBg} ${theme.buttonText} ${theme.buttonHoverBg}`}
-                style={{ boxShadow: `0 12px 32px -16px ${theme.accent}66` }}
+                className={`relative flex items-center justify-center rounded-2xl px-5 py-4 text-sm font-semibold transition ${theme.buttonBg} ${theme.buttonText}`}
               >
                 {b.label}
               </motion.a>

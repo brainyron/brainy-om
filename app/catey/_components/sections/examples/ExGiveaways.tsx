@@ -28,21 +28,35 @@ const COMMENT_COUNTS = [342, 198];
 const TIME_AGO = ["2 days ago", "1 week ago"];
 const TIME_AGO_AR = ["قبل يومين", "قبل أسبوع"];
 
+// Brand colors used by the avatar: paper (off-white) wordmark on coffee (dark brown).
+const PAPER = "#FFFCF9";
+const COFFEE = "#764C24";
+
 function CateyAvatar({ size = 32, ringed = false }: { size?: number; ringed?: boolean }) {
-  // Profile picture stand-in: the Catey wordmark masked into a coffee-on-cream
-  // disc, ringed with the IG-style story gradient when requested.
+  // Profile picture stand-in: the Catey wordmark masked in paper on a coffee
+  // disc. CSS-mask recolors the SVG inline so we don't ship a second asset.
   const inner = (
     <span
-      className="flex items-center justify-center overflow-hidden rounded-full bg-[#F8E1AC]"
-      style={{ width: size, height: size }}
+      className="flex items-center justify-center overflow-hidden rounded-full"
+      style={{ width: size, height: size, background: COFFEE }}
       aria-label="catey.shop"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/catey/brand/catey-logo.svg"
-        alt="catey_om"
-        className="h-[55%] w-auto"
-        decoding="async"
+      <span
+        role="img"
+        aria-hidden
+        style={{
+          width: "62%",
+          height: "32%",
+          backgroundColor: PAPER,
+          WebkitMaskImage: "url(/catey/brand/catey-logo.svg)",
+          maskImage: "url(/catey/brand/catey-logo.svg)",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+        }}
       />
     </span>
   );
@@ -141,8 +155,8 @@ export function ExGiveaways({ index }: { index: number }) {
                 </button>
               </header>
 
-              {/* Post image, 4:5 */}
-              <div className="relative aspect-[4/5] w-full bg-black">
+              {/* Post image, 3:4 */}
+              <div className="relative aspect-[3/4] w-full bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image}
@@ -153,21 +167,27 @@ export function ExGiveaways({ index }: { index: number }) {
                 />
               </div>
 
-              {/* Action bar */}
+              {/* Action bar. All icons share the same h-6 box with the same
+                  stroke weight so heart/comment/share/save read as the same
+                  visual size. Spacing matches IG's mobile layout. */}
               <div className="flex items-center justify-between px-3 py-2.5">
-                <div className="flex items-center gap-3.5 text-[#1F1A14] dark:text-white">
-                  <button type="button" aria-label="Like">
-                    <Heart className="h-[26px] w-[26px]" strokeWidth={1.8} />
+                <div className="flex items-center gap-4 text-[#1F1A14] dark:text-white">
+                  <button type="button" aria-label="Like" className="flex h-6 w-6 items-center justify-center">
+                    <Heart className="h-6 w-6" strokeWidth={1.8} />
                   </button>
-                  <button type="button" aria-label="Comment">
-                    <MessageCircle className="h-[26px] w-[26px]" strokeWidth={1.8} />
+                  <button type="button" aria-label="Comment" className="flex h-6 w-6 items-center justify-center">
+                    <MessageCircle className="h-6 w-6" strokeWidth={1.8} />
                   </button>
-                  <button type="button" aria-label="Share">
-                    <Send className="h-[26px] w-[26px]" strokeWidth={1.8} />
+                  <button type="button" aria-label="Share" className="flex h-6 w-6 items-center justify-center">
+                    <Send className="h-6 w-6" strokeWidth={1.8} />
                   </button>
                 </div>
-                <button type="button" aria-label="Save" className="text-[#1F1A14] dark:text-white">
-                  <Bookmark className="h-[26px] w-[26px]" strokeWidth={1.8} />
+                <button
+                  type="button"
+                  aria-label="Save"
+                  className="flex h-6 w-6 items-center justify-center text-[#1F1A14] dark:text-white"
+                >
+                  <Bookmark className="h-6 w-6" strokeWidth={1.8} />
                 </button>
               </div>
 
@@ -200,10 +220,11 @@ export function ExGiveaways({ index }: { index: number }) {
                 </div>
               </div>
 
-              {/* "View all 342 comments" */}
+              {/* "View all N comments". Extra top spacing so comments don't
+                  crowd the caption block. */}
               <button
                 type="button"
-                className="mt-2 px-4 text-[13px] text-[#3A322A]/65 hover:text-[#1F1A14] dark:text-white/55 dark:hover:text-white"
+                className="mt-5 px-4 text-[13px] text-[#3A322A]/65 hover:text-[#1F1A14] dark:text-white/55 dark:hover:text-white"
               >
                 {isAr
                   ? `عرض كل ${commentTotal} تعليق`
@@ -211,7 +232,7 @@ export function ExGiveaways({ index }: { index: number }) {
               </button>
 
               {/* Top comments */}
-              <ul className="mt-1.5 space-y-2 px-4 pb-2 text-[13px] leading-snug">
+              <ul className="mt-2 space-y-2.5 px-4 pb-2 text-[13px] leading-snug">
                 {g.comments.slice(0, 3).map((c, ci) => (
                   <li
                     key={c}

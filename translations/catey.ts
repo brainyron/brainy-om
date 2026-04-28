@@ -730,7 +730,7 @@ export const cateyTranslations = {
         },
         {
           q: "Do I need to give you my Instagram password?",
-          a: "Not always. We can post from your account or send you ready-to-post content. Your choice.",
+          a: "We can post from your account or send you ready-to-post content. Your choice.",
         },
         {
           q: "Can you work with my existing team?",
@@ -738,7 +738,7 @@ export const cateyTranslations = {
         },
         {
           q: "Arabic or English content?",
-          a: "Both. Most content is bilingual. We pick the language that fits each post.",
+          a: "Each plan ships in one language, picked together based on Catey's audience. We can mix and match across deliverables, but a single piece is either Arabic or English. Want every piece in both? That's a +30% bilingual add-on.",
         },
       ],
     },
@@ -1454,7 +1454,7 @@ export const cateyTranslations = {
         },
         {
           q: "لازم أعطيكم باسوورد إنستقرام؟",
-          a: "مو دائمًا. نقدر ننشر من حسابك أو نرسل لك محتوى جاهز. أنت تختار.",
+          a: "نقدر ننشر من حسابك أو نرسل لك محتوى جاهز. أنت تختار.",
         },
         {
           q: "تشتغلون مع فريقي الحالي؟",
@@ -1462,7 +1462,7 @@ export const cateyTranslations = {
         },
         {
           q: "محتوى عربي ولا إنجليزي؟",
-          a: "كلاهما. أغلب المحتوى ثنائي اللغة. نختار اللغة المناسبة لكل منشور.",
+          a: "كل باقة تجي بلغة وحدة، نختارها سوا حسب جمهور Catey. ممكن نخلط بين العربي والإنجليزي عبر التسليمات، لكن المنشور الواحد إما عربي أو إنجليزي. تبغى كل قطعة باللغتين؟ زيادة 30% للترجمة الكاملة.",
         },
       ],
     },
